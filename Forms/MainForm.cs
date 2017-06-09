@@ -12,7 +12,6 @@ namespace Maszyna.Forms
         private TuringMachine _turingMachine = new TuringMachine();
         private const byte ReservedColumns = 1;
         private const byte TabPagesWithoutSimulationTab = 1;
-        private const long MaximumExecutionTimeInMs = 10000;
 
         public MainForm() : base("Symulator Maszyny Turinga")
         {
@@ -153,7 +152,7 @@ namespace Maszyna.Forms
             bool isSimulationTabAdded = tabControl.TabPages.Count != TabPagesWithoutSimulationTab;
             if (ConfigModel.ShouldSimulationTabBeVisible(_turingMachine) && !isSimulationTabAdded)
             {
-                _turingMachine.Transitions = ConfigModel.GenerateTransitions();
+                _turingMachine.GenerateTransitionsFromPotential();
                 tabControl.TabPages.Add(_simulationTabPage);
             }
             else
@@ -223,13 +222,27 @@ namespace Maszyna.Forms
                 ProgramMessageBox.showError("Dane wejściowe zawierają niedopuszczalne symbole.");
         }
 
-        private List<String> generatePotentialTransitions()
+        private List<PotentialTransition> generatePotentialTransitions()
         {
-            List<String> potentialTransitions = new List<String>();
+            List<PotentialTransition> potentialTransitions = new List<PotentialTransition>();
             foreach (DataGridViewRow row in dataGridViewTable.Rows)
+            {
                 for (int i = ReservedColumns; i < dataGridViewTable.Columns.Count; i++)
-                    potentialTransitions.Add(row.Cells[i].Value==null ? "" : row.Cells[i].Value.ToString());
+                {
+                    String cellValue = getCellValue(row.Cells[i]);
+                    String entrySymbol = getCellValue(row.Cells[0]);
+                    char entrySymbolToPass = entrySymbol.Length == 1 ? entrySymbol[0] : ' ';
+                    int actualStateNumber = i - ReservedColumns;
+                    PotentialTransition potentialTransition = new PotentialTransition(cellValue, actualStateNumber, entrySymbolToPass);
+                    potentialTransitions.Add(potentialTransition);
+                }
+            }
             return potentialTransitions;
+        }
+
+        private String getCellValue(DataGridViewCell cell)
+        {
+            return cell.Value == null ? "" : cell.Value.ToString();
         }
 
         private void UpdateStateTable(object sender, DataGridViewCellEventArgs e)

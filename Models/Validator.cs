@@ -12,7 +12,7 @@ namespace Maszyna.Models
             return true;
         }
 
-        public static Boolean IsTransitionValid(String text, TuringMachine turingMachine)
+        public static Boolean IsTransitionInstructionValid(String text, TuringMachine turingMachine)
         {
             String[] parts = text.Split('/');
             if (parts.Length != 3)

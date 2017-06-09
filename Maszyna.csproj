@@ -90,6 +90,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Movement.cs" />
+    <Compile Include="Models\PotentialTransition.cs" />
     <Compile Include="Models\ProgramMessageBox.cs" />
     <Compile Include="Models\Transition.cs" />
     <Compile Include="Models\TuringElement.cs" />

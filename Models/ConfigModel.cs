@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using System.Collections.Generic;
 
 namespace Maszyna.Models
 {
@@ -47,12 +46,6 @@ namespace Maszyna.Models
             return GenerateConditionsToShowSimulationTab(machine) == "";
         }
 
-        public static List<Transition> GenerateTransitions()
-        {
-            List<Transition> transitions = new List<Transition>();
-            return transitions;
-        }
-
         private static String GenerateTextWithDelimeterIfNeeded(StringBuilder actualText, String text)
         {
             return beginningTextForSimulationAlert == actualText.ToString() ? text : ", " + text;
@@ -79,8 +72,8 @@ namespace Maszyna.Models
 
         private static Boolean AreTransitionsValid(TuringMachine turingMachine)
         {
-            foreach (String transition in turingMachine.PotentialTransitions)
-                if (!Validator.IsTransitionValid(transition, turingMachine))
+            foreach (PotentialTransition transition in turingMachine.PotentialTransitions)
+                if (!Validator.IsTransitionInstructionValid(transition.Instruction, turingMachine))
                     return false;
             return true;
         }
