@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Text;
+using System.Collections.Generic;
 
 namespace Maszyna.Models
 {
     class ConfigModel
     {
+        private static String beginningTextForSimulationAlert = "Aby rozpocząć symulację musisz wprowadzić: ";
+
         public static String GenerateFormalSymbols(TuringMachine machine)
         {
             String sigmaSymbols = String.Join(", ", machine.Symbols);
@@ -26,26 +29,33 @@ namespace Maszyna.Models
 
         public static String GenerateConditionsToShowSimulationTab(TuringMachine machine)
         {
-            String beginningText = "Aby rozpocząć symulację musisz wprowadzić: ";
-            StringBuilder text = new StringBuilder(beginningText);
+            StringBuilder text = new StringBuilder(beginningTextForSimulationAlert);
             if (machine.EmptySymbol == ' ')
                 text.Append("symbol pusty");
             if (machine.Symbols.Count == 0)
-                text.Append(GenerateTextWithDelimeterIfNeeded(beginningText, text, "symbole wejściowe"));
+                text.Append(GenerateTextWithDelimeterIfNeeded(text, "symbole wejściowe"));
             if (machine.FinalStates.Count == 0)
-                text.Append(GenerateTextWithDelimeterIfNeeded(beginningText, text, "stany końcowe"));
+                text.Append(GenerateTextWithDelimeterIfNeeded(text, "stany końcowe"));
+            if (machine.PotentialTransitions.Count == 0 || !AreTransitionsValid(machine))
+                text.Append(GenerateTextWithDelimeterIfNeeded(text, "tablicę stanów"));
             String result = text.ToString();
-            return result == beginningText ? "" : result+".";
+            return result == beginningTextForSimulationAlert ? "" : result+".";
         }
 
         public static Boolean ShouldSimulationTabBeVisible(TuringMachine machine)
         {
-            return !(machine.EmptySymbol == ' ' || machine.Symbols.Count == 0 || machine.FinalStates.Count == 0);
+            return GenerateConditionsToShowSimulationTab(machine) == "";
         }
 
-        private static String GenerateTextWithDelimeterIfNeeded(String beginningText, StringBuilder actualText, String text)
+        public static List<Transition> GenerateTransitions()
         {
-            return beginningText == actualText.ToString() ? text : ", " + text;
+            List<Transition> transitions = new List<Transition>();
+            return transitions;
+        }
+
+        private static String GenerateTextWithDelimeterIfNeeded(StringBuilder actualText, String text)
+        {
+            return beginningTextForSimulationAlert == actualText.ToString() ? text : ", " + text;
         }
 
         private static String GenerateStatesListForFormulation(int numberOfStates)
@@ -65,6 +75,14 @@ namespace Maszyna.Models
             for (int i = 0; i < numberOfStates; i++)
                 sb.Append("q" + i + ", ");
             return sb.Remove(sb.Length - 2, 2).ToString();
+        }
+
+        private static Boolean AreTransitionsValid(TuringMachine turingMachine)
+        {
+            foreach (String transition in turingMachine.PotentialTransitions)
+                if (!Validator.IsTransitionValid(transition, turingMachine))
+                    return false;
+            return true;
         }
     }
 }

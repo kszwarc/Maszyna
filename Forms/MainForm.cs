@@ -152,7 +152,10 @@ namespace Maszyna.Forms
         {
             bool isSimulationTabAdded = tabControl.TabPages.Count != TabPagesWithoutSimulationTab;
             if (ConfigModel.ShouldSimulationTabBeVisible(_turingMachine) && !isSimulationTabAdded)
+            {
+                _turingMachine.Transitions = ConfigModel.GenerateTransitions();
                 tabControl.TabPages.Add(_simulationTabPage);
+            }
             else
                 HideSimulationTabPage();
         }
@@ -212,12 +215,28 @@ namespace Maszyna.Forms
 
         private void buttonSimulate_Click(object sender, EventArgs e)
         {
-            if (Validator.areEntryDataForMachineValid(textBoxEnter.Text, _turingMachine))
+            if (Validator.AreEntryDataForMachineValid(textBoxEnter.Text, _turingMachine))
             {
 
             }
             else
                 ProgramMessageBox.showError("Dane wejściowe zawierają niedopuszczalne symbole.");
+        }
+
+        private List<String> generatePotentialTransitions()
+        {
+            List<String> potentialTransitions = new List<String>();
+            foreach (DataGridViewRow row in dataGridViewTable.Rows)
+                for (int i = ReservedColumns; i < dataGridViewTable.Columns.Count; i++)
+                    potentialTransitions.Add(row.Cells[i].Value==null ? "" : row.Cells[i].Value.ToString());
+            return potentialTransitions;
+        }
+
+        private void UpdateStateTable(object sender, DataGridViewCellEventArgs e)
+        {
+            _turingMachine.PotentialTransitions = generatePotentialTransitions();
+            SetConfigurationStatus();
+            UnlockOrLockTabWithSimulation();
         }
     }
 }

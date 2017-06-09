@@ -56,12 +56,12 @@
             this.textBoxEmptySymbol = new System.Windows.Forms.TextBox();
             this.labelEmptySymbol = new System.Windows.Forms.Label();
             this.tabPageSimulation = new System.Windows.Forms.TabPage();
+            this.buttonSimulate = new System.Windows.Forms.Button();
             this.labelExit = new System.Windows.Forms.Label();
             this.textBoxExit = new System.Windows.Forms.TextBox();
             this.labelEnter = new System.Windows.Forms.Label();
             this.textBoxEnter = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.buttonSimulate = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
@@ -163,6 +163,7 @@
             this.dataGridViewTable.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewTable.Size = new System.Drawing.Size(570, 174);
             this.dataGridViewTable.TabIndex = 11115;
+            this.dataGridViewTable.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.UpdateStateTable);
             // 
             // Symbols
             // 
@@ -373,6 +374,17 @@
             this.tabPageSimulation.TabIndex = 1;
             this.tabPageSimulation.Text = "Symulacja";
             // 
+            // buttonSimulate
+            // 
+            this.buttonSimulate.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonSimulate.Location = new System.Drawing.Point(248, 172);
+            this.buttonSimulate.Name = "buttonSimulate";
+            this.buttonSimulate.Size = new System.Drawing.Size(75, 23);
+            this.buttonSimulate.TabIndex = 4;
+            this.buttonSimulate.Text = "Generuj";
+            this.buttonSimulate.UseVisualStyleBackColor = true;
+            this.buttonSimulate.Click += new System.EventHandler(this.buttonSimulate_Click);
+            // 
             // labelExit
             // 
             this.labelExit.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -418,17 +430,6 @@
             // 
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
-            // 
-            // buttonSimulate
-            // 
-            this.buttonSimulate.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonSimulate.Location = new System.Drawing.Point(248, 172);
-            this.buttonSimulate.Name = "buttonSimulate";
-            this.buttonSimulate.Size = new System.Drawing.Size(75, 23);
-            this.buttonSimulate.TabIndex = 4;
-            this.buttonSimulate.Text = "Generuj";
-            this.buttonSimulate.UseVisualStyleBackColor = true;
-            this.buttonSimulate.Click += new System.EventHandler(this.buttonSimulate_Click);
             // 
             // MainForm
             // 
