@@ -18,7 +18,8 @@ namespace Maszyna
 
         private void Window_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)27)
+            const char EscapeChar = (char)27;
+            if (e.KeyChar == EscapeChar)
                 this.Close();
         }
     }

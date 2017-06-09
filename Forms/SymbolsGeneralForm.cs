@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Maszyna.Models;
 
 namespace Maszyna.Forms
 {
-    public partial class SymbolsGeneralForm : Window, IObservable<TuringElement<String[]>>
+    public partial class SymbolsGeneralForm : Window, IObservable<TuringElement<List<String>>>
     {
-        private List<IObserver<TuringElement<string[]>>> _observers = new List<IObserver<TuringElement<string[]>>>();
+        private List<IObserver<TuringElement<List<String>>>> _observers = new List<IObserver<TuringElement<List<String>>>>();
         protected TuringMachineModifiedElements _modifiedElements;
 
-        public SymbolsGeneralForm(String[] actualElements, String name, 
+        public SymbolsGeneralForm(List<String> actualElements, String name, 
             TuringMachineModifiedElements modifiedElements, String header, 
             int maxInputLengthForElement) : base(name)
         {
@@ -23,7 +24,7 @@ namespace Maszyna.Forms
             SetDataGridViewRowsValues(actualElements);
         }
 
-        public IDisposable Subscribe(IObserver<TuringElement<string[]>> observer)
+        public IDisposable Subscribe(IObserver<TuringElement<List<String>>> observer)
         {
             _observers.Add(observer);
             return null;
@@ -31,25 +32,23 @@ namespace Maszyna.Forms
 
         private void buttonReady_Click(object sender, EventArgs e)
         {
-            TuringElement<String[]> element = new TuringElement<String[]>();
+            TuringElement<List<String>> element = new TuringElement<List<String>>();
             element.Element = _modifiedElements;
             element.Values = GetValuesFromDataGridView();
             _observers.ForEach(o => o.OnNext(element));
             this.Close();
         }
 
-        private String[] GetValuesFromDataGridView()
+        private List<String> GetValuesFromDataGridView()
         {
             HashSet<String> values = new HashSet<String>();
             foreach (DataGridViewRow row in dataGridView.Rows)
                 if (row.Cells.Count>0 && row.Cells[0].Value!=null)
                     values.Add(row.Cells[0].Value.ToString());
-            String[] stringArray = new String[values.Count];
-            values.CopyTo(stringArray);
-            return stringArray;
+            return values.ToList();
         }
 
-        private void SetDataGridViewRowsValues(String[] actualElements)
+        private void SetDataGridViewRowsValues(List<String> actualElements)
         {
             foreach (String element in actualElements)
                 dataGridView.Rows.Add(element);

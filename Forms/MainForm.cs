@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Maszyna.Models;
 
 namespace Maszyna.Forms
 {
-    public partial class MainForm : Window, IObserver<TuringElement<String[]>>
+    public partial class MainForm : Window, IObserver<TuringElement<List<String>>>
     {
         private TabPage _simulationTabPage = null;
         private TuringMachine _turingMachine = new TuringMachine();
@@ -28,7 +30,7 @@ namespace Maszyna.Forms
             ProgramMessageBox.showError(ex.Message);
         }
 
-        public void OnNext(TuringElement<String[]> receivedElement)
+        public void OnNext(TuringElement<List<String>> receivedElement)
         {
             if (receivedElement.Element == TuringMachineModifiedElements.EntrySymbols)
                 _turingMachine.Symbols = receivedElement.Values;
@@ -125,6 +127,7 @@ namespace Maszyna.Forms
             _turingMachine.FirstStateIndex = (int)numericUpDownFirstStateNumber.Value;
             _turingMachine.HeadPosition = comboBoxHead.SelectedText == "Lewa" ? 
                 TuringHeadPosition.FirstSymbolFromLeft : TuringHeadPosition.FirstSymbolFromRight;
+            _turingMachine.Symbols.Remove(_turingMachine.EmptySymbol.ToString());
         }
 
         private void UpdateFormulation()
