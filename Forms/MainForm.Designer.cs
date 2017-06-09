@@ -56,14 +56,14 @@
             this.textBoxEmptySymbol = new System.Windows.Forms.TextBox();
             this.labelEmptySymbol = new System.Windows.Forms.Label();
             this.tabPageSimulation = new System.Windows.Forms.TabPage();
+            this.labelState = new System.Windows.Forms.Label();
+            this.textBoxState = new System.Windows.Forms.TextBox();
             this.buttonSimulate = new System.Windows.Forms.Button();
             this.labelExit = new System.Windows.Forms.Label();
             this.textBoxExit = new System.Windows.Forms.TextBox();
             this.labelEnter = new System.Windows.Forms.Label();
             this.textBoxEnter = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.textBoxState = new System.Windows.Forms.TextBox();
-            this.labelState = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
@@ -278,7 +278,7 @@
             this.numericUpDownFirstStateNumber.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.numericUpDownFirstStateNumber.Location = new System.Drawing.Point(171, 109);
             this.numericUpDownFirstStateNumber.Maximum = new decimal(new int[] {
-            9999,
+            0,
             0,
             0,
             0});
@@ -286,11 +286,6 @@
             this.numericUpDownFirstStateNumber.Size = new System.Drawing.Size(71, 20);
             this.numericUpDownFirstStateNumber.TabIndex = 4;
             this.numericUpDownFirstStateNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numericUpDownFirstStateNumber.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.numericUpDownFirstStateNumber.ValueChanged += new System.EventHandler(this.FirstStateChanges);
             // 
             // labelBeginningState
@@ -378,6 +373,26 @@
             this.tabPageSimulation.TabIndex = 1;
             this.tabPageSimulation.Text = "Symulacja";
             // 
+            // labelState
+            // 
+            this.labelState.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelState.AutoSize = true;
+            this.labelState.Location = new System.Drawing.Point(249, 170);
+            this.labelState.Name = "labelState";
+            this.labelState.Size = new System.Drawing.Size(75, 13);
+            this.labelState.TabIndex = 5;
+            this.labelState.Text = "Stan końcowy";
+            // 
+            // textBoxState
+            // 
+            this.textBoxState.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.textBoxState.Location = new System.Drawing.Point(248, 147);
+            this.textBoxState.Name = "textBoxState";
+            this.textBoxState.ReadOnly = true;
+            this.textBoxState.Size = new System.Drawing.Size(75, 20);
+            this.textBoxState.TabIndex = 2;
+            this.textBoxState.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // buttonSimulate
             // 
             this.buttonSimulate.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -434,25 +449,6 @@
             // 
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
-            // 
-            // textBoxState
-            // 
-            this.textBoxState.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.textBoxState.Location = new System.Drawing.Point(248, 147);
-            this.textBoxState.Name = "textBoxState";
-            this.textBoxState.ReadOnly = true;
-            this.textBoxState.Size = new System.Drawing.Size(75, 20);
-            this.textBoxState.TabIndex = 2;
-            // 
-            // labelState
-            // 
-            this.labelState.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.labelState.AutoSize = true;
-            this.labelState.Location = new System.Drawing.Point(249, 170);
-            this.labelState.Name = "labelState";
-            this.labelState.Size = new System.Drawing.Size(75, 13);
-            this.labelState.TabIndex = 5;
-            this.labelState.Text = "Stan końcowy";
             // 
             // MainForm
             // 

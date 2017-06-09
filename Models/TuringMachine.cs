@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Maszyna.Models
 {
@@ -14,17 +15,18 @@ namespace Maszyna.Models
         public List<Transition> Transitions { get; set; } = new List<Transition>();
         public List<PotentialTransition> PotentialTransitions { get; set; } = new List<PotentialTransition>();
         private int _actualCharIndex, _actualState;
-        private String _tape, _finishedStateSymbol;
+        private StringBuilder _tape;
+        private String _finishedStateSymbol;
 
         public ProgramResult ExecuteProgram(String tape)
         {
-            _tape = tape;
+            _tape = new StringBuilder(tape);
             _actualState = FirstStateIndex;
             SetHeadBeginningPosition();
             Boolean finished = false;
             while (!finished)
                 finished = ExecuteStep();
-            return new ProgramResult(_finishedStateSymbol, _tape);
+            return new ProgramResult(_finishedStateSymbol, _tape.ToString());
         }
         
         public void GenerateTransitionsFromPotential()
@@ -41,7 +43,36 @@ namespace Maszyna.Models
         private Boolean ExecuteStep()
         {
             Transition actualTransition = FindActualTransition();
+            Boolean isFinishedState = FinalStates.Contains(actualTransition.ExitSymbol);
+            if (isFinishedState)
+            {
+                _finishedStateSymbol = actualTransition.ExitSymbol;
+                return true;
+            }
+            _tape[_actualCharIndex] = actualTransition.ExitSymbol[0];
+            _actualState = actualTransition.NextStateNumber;
+            UpdateActualCharIndex(actualTransition.Movement);
+            UpdateTapeIfNeeded();
             return false;
+        }
+
+        private void UpdateTapeIfNeeded()
+        {
+            if (_actualCharIndex < 0)
+            {
+                _tape.Insert(0, EmptySymbol);
+                _actualCharIndex = 0;
+            }
+            else if (_actualCharIndex >= _tape.Length)
+                _tape.Append(EmptySymbol);
+        }
+
+        private void UpdateActualCharIndex(Movement movement)
+        {
+            if (movement == Movement.Left)
+                _actualCharIndex--;
+            else if (movement == Movement.Right)
+                _actualCharIndex++;
         }
 
         private Transition FindActualTransition()

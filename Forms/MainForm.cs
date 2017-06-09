@@ -165,7 +165,7 @@ namespace Maszyna.Forms
             _turingMachine.EmptySymbol = emptySymbol;
             _turingMachine.NumberOfStates = (int)numericUpDownStateNumbers.Value;
             _turingMachine.FirstStateIndex = (int)numericUpDownFirstStateNumber.Value;
-            _turingMachine.HeadPosition = comboBoxHead.SelectedText == "Lewa" ? 
+            _turingMachine.HeadPosition = (String)comboBoxHead.SelectedItem == "Lewa" ? 
                 TuringHeadPosition.FirstSymbolFromLeft : TuringHeadPosition.FirstSymbolFromRight;
             _turingMachine.Symbols.Remove(_turingMachine.EmptySymbol.ToString());
         }
