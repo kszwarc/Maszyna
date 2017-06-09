@@ -15,6 +15,7 @@ namespace Maszyna.Forms
             int maxInputLengthForElement) : base(name)
         {
             InitializeComponent();
+            this.Text = name;
             _modifiedElements = modifiedElements;
             dataGridView.Columns[0].HeaderText = header;
             DataGridViewTextBoxColumn column = (DataGridViewTextBoxColumn)dataGridView.Columns[0];
