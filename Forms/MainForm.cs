@@ -11,14 +11,16 @@ namespace Maszyna.Forms
         private TabPage _simulationTabPage = null;
         private TuringMachine _turingMachine = new TuringMachine();
         private const byte ReservedColumns = 1;
+        private const byte TabPagesWithoutSimulationTab = 1;
 
         public MainForm() : base("Symulator Maszyny Turinga")
         {
             InitializeComponent();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
             HideSimulationTabPage();
-            SetMaximumAvailableBeginningStateNumber();
-            SetConfigurationStatus();
-            TriggerConfigurationChanges(null, null);
             UpdateEmptySymbolInformationForGUI(null, null);
             UpdateTable();
             UpdateFirstStateColor();
@@ -80,7 +82,8 @@ namespace Maszyna.Forms
         private void UpdateTableRows()
         {
             dataGridViewTable.Rows.Clear();
-            AddRowWithSymbol(_turingMachine.EmptySymbol);
+            if (_turingMachine.EmptySymbol!=' ')
+                AddRowWithSymbol(_turingMachine.EmptySymbol);
             AddAvailableSymbolRows();
             dataGridViewTable.Refresh();
         }
@@ -141,6 +144,15 @@ namespace Maszyna.Forms
             UpdateFormulation();
             UpdateTableRows();
             SetConfigurationStatus();
+            UnlockOrLockTabWithSimulation();
+        }
+
+        private void UnlockOrLockTabWithSimulation()
+        {
+            if (ConfigModel.ShouldSimulationTabBeVisible(_turingMachine) && tabControl.TabPages.Count == TabPagesWithoutSimulationTab)
+                tabControl.TabPages.Add(_simulationTabPage);
+            else
+                HideSimulationTabPage();
         }
 
         private void UpdateTuringMachine()

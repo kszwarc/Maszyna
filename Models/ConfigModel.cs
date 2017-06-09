@@ -8,7 +8,7 @@ namespace Maszyna.Models
         public static String GenerateFormalSymbols(TuringMachine machine)
         {
             String sigmaSymbols = String.Join(", ", machine.Symbols);
-            String delimeterForEverySymbolsFormulation = sigmaSymbols.Length != 0 ? ", " : "";
+            String delimeterForEverySymbolsFormulation = sigmaSymbols.Length != 0 && machine.EmptySymbol!=' ' ? ", " : "";
             String statesFormulation = "Q={" + GenerateStatesListForFormulation(machine.NumberOfStates) + "}";
             String symbolsSigmaFormulation = "Σ={" + sigmaSymbols + "}";
             String everySymbolsFormulation = "Γ={" + machine.EmptySymbol + delimeterForEverySymbolsFormulation + 
@@ -26,11 +26,26 @@ namespace Maszyna.Models
 
         public static String GenerateConditionsToShowSimulationTab(TuringMachine machine)
         {
-            String beginningText = "Aby rozpocząć symulację musisz uzupełnić następujące pola: ";
+            String beginningText = "Aby rozpocząć symulację musisz wprowadzić: ";
             StringBuilder text = new StringBuilder(beginningText);
-
+            if (machine.EmptySymbol == ' ')
+                text.Append("symbol pusty");
+            if (machine.Symbols.Count == 0)
+                text.Append(GenerateTextWithDelimeterIfNeeded(beginningText, text, "dopuszczalne symbole"));
+            if (machine.FinalStates.Count == 0)
+                text.Append(GenerateTextWithDelimeterIfNeeded(beginningText, text, "stany końcowe"));
             String result = text.ToString();
-            return result == beginningText ? "" : result;
+            return result == beginningText ? "" : result+".";
+        }
+
+        public static Boolean ShouldSimulationTabBeVisible(TuringMachine machine)
+        {
+            return !(machine.EmptySymbol == ' ' || machine.Symbols.Count == 0 || machine.FinalStates.Count == 0);
+        }
+
+        private static String GenerateTextWithDelimeterIfNeeded(String beginningText, StringBuilder actualText, String text)
+        {
+            return beginningText == actualText.ToString() ? text : ", " + text;
         }
 
         private static String GenerateStatesListForFormulation(int numberOfStates)
