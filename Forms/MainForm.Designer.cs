@@ -56,13 +56,19 @@
             this.textBoxEmptySymbol = new System.Windows.Forms.TextBox();
             this.labelEmptySymbol = new System.Windows.Forms.Label();
             this.tabPageSimulation = new System.Windows.Forms.TabPage();
+            this.labelExit = new System.Windows.Forms.Label();
+            this.textBoxExit = new System.Windows.Forms.TextBox();
+            this.labelEnter = new System.Windows.Forms.Label();
+            this.textBoxEnter = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.buttonSimulate = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
             this.statusStripConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFirstStateNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStateNumbers)).BeginInit();
+            this.tabPageSimulation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -355,6 +361,11 @@
             // 
             this.tabPageSimulation.AutoScroll = true;
             this.tabPageSimulation.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageSimulation.Controls.Add(this.buttonSimulate);
+            this.tabPageSimulation.Controls.Add(this.labelExit);
+            this.tabPageSimulation.Controls.Add(this.textBoxExit);
+            this.tabPageSimulation.Controls.Add(this.labelEnter);
+            this.tabPageSimulation.Controls.Add(this.textBoxEnter);
             this.tabPageSimulation.Location = new System.Drawing.Point(4, 22);
             this.tabPageSimulation.Name = "tabPageSimulation";
             this.tabPageSimulation.Padding = new System.Windows.Forms.Padding(3);
@@ -362,10 +373,62 @@
             this.tabPageSimulation.TabIndex = 1;
             this.tabPageSimulation.Text = "Symulacja";
             // 
+            // labelExit
+            // 
+            this.labelExit.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelExit.AutoSize = true;
+            this.labelExit.Location = new System.Drawing.Point(245, 117);
+            this.labelExit.Name = "labelExit";
+            this.labelExit.Size = new System.Drawing.Size(84, 13);
+            this.labelExit.TabIndex = 3;
+            this.labelExit.Text = "Dane wyjściowe";
+            // 
+            // textBoxExit
+            // 
+            this.textBoxExit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxExit.Location = new System.Drawing.Point(8, 94);
+            this.textBoxExit.Name = "textBoxExit";
+            this.textBoxExit.ReadOnly = true;
+            this.textBoxExit.Size = new System.Drawing.Size(560, 20);
+            this.textBoxExit.TabIndex = 2;
+            this.textBoxExit.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // labelEnter
+            // 
+            this.labelEnter.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelEnter.AutoSize = true;
+            this.labelEnter.Location = new System.Drawing.Point(245, 63);
+            this.labelEnter.Name = "labelEnter";
+            this.labelEnter.Size = new System.Drawing.Size(85, 13);
+            this.labelEnter.TabIndex = 1;
+            this.labelEnter.Text = "Dane wejściowe";
+            // 
+            // textBoxEnter
+            // 
+            this.textBoxEnter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxEnter.Location = new System.Drawing.Point(8, 40);
+            this.textBoxEnter.Name = "textBoxEnter";
+            this.textBoxEnter.Size = new System.Drawing.Size(560, 20);
+            this.textBoxEnter.TabIndex = 0;
+            this.textBoxEnter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // errorProvider
             // 
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
+            // 
+            // buttonSimulate
+            // 
+            this.buttonSimulate.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonSimulate.Location = new System.Drawing.Point(248, 172);
+            this.buttonSimulate.Name = "buttonSimulate";
+            this.buttonSimulate.Size = new System.Drawing.Size(75, 23);
+            this.buttonSimulate.TabIndex = 4;
+            this.buttonSimulate.Text = "Generuj";
+            this.buttonSimulate.UseVisualStyleBackColor = true;
+            this.buttonSimulate.Click += new System.EventHandler(this.buttonSimulate_Click);
             // 
             // MainForm
             // 
@@ -384,6 +447,8 @@
             this.statusStripConfig.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFirstStateNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStateNumbers)).EndInit();
+            this.tabPageSimulation.ResumeLayout(false);
+            this.tabPageSimulation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
@@ -414,6 +479,11 @@
         private System.Windows.Forms.DataGridView dataGridViewTable;
         private System.Windows.Forms.Label labelTable;
         private System.Windows.Forms.DataGridViewTextBoxColumn Symbols;
+        private System.Windows.Forms.Label labelExit;
+        private System.Windows.Forms.TextBox textBoxExit;
+        private System.Windows.Forms.Label labelEnter;
+        private System.Windows.Forms.TextBox textBoxEnter;
+        private System.Windows.Forms.Button buttonSimulate;
     }
 }
 

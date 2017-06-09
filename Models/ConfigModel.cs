@@ -31,7 +31,7 @@ namespace Maszyna.Models
             if (machine.EmptySymbol == ' ')
                 text.Append("symbol pusty");
             if (machine.Symbols.Count == 0)
-                text.Append(GenerateTextWithDelimeterIfNeeded(beginningText, text, "dopuszczalne symbole"));
+                text.Append(GenerateTextWithDelimeterIfNeeded(beginningText, text, "symbole wejściowe"));
             if (machine.FinalStates.Count == 0)
                 text.Append(GenerateTextWithDelimeterIfNeeded(beginningText, text, "stany końcowe"));
             String result = text.ToString();

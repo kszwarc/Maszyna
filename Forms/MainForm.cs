@@ -12,6 +12,7 @@ namespace Maszyna.Forms
         private TuringMachine _turingMachine = new TuringMachine();
         private const byte ReservedColumns = 1;
         private const byte TabPagesWithoutSimulationTab = 1;
+        private const long MaximumExecutionTimeInMs = 10000;
 
         public MainForm() : base("Symulator Maszyny Turinga")
         {
@@ -149,7 +150,8 @@ namespace Maszyna.Forms
 
         private void UnlockOrLockTabWithSimulation()
         {
-            if (ConfigModel.ShouldSimulationTabBeVisible(_turingMachine) && tabControl.TabPages.Count == TabPagesWithoutSimulationTab)
+            bool isSimulationTabAdded = tabControl.TabPages.Count != TabPagesWithoutSimulationTab;
+            if (ConfigModel.ShouldSimulationTabBeVisible(_turingMachine) && !isSimulationTabAdded)
                 tabControl.TabPages.Add(_simulationTabPage);
             else
                 HideSimulationTabPage();
@@ -206,6 +208,16 @@ namespace Maszyna.Forms
             FinalStatesForm finalStatesForm = new FinalStatesForm(_turingMachine.FinalStates);
             finalStatesForm.Show();
             finalStatesForm.Subscribe(this);
+        }
+
+        private void buttonSimulate_Click(object sender, EventArgs e)
+        {
+            if (Validator.areEntryDataForMachineValid(textBoxEnter.Text, _turingMachine))
+            {
+
+            }
+            else
+                ProgramMessageBox.showError("Dane wejściowe zawierają niedopuszczalne symbole.");
         }
     }
 }
