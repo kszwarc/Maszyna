@@ -215,9 +215,7 @@ namespace Maszyna.Forms
         private void buttonSimulate_Click(object sender, EventArgs e)
         {
             if (Validator.AreEntryDataForMachineValid(textBoxEnter.Text, _turingMachine))
-            {
-
-            }
+                textBoxExit.Text = _turingMachine.ExecuteProgram(textBoxEnter.Text);
             else
                 ProgramMessageBox.showError("Dane wejściowe zawierają niedopuszczalne symbole.");
         }

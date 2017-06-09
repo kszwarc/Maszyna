@@ -13,13 +13,11 @@ namespace Maszyna.Models
         public List<String> FinalStates { get; set; } = new List<String>();
         public List<Transition> Transitions { get; set; } = new List<Transition>();
         public List<PotentialTransition> PotentialTransitions { get; set; } = new List<PotentialTransition>();
-        public String actualTape { get; set; }
         private static long MaximumExecutionTimeInMs = 10000;
-        private int _actualState;
 
-        public void executeProgram()
+        public String ExecuteProgram(String tape)
         {
-
+            return "";
         }
 
         public void GenerateTransitionsFromPotential()
