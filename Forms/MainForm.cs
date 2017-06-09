@@ -214,10 +214,16 @@ namespace Maszyna.Forms
 
         private void buttonSimulate_Click(object sender, EventArgs e)
         {
-            if (Validator.AreEntryDataForMachineValid(textBoxEnter.Text, _turingMachine))
-                textBoxExit.Text = _turingMachine.ExecuteProgram(textBoxEnter.Text);
-            else
+            if (!Validator.AreEntryDataForMachineValid(textBoxEnter.Text, _turingMachine))
                 ProgramMessageBox.showError("Dane wejściowe zawierają niedopuszczalne symbole.");
+            else if (textBoxEnter.Text.Length==0)
+                ProgramMessageBox.showError("Taśma jest pusta.");
+            else
+            {
+                ProgramResult result = _turingMachine.ExecuteProgram(textBoxEnter.Text);
+                textBoxExit.Text = result.Tape;
+                textBoxState.Text = result.FinishedStateSymbol;
+            }
         }
 
         private List<PotentialTransition> generatePotentialTransitions()

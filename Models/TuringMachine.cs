@@ -13,13 +13,20 @@ namespace Maszyna.Models
         public List<String> FinalStates { get; set; } = new List<String>();
         public List<Transition> Transitions { get; set; } = new List<Transition>();
         public List<PotentialTransition> PotentialTransitions { get; set; } = new List<PotentialTransition>();
-        private static long MaximumExecutionTimeInMs = 10000;
+        private int _actualCharIndex, _actualState;
+        private String _tape, _finishedStateSymbol;
 
-        public String ExecuteProgram(String tape)
+        public ProgramResult ExecuteProgram(String tape)
         {
-            return "";
+            _tape = tape;
+            _actualState = FirstStateIndex;
+            SetHeadBeginningPosition();
+            Boolean finished = false;
+            while (!finished)
+                finished = ExecuteStep();
+            return new ProgramResult(_finishedStateSymbol, _tape);
         }
-
+        
         public void GenerateTransitionsFromPotential()
         {
             foreach (PotentialTransition potentialTransition in PotentialTransitions)
@@ -29,6 +36,28 @@ namespace Maszyna.Models
                     potentialTransition.GetNewSymbolFromInstruction(), potentialTransition.GetMovementFromInstruction());
                 Transitions.Add(transitionToAdd);
             }
+        }
+
+        private Boolean ExecuteStep()
+        {
+            Transition actualTransition = FindActualTransition();
+            return false;
+        }
+
+        private Transition FindActualTransition()
+        {
+            char actualEntrySymbol = _tape[_actualCharIndex];
+            Transition actualTransition = Transitions.Find(t => t.EntrySymbol == actualEntrySymbol &&
+            t.StateNumber == _actualState);
+            return actualTransition;
+        }
+
+        private void SetHeadBeginningPosition()
+        {
+            if (HeadPosition == TuringHeadPosition.FirstSymbolFromLeft)
+                _actualCharIndex = 0;
+            else
+                _actualCharIndex = _tape.Length - 1;
         }
     }
 }
