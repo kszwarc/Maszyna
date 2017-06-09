@@ -38,6 +38,7 @@
             this.tabPageConfig = new System.Windows.Forms.TabPage();
             this.labelTable = new System.Windows.Forms.Label();
             this.dataGridViewTable = new System.Windows.Forms.DataGridView();
+            this.Symbols = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelHead = new System.Windows.Forms.Label();
             this.comboBoxHead = new System.Windows.Forms.ComboBox();
             this.buttonFinalStates = new System.Windows.Forms.Button();
@@ -56,7 +57,6 @@
             this.labelEmptySymbol = new System.Windows.Forms.Label();
             this.tabPageSimulation = new System.Windows.Forms.TabPage();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.Symbols = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
@@ -157,6 +157,13 @@
             this.dataGridViewTable.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewTable.Size = new System.Drawing.Size(570, 174);
             this.dataGridViewTable.TabIndex = 11115;
+            // 
+            // Symbols
+            // 
+            this.Symbols.HeaderText = "Σ\\Q";
+            this.Symbols.MaxInputLength = 1;
+            this.Symbols.Name = "Symbols";
+            this.Symbols.ReadOnly = true;
             // 
             // labelHead
             // 
@@ -275,7 +282,7 @@
             0,
             0,
             0});
-            this.numericUpDownFirstStateNumber.ValueChanged += new System.EventHandler(this.TriggerConfigurationChanges);
+            this.numericUpDownFirstStateNumber.ValueChanged += new System.EventHandler(this.FirstStateChanges);
             // 
             // labelBeginningState
             // 
@@ -310,7 +317,7 @@
             0,
             0,
             0});
-            this.numericUpDownStateNumbers.ValueChanged += new System.EventHandler(this.numericUpDownStateNumbers_ValueChanged);
+            this.numericUpDownStateNumbers.ValueChanged += new System.EventHandler(this.StateNumbersChanged);
             // 
             // labelStateNumbers
             // 
@@ -359,13 +366,6 @@
             // 
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
-            // 
-            // Symbols
-            // 
-            this.Symbols.HeaderText = "Σ\\Q";
-            this.Symbols.MaxInputLength = 1;
-            this.Symbols.Name = "Symbols";
-            this.Symbols.ReadOnly = true;
             // 
             // MainForm
             // 

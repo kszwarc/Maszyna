@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Maszyna.Models;
+using System.Drawing;
 
 namespace Maszyna.Forms
 {
@@ -9,6 +10,7 @@ namespace Maszyna.Forms
     {
         private TabPage _simulationTabPage = null;
         private TuringMachine _turingMachine = new TuringMachine();
+        private const byte ReservedColumns = 1;
 
         public MainForm() : base("Symulator Maszyny Turinga")
         {
@@ -19,6 +21,7 @@ namespace Maszyna.Forms
             TriggerConfigurationChanges(null, null);
             UpdateEmptySymbolInformationForGUI(null, null);
             UpdateTable();
+            UpdateFirstStateColor();
             comboBoxHead.SelectedIndex = 0;
         }
 
@@ -38,7 +41,30 @@ namespace Maszyna.Forms
             TriggerConfigurationChanges(null, null);
         }
 
-        private void numericUpDownStateNumbers_ValueChanged(object sender, EventArgs e)
+        private void FirstStateChanges(object sender, EventArgs e)
+        {
+            TriggerConfigurationChanges(sender, e);
+            ResetFontForHeaders();
+            UpdateFirstStateColor();
+        }
+
+        private void UpdateFirstStateColor()
+        {
+            int columnIndexToChange = ((int)numericUpDownFirstStateNumber.Value) + ReservedColumns;
+            if (columnIndexToChange < dataGridViewTable.Columns.Count)
+            {
+                Font actualFont = dataGridViewTable.ColumnHeadersDefaultCellStyle.Font;
+                dataGridViewTable.Columns[columnIndexToChange].HeaderCell.Style.Font = new Font(actualFont, FontStyle.Bold);
+            }
+        }
+
+        private void ResetFontForHeaders()
+        {
+            foreach (DataGridViewColumn column in dataGridViewTable.Columns)
+                column.HeaderCell.Style.Font = dataGridViewTable.ColumnHeadersDefaultCellStyle.Font;
+        }
+
+        private void StateNumbersChanged(object sender, EventArgs e)
         {
             SetMaximumAvailableBeginningStateNumber();
             TriggerConfigurationChanges(sender, e);
@@ -75,7 +101,6 @@ namespace Maszyna.Forms
 
         private void UpdateTableColumns()
         {
-            const byte ReservedColumns = 1;
             int demandedNumberOfColumns = (int)numericUpDownStateNumbers.Value;
             int actualNumberOfColumns = dataGridViewTable.Columns.Count - ReservedColumns;
             int columnsToManipulate = (int)Math.Abs(demandedNumberOfColumns - actualNumberOfColumns);
