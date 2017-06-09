@@ -92,7 +92,7 @@ namespace Maszyna.Forms
             for (int i = 0; i < columnsToAdd; i++)
             {
                 DataGridViewTextBoxColumn columnToAdd = new DataGridViewTextBoxColumn();
-                columnToAdd.HeaderText = "Q" + dataGridViewTable.Columns.Count;
+                columnToAdd.HeaderText = "q" + (dataGridViewTable.Columns.Count-1);
                 columnToAdd.MaxInputLength = MaxInputLengthForElement;
                 dataGridViewTable.Columns.Add(columnToAdd);
             }
