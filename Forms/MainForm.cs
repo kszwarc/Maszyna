@@ -47,26 +47,52 @@ namespace Maszyna.Forms
         private void UpdateTable()
         {
             UpdateTableColumns();
+            UpdateTableRows();
+        }
+
+        private void UpdateTableRows()
+        {
+            dataGridViewTable.Rows.Clear();
+            AddRowWithSymbol(_turingMachine.EmptySymbol);
+            AddAvailableSymbolRows();
+            dataGridViewTable.Refresh();
+        }
+
+        private void AddAvailableSymbolRows()
+        {
+            foreach (var symbol in _turingMachine.Symbols)
+                AddRowWithSymbol(symbol[0]);
+        }
+
+        private void AddRowWithSymbol(char symbol)
+        {
+            DataGridViewRow row = new DataGridViewRow();
+            dataGridViewTable.Rows.Add(row);
+            int lastRowIndex = dataGridViewTable.Rows.Count - 1;
+            dataGridViewTable.Rows[lastRowIndex].Cells[0].Value = symbol;
         }
 
         private void UpdateTableColumns()
         {
-            const byte reservedColumns = 1;
+            const byte ReservedColumns = 1;
             int demandedNumberOfColumns = (int)numericUpDownStateNumbers.Value;
-            int actualNumberOfColumns = dataGridViewTable.Columns.Count - reservedColumns;
+            int actualNumberOfColumns = dataGridViewTable.Columns.Count - ReservedColumns;
             int columnsToManipulate = (int)Math.Abs(demandedNumberOfColumns - actualNumberOfColumns);
             if (actualNumberOfColumns > demandedNumberOfColumns)
                 RemoveColumns(columnsToManipulate);
             else
                 AddColumns(columnsToManipulate);
+            dataGridViewTable.Refresh();
         }
 
         private void AddColumns(int columnsToAdd)
         {
+            const byte MaxInputLengthForElement = 32;
             for (int i = 0; i < columnsToAdd; i++)
             {
-                DataGridViewColumn columnToAdd = new DataGridViewColumn();
+                DataGridViewTextBoxColumn columnToAdd = new DataGridViewTextBoxColumn();
                 columnToAdd.HeaderText = "Q" + dataGridViewTable.Columns.Count;
+                columnToAdd.MaxInputLength = MaxInputLengthForElement;
                 dataGridViewTable.Columns.Add(columnToAdd);
             }
         }
@@ -87,6 +113,7 @@ namespace Maszyna.Forms
         {
             UpdateTuringMachine();
             UpdateFormulation();
+            UpdateTableRows();
             SetConfigurationStatus();
         }
 

@@ -36,8 +36,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageConfig = new System.Windows.Forms.TabPage();
+            this.labelTable = new System.Windows.Forms.Label();
             this.dataGridViewTable = new System.Windows.Forms.DataGridView();
-            this.Symbols = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelHead = new System.Windows.Forms.Label();
             this.comboBoxHead = new System.Windows.Forms.ComboBox();
             this.buttonFinalStates = new System.Windows.Forms.Button();
@@ -56,7 +56,7 @@
             this.labelEmptySymbol = new System.Windows.Forms.Label();
             this.tabPageSimulation = new System.Windows.Forms.TabPage();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.labelTable = new System.Windows.Forms.Label();
+            this.Symbols = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
@@ -105,6 +105,17 @@
             this.tabPageConfig.TabIndex = 0;
             this.tabPageConfig.Text = "Konfiguracja maszyny";
             // 
+            // labelTable
+            // 
+            this.labelTable.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelTable.AutoSize = true;
+            this.labelTable.Location = new System.Drawing.Point(150, 204);
+            this.labelTable.Name = "labelTable";
+            this.labelTable.Size = new System.Drawing.Size(294, 13);
+            this.labelTable.TabIndex = 11116;
+            this.labelTable.Text = "Format zapisu w tabeli stanów: stan/symbol/kierunek (L, P, -)";
+            this.labelTable.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // dataGridViewTable
             // 
             this.dataGridViewTable.AllowUserToAddRows = false;
@@ -146,11 +157,6 @@
             this.dataGridViewTable.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewTable.Size = new System.Drawing.Size(570, 174);
             this.dataGridViewTable.TabIndex = 11115;
-            // 
-            // Symbols
-            // 
-            this.Symbols.HeaderText = "Σ\\Q";
-            this.Symbols.Name = "Symbols";
             // 
             // labelHead
             // 
@@ -354,16 +360,12 @@
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
             // 
-            // labelTable
+            // Symbols
             // 
-            this.labelTable.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.labelTable.AutoSize = true;
-            this.labelTable.Location = new System.Drawing.Point(150, 204);
-            this.labelTable.Name = "labelTable";
-            this.labelTable.Size = new System.Drawing.Size(294, 13);
-            this.labelTable.TabIndex = 11116;
-            this.labelTable.Text = "Format zapisu w tabeli stanów: stan/symbol/kierunek (L, P, -)";
-            this.labelTable.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Symbols.HeaderText = "Σ\\Q";
+            this.Symbols.MaxInputLength = 1;
+            this.Symbols.Name = "Symbols";
+            this.Symbols.ReadOnly = true;
             // 
             // MainForm
             // 
@@ -409,8 +411,8 @@
         private System.Windows.Forms.Label labelHead;
         private System.Windows.Forms.ComboBox comboBoxHead;
         private System.Windows.Forms.DataGridView dataGridViewTable;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Symbols;
         private System.Windows.Forms.Label labelTable;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Symbols;
     }
 }
 
