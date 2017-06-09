@@ -17,11 +17,24 @@ namespace Maszyna.Models
             String[] parts = text.Split('/');
             if (parts.Length != 3)
                 return false;
-            if (parts[0].Length != 1 || !IsEntrySymbolValid(parts[0][0], turingMachine))
+            if (parts[0].Length < 2 || !IsNextStateValid(parts[0], turingMachine))
                 return false;
             if (!IsNewSymbolValid(parts[1], turingMachine))
                 return false;
             if (parts[2].Length != 1 || !IsTransitionSymbolValid(parts[2][0]))
+                return false;
+            return true;
+        }
+
+        private static Boolean IsNextStateValid(String nextState, TuringMachine turingMachine)
+        {
+            int nextStateNumber;
+            String stateNumber = nextState.Substring(1);
+            if (nextState[0] != 'q')
+                return false;
+            else if (!int.TryParse(stateNumber, out nextStateNumber))
+                return false;
+            else if (nextStateNumber >= turingMachine.NumberOfStates)
                 return false;
             return true;
         }
@@ -33,15 +46,10 @@ namespace Maszyna.Models
 
         private static Boolean IsNewSymbolValid(String newText, TuringMachine turingMachine)
         {
+            Boolean isEmptySymbol = turingMachine.EmptySymbol == newText[0];
+            Boolean isInAlphabet = turingMachine.Symbols.Contains(newText);
             Boolean isInFinalStates = turingMachine.FinalStates.Contains(newText);
-            return isInFinalStates || IsEntrySymbolValid(newText[0], turingMachine);
-        }
-
-        private static Boolean IsEntrySymbolValid(char symbol, TuringMachine turingMachine)
-        {
-            Boolean isEmptySymbol = turingMachine.EmptySymbol == symbol;
-            Boolean isInAlphabet = turingMachine.Symbols.Contains(symbol.ToString());
-            return isEmptySymbol || isInAlphabet;
+            return  isEmptySymbol || isInAlphabet || isInFinalStates;
         }
         
     }
