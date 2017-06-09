@@ -62,6 +62,8 @@
             this.labelEnter = new System.Windows.Forms.Label();
             this.textBoxEnter = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.textBoxState = new System.Windows.Forms.TextBox();
+            this.labelState = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
@@ -362,6 +364,8 @@
             // 
             this.tabPageSimulation.AutoScroll = true;
             this.tabPageSimulation.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageSimulation.Controls.Add(this.labelState);
+            this.tabPageSimulation.Controls.Add(this.textBoxState);
             this.tabPageSimulation.Controls.Add(this.buttonSimulate);
             this.tabPageSimulation.Controls.Add(this.labelExit);
             this.tabPageSimulation.Controls.Add(this.textBoxExit);
@@ -377,7 +381,7 @@
             // buttonSimulate
             // 
             this.buttonSimulate.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonSimulate.Location = new System.Drawing.Point(248, 172);
+            this.buttonSimulate.Location = new System.Drawing.Point(248, 211);
             this.buttonSimulate.Name = "buttonSimulate";
             this.buttonSimulate.Size = new System.Drawing.Size(75, 23);
             this.buttonSimulate.TabIndex = 4;
@@ -430,6 +434,25 @@
             // 
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
+            // 
+            // textBoxState
+            // 
+            this.textBoxState.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.textBoxState.Location = new System.Drawing.Point(248, 147);
+            this.textBoxState.Name = "textBoxState";
+            this.textBoxState.ReadOnly = true;
+            this.textBoxState.Size = new System.Drawing.Size(75, 20);
+            this.textBoxState.TabIndex = 2;
+            // 
+            // labelState
+            // 
+            this.labelState.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelState.AutoSize = true;
+            this.labelState.Location = new System.Drawing.Point(249, 170);
+            this.labelState.Name = "labelState";
+            this.labelState.Size = new System.Drawing.Size(75, 13);
+            this.labelState.TabIndex = 5;
+            this.labelState.Text = "Stan końcowy";
             // 
             // MainForm
             // 
@@ -485,6 +508,8 @@
         private System.Windows.Forms.Label labelEnter;
         private System.Windows.Forms.TextBox textBoxEnter;
         private System.Windows.Forms.Button buttonSimulate;
+        private System.Windows.Forms.Label labelState;
+        private System.Windows.Forms.TextBox textBoxState;
     }
 }
 
