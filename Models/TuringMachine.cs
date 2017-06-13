@@ -14,21 +14,32 @@ namespace Maszyna.Models
         public List<String> FinalStates { get; set; } = new List<String>();
         public List<Transition> Transitions { get; set; } = new List<Transition>();
         public List<PotentialTransition> PotentialTransitions { get; set; } = new List<PotentialTransition>();
-        private int _actualCharIndex, _actualState;
+        public int ActualCharIndex { get; set; } = -1;
+        private int _actualState;
         private StringBuilder _tape;
         private String _finishedStateSymbol;
 
         public ProgramResult ExecuteProgram(String tape)
         {
-            _tape = new StringBuilder(tape);
-            _actualState = FirstStateIndex;
-            SetHeadBeginningPosition();
+            BeginningTuringSetUp(tape);
             Boolean finished = false;
             while (!finished)
                 finished = ExecuteStep();
             return new ProgramResult(_finishedStateSymbol, _tape.ToString());
         }
-        
+
+        public ProgramResult ExecuteStepNext(String tape)
+        {
+            BeginningTuringSetUp(tape);
+            return ExecuteStepNext();
+        }
+
+        public ProgramResult ExecuteStepNext()
+        {
+            ExecuteStep();
+            return new ProgramResult(_finishedStateSymbol, _tape.ToString());
+        }
+
         public void GenerateTransitionsFromPotential()
         {
             foreach (PotentialTransition potentialTransition in PotentialTransitions)
@@ -40,6 +51,18 @@ namespace Maszyna.Models
             }
         }
 
+        public bool isActualCharIndexLaterThanTape()
+        {
+            return ActualCharIndex >= _tape.Length;
+        }
+
+        private void BeginningTuringSetUp(String tape)
+        {
+            _tape = new StringBuilder(tape);
+            _actualState = FirstStateIndex;
+            SetHeadBeginningPosition();
+        }
+
         private Boolean ExecuteStep()
         {
             Transition actualTransition = FindActualTransition();
@@ -49,7 +72,7 @@ namespace Maszyna.Models
                 _finishedStateSymbol = actualTransition.ExitSymbol;
                 return true;
             }
-            _tape[_actualCharIndex] = actualTransition.ExitSymbol[0];
+            _tape[ActualCharIndex] = actualTransition.ExitSymbol[0];
             _actualState = actualTransition.NextStateNumber;
             UpdateActualCharIndex(actualTransition.Movement);
             UpdateTapeIfNeeded();
@@ -58,26 +81,26 @@ namespace Maszyna.Models
 
         private void UpdateTapeIfNeeded()
         {
-            if (_actualCharIndex < 0)
+            if (ActualCharIndex < 0)
             {
                 _tape.Insert(0, EmptySymbol);
-                _actualCharIndex = 0;
+                ActualCharIndex = 0;
             }
-            else if (_actualCharIndex >= _tape.Length)
+            else if (ActualCharIndex >= _tape.Length)
                 _tape.Append(EmptySymbol);
         }
 
         private void UpdateActualCharIndex(Movement movement)
         {
             if (movement == Movement.Left)
-                _actualCharIndex--;
+                ActualCharIndex--;
             else if (movement == Movement.Right)
-                _actualCharIndex++;
+                ActualCharIndex++;
         }
 
         private Transition FindActualTransition()
         {
-            char actualEntrySymbol = _tape[_actualCharIndex];
+            char actualEntrySymbol = _tape[ActualCharIndex];
             Transition actualTransition = Transitions.Find(t => t.EntrySymbol == actualEntrySymbol &&
             t.StateNumber == _actualState);
             return actualTransition;
@@ -86,9 +109,9 @@ namespace Maszyna.Models
         private void SetHeadBeginningPosition()
         {
             if (HeadPosition == TuringHeadPosition.FirstSymbolFromLeft)
-                _actualCharIndex = 0;
+                ActualCharIndex = 0;
             else
-                _actualCharIndex = _tape.Length - 1;
+                ActualCharIndex = _tape.Length - 1;
         }
     }
 }

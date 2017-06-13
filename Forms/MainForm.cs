@@ -215,20 +215,6 @@ namespace Maszyna.Forms
             finalStatesForm.Subscribe(this);
         }
 
-        private void buttonSimulate_Click(object sender, EventArgs e)
-        {
-            if (!Validator.AreEntryDataForMachineValid(textBoxEnter.Text, _turingMachine))
-                ProgramMessageBox.showError("Dane wejściowe zawierają niedopuszczalne symbole.");
-            else if (textBoxEnter.Text.Length == 0)
-                ProgramMessageBox.showError("Taśma jest pusta.");
-            else
-            {
-                ProgramResult result = _turingMachine.ExecuteProgram(textBoxEnter.Text);
-                textBoxExit.Text = result.Tape;
-                textBoxState.Text = result.FinishedStateSymbol;
-            }
-        }
-
         private List<PotentialTransition> GeneratePotentialTransitions()
         {
             List<PotentialTransition> potentialTransitions = new List<PotentialTransition>();
@@ -289,6 +275,71 @@ namespace Maszyna.Forms
                 NextState nextState = new NextState(cellToEdit, _turingMachine);
                 nextState.Show();
             }
+        }
+
+        private void buttonStepNext_Click(object sender, EventArgs e)
+        {
+            if (ValidateTuringProgram())
+            {
+                ProgramResult result = _turingMachine.ExecuteStepNext();
+                TakeCareOfResults(result);
+            }
+        }
+
+        private void buttonStepNextWithTape_Click(object sender, EventArgs e)
+        {
+            if (ValidateTuringProgram())
+            {
+                ProgramResult result = _turingMachine.ExecuteStepNext(textBoxEnter.Text);
+                TakeCareOfResults(result);
+            }
+        }
+
+        private void buttonSimulate_Click(object sender, EventArgs e)
+        {
+            if (ValidateTuringProgram())
+            {
+                ProgramResult result = _turingMachine.ExecuteProgram(textBoxEnter.Text);
+                TakeCareOfResults(result);
+            }
+        }
+
+        private void TakeCareOfResults(ProgramResult result)
+        {
+            WriteResults(result);
+            EnableOrDisableButtonWithStepNext();
+        }
+
+        private void WriteResults(ProgramResult result)
+        {
+            textBoxExit.Text = result.Tape;
+            textBoxState.Text = result.FinishedStateSymbol;
+        }
+
+        private void EnableOrDisableButtonWithStepNext()
+        {
+            buttonStepNext.Enabled = !_turingMachine.isActualCharIndexLaterThanTape();
+        }
+
+        private bool ValidateTuringProgram()
+        {
+            if (!Validator.AreEntryDataForMachineValid(textBoxEnter.Text, _turingMachine))
+            {
+                ProgramMessageBox.showError("Dane wejściowe zawierają niedopuszczalne symbole.");
+                return false;
+            }
+            else if (textBoxEnter.Text.Length == 0)
+            {
+                ProgramMessageBox.showError("Taśma jest pusta.");
+                return false;
+            }
+            else
+                return true;
+        }
+
+        private void backgroundWorkerProgram_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+
         }
     }
 }

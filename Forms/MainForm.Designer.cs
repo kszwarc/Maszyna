@@ -57,7 +57,7 @@
             this.textBoxEmptySymbol = new System.Windows.Forms.TextBox();
             this.labelEmptySymbol = new System.Windows.Forms.Label();
             this.tabPageSimulation = new System.Windows.Forms.TabPage();
-            this.buttonStepPrev = new System.Windows.Forms.Button();
+            this.buttonStepNextWithTape = new System.Windows.Forms.Button();
             this.buttonStepNext = new System.Windows.Forms.Button();
             this.labelState = new System.Windows.Forms.Label();
             this.textBoxState = new System.Windows.Forms.TextBox();
@@ -67,6 +67,8 @@
             this.labelEnter = new System.Windows.Forms.Label();
             this.textBoxEnter = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.backgroundWorkerProgram = new System.ComponentModel.BackgroundWorker();
+            this.timerForProgram = new System.Windows.Forms.Timer(this.components);
             this.tabControl.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
@@ -387,7 +389,7 @@
             // 
             this.tabPageSimulation.AutoScroll = true;
             this.tabPageSimulation.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPageSimulation.Controls.Add(this.buttonStepPrev);
+            this.tabPageSimulation.Controls.Add(this.buttonStepNextWithTape);
             this.tabPageSimulation.Controls.Add(this.buttonStepNext);
             this.tabPageSimulation.Controls.Add(this.labelState);
             this.tabPageSimulation.Controls.Add(this.textBoxState);
@@ -403,25 +405,28 @@
             this.tabPageSimulation.TabIndex = 1;
             this.tabPageSimulation.Text = "Symulacja";
             // 
-            // buttonStepPrev
+            // buttonStepNextWithTape
             // 
-            this.buttonStepPrev.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonStepPrev.Location = new System.Drawing.Point(216, 211);
-            this.buttonStepPrev.Name = "buttonStepPrev";
-            this.buttonStepPrev.Size = new System.Drawing.Size(75, 46);
-            this.buttonStepPrev.TabIndex = 7;
-            this.buttonStepPrev.Text = "Krok do tyłu";
-            this.buttonStepPrev.UseVisualStyleBackColor = true;
+            this.buttonStepNextWithTape.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonStepNextWithTape.Location = new System.Drawing.Point(422, 208);
+            this.buttonStepNextWithTape.Name = "buttonStepNextWithTape";
+            this.buttonStepNextWithTape.Size = new System.Drawing.Size(75, 56);
+            this.buttonStepNextWithTape.TabIndex = 10;
+            this.buttonStepNextWithTape.Text = "Pojedynczy krok z nową taśmą";
+            this.buttonStepNextWithTape.UseVisualStyleBackColor = true;
+            this.buttonStepNextWithTape.Click += new System.EventHandler(this.buttonStepNextWithTape_Click);
             // 
             // buttonStepNext
             // 
             this.buttonStepNext.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonStepNext.Location = new System.Drawing.Point(418, 211);
+            this.buttonStepNext.Enabled = false;
+            this.buttonStepNext.Location = new System.Drawing.Point(315, 208);
             this.buttonStepNext.Name = "buttonStepNext";
-            this.buttonStepNext.Size = new System.Drawing.Size(75, 46);
+            this.buttonStepNext.Size = new System.Drawing.Size(75, 56);
             this.buttonStepNext.TabIndex = 9;
-            this.buttonStepNext.Text = "Krok do przodu";
+            this.buttonStepNext.Text = "Pojedynczy krok";
             this.buttonStepNext.UseVisualStyleBackColor = true;
+            this.buttonStepNext.Click += new System.EventHandler(this.buttonStepNext_Click);
             // 
             // labelState
             // 
@@ -447,11 +452,11 @@
             // buttonSimulate
             // 
             this.buttonSimulate.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonSimulate.Location = new System.Drawing.Point(315, 211);
+            this.buttonSimulate.Location = new System.Drawing.Point(212, 208);
             this.buttonSimulate.Name = "buttonSimulate";
-            this.buttonSimulate.Size = new System.Drawing.Size(75, 46);
+            this.buttonSimulate.Size = new System.Drawing.Size(75, 56);
             this.buttonSimulate.TabIndex = 8;
-            this.buttonSimulate.Text = "Wykonaj program";
+            this.buttonSimulate.Text = "Wykonaj cały program";
             this.buttonSimulate.UseVisualStyleBackColor = true;
             this.buttonSimulate.Click += new System.EventHandler(this.buttonSimulate_Click);
             // 
@@ -502,6 +507,14 @@
             // 
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
+            // 
+            // backgroundWorkerProgram
+            // 
+            this.backgroundWorkerProgram.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerProgram_DoWork);
+            // 
+            // timerForProgram
+            // 
+            this.timerForProgram.Interval = 100000;
             // 
             // MainForm
             // 
@@ -558,10 +571,12 @@
         private System.Windows.Forms.Button buttonSimulate;
         private System.Windows.Forms.Label labelState;
         private System.Windows.Forms.TextBox textBoxState;
-        private System.Windows.Forms.Button buttonStepPrev;
         private System.Windows.Forms.Button buttonStepNext;
         private System.Windows.Forms.CheckBox checkBoxManualTable;
         private DataGridViewWithPaste dataGridViewTable;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerProgram;
+        private System.Windows.Forms.Timer timerForProgram;
+        private System.Windows.Forms.Button buttonStepNextWithTape;
     }
 }
 
