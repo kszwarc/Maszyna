@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Maszyna
+namespace Maszyna.Forms
 {
     public partial class Window : Form
     {

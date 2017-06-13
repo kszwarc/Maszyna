@@ -1,4 +1,4 @@
-﻿namespace Maszyna
+﻿namespace Maszyna.Forms
 {
     partial class Window
     {

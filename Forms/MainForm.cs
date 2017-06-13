@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Maszyna.Models;
@@ -71,6 +72,7 @@ namespace Maszyna.Forms
             SetMaximumAvailableBeginningStateNumber();
             TriggerConfigurationChanges(sender, e);
             UpdateTableColumns();
+            ((DataGridViewWithPaste)dataGridViewTable).AdjustColumnsWidth(dataGridViewTable, e);
         }
 
         private void UpdateTable()
@@ -82,7 +84,7 @@ namespace Maszyna.Forms
         private void UpdateTableRows()
         {
             dataGridViewTable.Rows.Clear();
-            if (_turingMachine.EmptySymbol!=' ')
+            if (_turingMachine.EmptySymbol != ' ')
                 AddRowWithSymbol(_turingMachine.EmptySymbol);
             AddAvailableSymbolRows();
             dataGridViewTable.Refresh();
@@ -120,8 +122,9 @@ namespace Maszyna.Forms
             for (int i = 0; i < columnsToAdd; i++)
             {
                 DataGridViewTextBoxColumn columnToAdd = new DataGridViewTextBoxColumn();
-                columnToAdd.HeaderText = "q" + (dataGridViewTable.Columns.Count-1);
+                columnToAdd.HeaderText = "q" + (dataGridViewTable.Columns.Count - 1);
                 columnToAdd.MaxInputLength = MaxInputLengthForElement;
+                columnToAdd.ReadOnly = !checkBoxManualTable.Checked;
                 dataGridViewTable.Columns.Add(columnToAdd);
             }
         }
@@ -165,7 +168,7 @@ namespace Maszyna.Forms
             _turingMachine.EmptySymbol = emptySymbol;
             _turingMachine.NumberOfStates = (int)numericUpDownStateNumbers.Value;
             _turingMachine.FirstStateIndex = (int)numericUpDownFirstStateNumber.Value;
-            _turingMachine.HeadPosition = (String)comboBoxHead.SelectedItem == "Lewa" ? 
+            _turingMachine.HeadPosition = (String)comboBoxHead.SelectedItem == "Lewa" ?
                 TuringHeadPosition.FirstSymbolFromLeft : TuringHeadPosition.FirstSymbolFromRight;
             _turingMachine.Symbols.Remove(_turingMachine.EmptySymbol.ToString());
         }
@@ -216,7 +219,7 @@ namespace Maszyna.Forms
         {
             if (!Validator.AreEntryDataForMachineValid(textBoxEnter.Text, _turingMachine))
                 ProgramMessageBox.showError("Dane wejściowe zawierają niedopuszczalne symbole.");
-            else if (textBoxEnter.Text.Length==0)
+            else if (textBoxEnter.Text.Length == 0)
                 ProgramMessageBox.showError("Taśma jest pusta.");
             else
             {
@@ -226,15 +229,15 @@ namespace Maszyna.Forms
             }
         }
 
-        private List<PotentialTransition> generatePotentialTransitions()
+        private List<PotentialTransition> GeneratePotentialTransitions()
         {
             List<PotentialTransition> potentialTransitions = new List<PotentialTransition>();
             foreach (DataGridViewRow row in dataGridViewTable.Rows)
             {
                 for (int i = ReservedColumns; i < dataGridViewTable.Columns.Count; i++)
                 {
-                    String cellValue = getCellValue(row.Cells[i]);
-                    String entrySymbol = getCellValue(row.Cells[0]);
+                    String cellValue = GetCellValue(row.Cells[i]);
+                    String entrySymbol = GetCellValue(row.Cells[0]);
                     char entrySymbolToPass = entrySymbol.Length == 1 ? entrySymbol[0] : ' ';
                     int actualStateNumber = i - ReservedColumns;
                     PotentialTransition potentialTransition = new PotentialTransition(cellValue, actualStateNumber, entrySymbolToPass);
@@ -244,16 +247,48 @@ namespace Maszyna.Forms
             return potentialTransitions;
         }
 
-        private String getCellValue(DataGridViewCell cell)
+        private String GetCellValue(DataGridViewCell cell)
         {
             return cell.Value == null ? "" : cell.Value.ToString();
         }
 
         private void UpdateStateTable(object sender, DataGridViewCellEventArgs e)
         {
-            _turingMachine.PotentialTransitions = generatePotentialTransitions();
+            _turingMachine.PotentialTransitions = GeneratePotentialTransitions();
             SetConfigurationStatus();
             UnlockOrLockTabWithSimulation();
+        }
+
+        private void checkBoxManualTable_CheckedChanged(object sender, EventArgs e)
+        {
+            labelTable.Visible = checkBoxManualTable.Checked;
+            EnabledOrDisableCellEditing(checkBoxManualTable.Checked);
+            if (checkBoxManualTable.Checked && Application.OpenForms.OfType<NextState>().Any())
+                Application.OpenForms.OfType<NextState>().First().Close();
+        }
+
+        private void EnabledOrDisableCellEditing(bool enable)
+        {
+            for (int i = ReservedColumns; i < dataGridViewTable.Columns.Count; i++)
+                dataGridViewTable.Columns[i].ReadOnly = !enable;
+        }
+
+        private void dataGridViewTable_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            const byte FirstFreeColumnIndex = ReservedColumns - 1;
+            if (!checkBoxManualTable.Checked && e.ColumnIndex > FirstFreeColumnIndex && e.RowIndex >= 0)
+                OpenNewNextStateWindow(((DataGridView)sender).Rows[e.RowIndex].Cells[e.ColumnIndex]);
+        }
+
+        private void OpenNewNextStateWindow(DataGridViewCell cellToEdit)
+        {
+            if (Application.OpenForms.OfType<NextState>().Any())
+                Application.OpenForms.OfType<NextState>().First().Focus();
+            else
+            {
+                NextState nextState = new NextState(cellToEdit, _turingMachine);
+                nextState.Show();
+            }
         }
     }
 }

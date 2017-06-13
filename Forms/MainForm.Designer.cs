@@ -36,8 +36,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageConfig = new System.Windows.Forms.TabPage();
+            this.checkBoxManualTable = new System.Windows.Forms.CheckBox();
             this.labelTable = new System.Windows.Forms.Label();
-            this.dataGridViewTable = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTable = new Maszyna.Forms.DataGridViewWithPaste();
             this.Symbols = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelHead = new System.Windows.Forms.Label();
             this.comboBoxHead = new System.Windows.Forms.ComboBox();
@@ -56,6 +57,8 @@
             this.textBoxEmptySymbol = new System.Windows.Forms.TextBox();
             this.labelEmptySymbol = new System.Windows.Forms.Label();
             this.tabPageSimulation = new System.Windows.Forms.TabPage();
+            this.buttonStepPrev = new System.Windows.Forms.Button();
+            this.buttonStepNext = new System.Windows.Forms.Button();
             this.labelState = new System.Windows.Forms.Label();
             this.textBoxState = new System.Windows.Forms.TextBox();
             this.buttonSimulate = new System.Windows.Forms.Button();
@@ -82,13 +85,14 @@
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(584, 454);
+            this.tabControl.Size = new System.Drawing.Size(719, 486);
             this.tabControl.TabIndex = 0;
             // 
             // tabPageConfig
             // 
             this.tabPageConfig.AutoScroll = true;
             this.tabPageConfig.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageConfig.Controls.Add(this.checkBoxManualTable);
             this.tabPageConfig.Controls.Add(this.labelTable);
             this.tabPageConfig.Controls.Add(this.dataGridViewTable);
             this.tabPageConfig.Controls.Add(this.labelHead);
@@ -109,20 +113,34 @@
             this.tabPageConfig.Location = new System.Drawing.Point(4, 22);
             this.tabPageConfig.Name = "tabPageConfig";
             this.tabPageConfig.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageConfig.Size = new System.Drawing.Size(576, 428);
+            this.tabPageConfig.Size = new System.Drawing.Size(711, 460);
             this.tabPageConfig.TabIndex = 0;
             this.tabPageConfig.Text = "Konfiguracja maszyny";
+            // 
+            // checkBoxManualTable
+            // 
+            this.checkBoxManualTable.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.checkBoxManualTable.AutoSize = true;
+            this.checkBoxManualTable.Location = new System.Drawing.Point(287, 201);
+            this.checkBoxManualTable.Name = "checkBoxManualTable";
+            this.checkBoxManualTable.Size = new System.Drawing.Size(154, 17);
+            this.checkBoxManualTable.TabIndex = 7;
+            this.checkBoxManualTable.Text = "Ręczny zapis tabeli stanów";
+            this.checkBoxManualTable.UseVisualStyleBackColor = true;
+            this.checkBoxManualTable.CheckedChanged += new System.EventHandler(this.checkBoxManualTable_CheckedChanged);
             // 
             // labelTable
             // 
             this.labelTable.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelTable.AutoSize = true;
-            this.labelTable.Location = new System.Drawing.Point(150, 204);
+            this.labelTable.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTable.Location = new System.Drawing.Point(199, 221);
             this.labelTable.Name = "labelTable";
-            this.labelTable.Size = new System.Drawing.Size(294, 13);
+            this.labelTable.Size = new System.Drawing.Size(335, 15);
             this.labelTable.TabIndex = 11116;
             this.labelTable.Text = "Format zapisu w tabeli stanów: stan/symbol/kierunek (L, P, -)";
             this.labelTable.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelTable.Visible = false;
             // 
             // dataGridViewTable
             // 
@@ -151,7 +169,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewTable.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewTable.Location = new System.Drawing.Point(3, 226);
+            this.dataGridViewTable.Location = new System.Drawing.Point(3, 243);
             this.dataGridViewTable.Name = "dataGridViewTable";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -163,12 +181,14 @@
             this.dataGridViewTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dataGridViewTable.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridViewTable.Size = new System.Drawing.Size(570, 174);
+            this.dataGridViewTable.Size = new System.Drawing.Size(705, 189);
             this.dataGridViewTable.TabIndex = 11115;
-            this.dataGridViewTable.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.UpdateStateTable);
+            this.dataGridViewTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTable_CellClick);
+            this.dataGridViewTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.UpdateStateTable);
             // 
             // Symbols
             // 
+            this.Symbols.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Symbols.HeaderText = "Σ\\Q";
             this.Symbols.MaxInputLength = 1;
             this.Symbols.Name = "Symbols";
@@ -178,9 +198,10 @@
             // 
             this.labelHead.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelHead.AutoSize = true;
-            this.labelHead.Location = new System.Drawing.Point(62, 167);
+            this.labelHead.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelHead.Location = new System.Drawing.Point(107, 165);
             this.labelHead.Name = "labelHead";
-            this.labelHead.Size = new System.Drawing.Size(103, 13);
+            this.labelHead.Size = new System.Drawing.Size(115, 15);
             this.labelHead.TabIndex = 11114;
             this.labelHead.Text = "Lokalizacja głowicy:";
             // 
@@ -192,7 +213,7 @@
             this.comboBoxHead.Items.AddRange(new object[] {
             "Lewa",
             "Prawa"});
-            this.comboBoxHead.Location = new System.Drawing.Point(171, 164);
+            this.comboBoxHead.Location = new System.Drawing.Point(238, 164);
             this.comboBoxHead.Name = "comboBoxHead";
             this.comboBoxHead.Size = new System.Drawing.Size(71, 21);
             this.comboBoxHead.TabIndex = 6;
@@ -201,7 +222,7 @@
             // buttonFinalStates
             // 
             this.buttonFinalStates.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonFinalStates.Location = new System.Drawing.Point(171, 135);
+            this.buttonFinalStates.Location = new System.Drawing.Point(238, 135);
             this.buttonFinalStates.Name = "buttonFinalStates";
             this.buttonFinalStates.Size = new System.Drawing.Size(71, 23);
             this.buttonFinalStates.TabIndex = 5;
@@ -213,16 +234,17 @@
             // 
             this.labelFinalStates.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelFinalStates.AutoSize = true;
-            this.labelFinalStates.Location = new System.Drawing.Point(81, 140);
+            this.labelFinalStates.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelFinalStates.Location = new System.Drawing.Point(130, 138);
             this.labelFinalStates.Name = "labelFinalStates";
-            this.labelFinalStates.Size = new System.Drawing.Size(84, 13);
+            this.labelFinalStates.Size = new System.Drawing.Size(92, 15);
             this.labelFinalStates.TabIndex = 11113;
             this.labelFinalStates.Text = "Stany końcowe:";
             // 
             // buttonEntrySymbols
             // 
             this.buttonEntrySymbols.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonEntrySymbols.Location = new System.Drawing.Point(172, 48);
+            this.buttonEntrySymbols.Location = new System.Drawing.Point(239, 48);
             this.buttonEntrySymbols.Name = "buttonEntrySymbols";
             this.buttonEntrySymbols.Size = new System.Drawing.Size(70, 23);
             this.buttonEntrySymbols.TabIndex = 2;
@@ -234,9 +256,10 @@
             // 
             this.labelEntrySymbols.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelEntrySymbols.AutoSize = true;
-            this.labelEntrySymbols.Location = new System.Drawing.Point(64, 53);
+            this.labelEntrySymbols.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelEntrySymbols.Location = new System.Drawing.Point(104, 51);
             this.labelEntrySymbols.Name = "labelEntrySymbols";
-            this.labelEntrySymbols.Size = new System.Drawing.Size(102, 13);
+            this.labelEntrySymbols.Size = new System.Drawing.Size(118, 15);
             this.labelEntrySymbols.TabIndex = 9;
             this.labelEntrySymbols.Text = "Symbole wejściowe:";
             // 
@@ -244,18 +267,20 @@
             // 
             this.labelFormalForInput.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelFormalForInput.AutoSize = true;
-            this.labelFormalForInput.Location = new System.Drawing.Point(373, 61);
+            this.labelFormalForInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelFormalForInput.Location = new System.Drawing.Point(440, 61);
             this.labelFormalForInput.Name = "labelFormalForInput";
-            this.labelFormalForInput.Size = new System.Drawing.Size(0, 13);
+            this.labelFormalForInput.Size = new System.Drawing.Size(0, 15);
             this.labelFormalForInput.TabIndex = 8;
             // 
             // labelFormal
             // 
             this.labelFormal.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelFormal.AutoSize = true;
-            this.labelFormal.Location = new System.Drawing.Point(373, 34);
+            this.labelFormal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelFormal.Location = new System.Drawing.Point(440, 34);
             this.labelFormal.Name = "labelFormal";
-            this.labelFormal.Size = new System.Drawing.Size(98, 13);
+            this.labelFormal.Size = new System.Drawing.Size(109, 15);
             this.labelFormal.TabIndex = 7;
             this.labelFormal.Text = "M=<Q,Σ,Γ,δ,q,B,F>";
             // 
@@ -263,9 +288,9 @@
             // 
             this.statusStripConfig.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelConfigStatus});
-            this.statusStripConfig.Location = new System.Drawing.Point(3, 403);
+            this.statusStripConfig.Location = new System.Drawing.Point(3, 435);
             this.statusStripConfig.Name = "statusStripConfig";
-            this.statusStripConfig.Size = new System.Drawing.Size(570, 22);
+            this.statusStripConfig.Size = new System.Drawing.Size(705, 22);
             this.statusStripConfig.TabIndex = 6;
             // 
             // toolStripStatusLabelConfigStatus
@@ -276,7 +301,7 @@
             // numericUpDownFirstStateNumber
             // 
             this.numericUpDownFirstStateNumber.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.numericUpDownFirstStateNumber.Location = new System.Drawing.Point(171, 109);
+            this.numericUpDownFirstStateNumber.Location = new System.Drawing.Point(238, 109);
             this.numericUpDownFirstStateNumber.Maximum = new decimal(new int[] {
             0,
             0,
@@ -292,16 +317,17 @@
             // 
             this.labelBeginningState.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelBeginningState.AutoSize = true;
-            this.labelBeginningState.Location = new System.Drawing.Point(73, 111);
+            this.labelBeginningState.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelBeginningState.Location = new System.Drawing.Point(122, 109);
             this.labelBeginningState.Name = "labelBeginningState";
-            this.labelBeginningState.Size = new System.Drawing.Size(92, 13);
+            this.labelBeginningState.Size = new System.Drawing.Size(101, 15);
             this.labelBeginningState.TabIndex = 4;
             this.labelBeginningState.Text = "Stan początkowy:";
             // 
             // numericUpDownStateNumbers
             // 
             this.numericUpDownStateNumbers.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.numericUpDownStateNumbers.Location = new System.Drawing.Point(171, 77);
+            this.numericUpDownStateNumbers.Location = new System.Drawing.Point(238, 77);
             this.numericUpDownStateNumbers.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -327,16 +353,17 @@
             // 
             this.labelStateNumbers.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelStateNumbers.AutoSize = true;
-            this.labelStateNumbers.Location = new System.Drawing.Point(87, 79);
+            this.labelStateNumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelStateNumbers.Location = new System.Drawing.Point(136, 77);
             this.labelStateNumbers.Name = "labelStateNumbers";
-            this.labelStateNumbers.Size = new System.Drawing.Size(78, 13);
+            this.labelStateNumbers.Size = new System.Drawing.Size(88, 15);
             this.labelStateNumbers.TabIndex = 2;
             this.labelStateNumbers.Text = "Liczba stanów:";
             // 
             // textBoxEmptySymbol
             // 
             this.textBoxEmptySymbol.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.textBoxEmptySymbol.Location = new System.Drawing.Point(172, 22);
+            this.textBoxEmptySymbol.Location = new System.Drawing.Point(239, 22);
             this.textBoxEmptySymbol.MaxLength = 1;
             this.textBoxEmptySymbol.Name = "textBoxEmptySymbol";
             this.textBoxEmptySymbol.Size = new System.Drawing.Size(70, 20);
@@ -349,9 +376,10 @@
             // 
             this.labelEmptySymbol.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelEmptySymbol.AutoSize = true;
-            this.labelEmptySymbol.Location = new System.Drawing.Point(94, 25);
+            this.labelEmptySymbol.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelEmptySymbol.Location = new System.Drawing.Point(140, 23);
             this.labelEmptySymbol.Name = "labelEmptySymbol";
-            this.labelEmptySymbol.Size = new System.Drawing.Size(72, 13);
+            this.labelEmptySymbol.Size = new System.Drawing.Size(82, 15);
             this.labelEmptySymbol.TabIndex = 11111;
             this.labelEmptySymbol.Text = "Symbol pusty:";
             // 
@@ -359,6 +387,8 @@
             // 
             this.tabPageSimulation.AutoScroll = true;
             this.tabPageSimulation.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageSimulation.Controls.Add(this.buttonStepPrev);
+            this.tabPageSimulation.Controls.Add(this.buttonStepNext);
             this.tabPageSimulation.Controls.Add(this.labelState);
             this.tabPageSimulation.Controls.Add(this.textBoxState);
             this.tabPageSimulation.Controls.Add(this.buttonSimulate);
@@ -369,24 +399,45 @@
             this.tabPageSimulation.Location = new System.Drawing.Point(4, 22);
             this.tabPageSimulation.Name = "tabPageSimulation";
             this.tabPageSimulation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSimulation.Size = new System.Drawing.Size(576, 428);
+            this.tabPageSimulation.Size = new System.Drawing.Size(711, 460);
             this.tabPageSimulation.TabIndex = 1;
             this.tabPageSimulation.Text = "Symulacja";
+            // 
+            // buttonStepPrev
+            // 
+            this.buttonStepPrev.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonStepPrev.Location = new System.Drawing.Point(216, 211);
+            this.buttonStepPrev.Name = "buttonStepPrev";
+            this.buttonStepPrev.Size = new System.Drawing.Size(75, 46);
+            this.buttonStepPrev.TabIndex = 7;
+            this.buttonStepPrev.Text = "Krok do tyłu";
+            this.buttonStepPrev.UseVisualStyleBackColor = true;
+            // 
+            // buttonStepNext
+            // 
+            this.buttonStepNext.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonStepNext.Location = new System.Drawing.Point(418, 211);
+            this.buttonStepNext.Name = "buttonStepNext";
+            this.buttonStepNext.Size = new System.Drawing.Size(75, 46);
+            this.buttonStepNext.TabIndex = 9;
+            this.buttonStepNext.Text = "Krok do przodu";
+            this.buttonStepNext.UseVisualStyleBackColor = true;
             // 
             // labelState
             // 
             this.labelState.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelState.AutoSize = true;
-            this.labelState.Location = new System.Drawing.Point(249, 170);
+            this.labelState.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.259F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelState.Location = new System.Drawing.Point(311, 170);
             this.labelState.Name = "labelState";
-            this.labelState.Size = new System.Drawing.Size(75, 13);
+            this.labelState.Size = new System.Drawing.Size(82, 15);
             this.labelState.TabIndex = 5;
             this.labelState.Text = "Stan końcowy";
             // 
             // textBoxState
             // 
             this.textBoxState.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.textBoxState.Location = new System.Drawing.Point(248, 147);
+            this.textBoxState.Location = new System.Drawing.Point(315, 147);
             this.textBoxState.Name = "textBoxState";
             this.textBoxState.ReadOnly = true;
             this.textBoxState.Size = new System.Drawing.Size(75, 20);
@@ -396,11 +447,11 @@
             // buttonSimulate
             // 
             this.buttonSimulate.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonSimulate.Location = new System.Drawing.Point(248, 211);
+            this.buttonSimulate.Location = new System.Drawing.Point(315, 211);
             this.buttonSimulate.Name = "buttonSimulate";
-            this.buttonSimulate.Size = new System.Drawing.Size(75, 23);
-            this.buttonSimulate.TabIndex = 4;
-            this.buttonSimulate.Text = "Generuj";
+            this.buttonSimulate.Size = new System.Drawing.Size(75, 46);
+            this.buttonSimulate.TabIndex = 8;
+            this.buttonSimulate.Text = "Wykonaj program";
             this.buttonSimulate.UseVisualStyleBackColor = true;
             this.buttonSimulate.Click += new System.EventHandler(this.buttonSimulate_Click);
             // 
@@ -408,9 +459,10 @@
             // 
             this.labelExit.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelExit.AutoSize = true;
-            this.labelExit.Location = new System.Drawing.Point(245, 117);
+            this.labelExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.259F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelExit.Location = new System.Drawing.Point(307, 117);
             this.labelExit.Name = "labelExit";
-            this.labelExit.Size = new System.Drawing.Size(84, 13);
+            this.labelExit.Size = new System.Drawing.Size(95, 15);
             this.labelExit.TabIndex = 3;
             this.labelExit.Text = "Dane wyjściowe";
             // 
@@ -421,7 +473,7 @@
             this.textBoxExit.Location = new System.Drawing.Point(8, 94);
             this.textBoxExit.Name = "textBoxExit";
             this.textBoxExit.ReadOnly = true;
-            this.textBoxExit.Size = new System.Drawing.Size(560, 20);
+            this.textBoxExit.Size = new System.Drawing.Size(695, 20);
             this.textBoxExit.TabIndex = 2;
             this.textBoxExit.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -429,9 +481,10 @@
             // 
             this.labelEnter.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelEnter.AutoSize = true;
-            this.labelEnter.Location = new System.Drawing.Point(245, 63);
+            this.labelEnter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.259F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelEnter.Location = new System.Drawing.Point(307, 63);
             this.labelEnter.Name = "labelEnter";
-            this.labelEnter.Size = new System.Drawing.Size(85, 13);
+            this.labelEnter.Size = new System.Drawing.Size(97, 15);
             this.labelEnter.TabIndex = 1;
             this.labelEnter.Text = "Dane wejściowe";
             // 
@@ -441,7 +494,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxEnter.Location = new System.Drawing.Point(8, 40);
             this.textBoxEnter.Name = "textBoxEnter";
-            this.textBoxEnter.Size = new System.Drawing.Size(560, 20);
+            this.textBoxEnter.Size = new System.Drawing.Size(695, 20);
             this.textBoxEnter.TabIndex = 0;
             this.textBoxEnter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -454,7 +507,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 454);
+            this.ClientSize = new System.Drawing.Size(719, 486);
             this.Controls.Add(this.tabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
@@ -496,7 +549,6 @@
         private System.Windows.Forms.Label labelEntrySymbols;
         private System.Windows.Forms.Label labelHead;
         private System.Windows.Forms.ComboBox comboBoxHead;
-        private System.Windows.Forms.DataGridView dataGridViewTable;
         private System.Windows.Forms.Label labelTable;
         private System.Windows.Forms.DataGridViewTextBoxColumn Symbols;
         private System.Windows.Forms.Label labelExit;
@@ -506,6 +558,10 @@
         private System.Windows.Forms.Button buttonSimulate;
         private System.Windows.Forms.Label labelState;
         private System.Windows.Forms.TextBox textBoxState;
+        private System.Windows.Forms.Button buttonStepPrev;
+        private System.Windows.Forms.Button buttonStepNext;
+        private System.Windows.Forms.CheckBox checkBoxManualTable;
+        private DataGridViewWithPaste dataGridViewTable;
     }
 }
 

@@ -2,7 +2,7 @@
 
 namespace Maszyna.Models
 {
-    struct ProgramResult
+    public struct ProgramResult
     {
         public String FinishedStateSymbol { get; }
         public String Tape { get; }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Maszyna.Models
 {
-    class TuringMachine
+    public class TuringMachine
     {
         public char EmptySymbol { get; set; }
         public int NumberOfStates { get; set; }
