@@ -19,14 +19,13 @@ namespace Maszyna.Forms
             InitializeComponent();
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            HideSimulationTabPage();
-            UpdateEmptySymbolInformationForGUI(null, null);
-            UpdateTable();
-            UpdateFirstStateColor();
-            comboBoxHead.SelectedIndex = 0;
-            numericUpDownExecutionTime.Value = 10000;
+            if (keyData == (Keys.Control | Keys.S))
+                toolStripButtonSave_Click(null, null);
+            else if (keyData == (Keys.Control | Keys.L))
+                toolStripButtonLoad_Click(null, null);
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         public void OnCompleted() { }
@@ -44,6 +43,17 @@ namespace Maszyna.Forms
                 _turingMachine.FinalStates = receivedElement.Values;
             TriggerConfigurationChanges(null, null);
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            HideSimulationTabPage();
+            UpdateEmptySymbolInformationForGUI(null, null);
+            UpdateTable();
+            UpdateFirstStateColor();
+            comboBoxHead.SelectedIndex = 0;
+            numericUpDownExecutionTime.Value = 10000;
+        }
+
 
         private void FirstStateChanges(object sender, EventArgs e)
         {
@@ -172,9 +182,8 @@ namespace Maszyna.Forms
             _turingMachine.EmptySymbol = emptySymbol;
             _turingMachine.NumberOfStates = (int)numericUpDownStateNumbers.Value;
             _turingMachine.FirstStateIndex = (int)numericUpDownFirstStateNumber.Value;
-            _turingMachine.HeadPosition = (String)comboBoxHead.SelectedItem == "Lewa" ?
-                TuringHeadPosition.FirstSymbolFromLeft : TuringHeadPosition.FirstSymbolFromRight;
             _turingMachine.Symbols.Remove(_turingMachine.EmptySymbol.ToString());
+            HeadConfigurationUpdate(null, null);
         }
 
         private void UpdateFormulation()
@@ -230,7 +239,8 @@ namespace Maszyna.Forms
                     String entrySymbol = GetCellValue(row.Cells[0]);
                     char entrySymbolToPass = entrySymbol.Length == 1 ? entrySymbol[0] : ' ';
                     int actualStateNumber = i - ReservedColumns;
-                    PotentialTransition potentialTransition = new PotentialTransition(cellValue, actualStateNumber, entrySymbolToPass);
+                    PotentialTransition potentialTransition = new PotentialTransition(cellValue, actualStateNumber, 
+                        entrySymbolToPass);
                     potentialTransitions.Add(potentialTransition);
                 }
             }
@@ -304,6 +314,8 @@ namespace Maszyna.Forms
             if (ValidateTuringProgram() && !backgroundWorkerProgram.IsBusy)
             {
                 buttonSimulate.Enabled = false;
+                buttonStepNextWithTape.Enabled = false;
+                buttonStepNext.Enabled = false;
                 this.UseWaitCursor = true;
                 backgroundWorkerProgram.RunWorkerAsync();
                 SetIntervalForTimer(); 
@@ -334,7 +346,8 @@ namespace Maszyna.Forms
 
         private void colorActualCell(ProgramResult result)
         {
-            DataGridViewCell cellToColor = dataGridViewActualTuring.Rows[result.SymbolIndex].Cells[result.StateIndex + ReservedColumns];
+            DataGridViewCell cellToColor = dataGridViewActualTuring.Rows[result.SymbolIndex].
+                Cells[result.StateIndex + ReservedColumns];
             cellToColor.Style.BackColor = Color.LightBlue;
         }
 
@@ -342,7 +355,8 @@ namespace Maszyna.Forms
         {
             for (int i = 0; i < dataGridViewActualTuring.Rows.Count; i++)
                 for (int j = 0; j < dataGridViewActualTuring.Columns.Count; j++)
-                    dataGridViewActualTuring.Rows[i].Cells[j].Style.BackColor = dataGridViewTable.Rows[0].Cells[0].Style.BackColor;
+                    dataGridViewActualTuring.Rows[i].Cells[j].Style.BackColor = dataGridViewTable.Rows[0].Cells[0].
+                        Style.BackColor;
         }
 
         private void EnableOrDisableButtonWithStepNext()
@@ -377,6 +391,7 @@ namespace Maszyna.Forms
             TakeCareOfResults((ProgramResult)e.UserState);
             timerForProgram.Stop();
             buttonSimulate.Enabled = true;
+            buttonStepNextWithTape.Enabled = true;
             this.UseWaitCursor = false;
         }
 
@@ -385,6 +400,7 @@ namespace Maszyna.Forms
             _turingMachine.ForceToFinishExecution();
             timerForProgram.Stop();
             ProgramMessageBox.showError("Upłynął limit czasu na wykonanie programu.");
+            buttonStepNext.Enabled = false;
         }
 
         private void CopyDataGridViewToActualTuringState()
@@ -420,6 +436,65 @@ namespace Maszyna.Forms
                 columnToAdd.ReadOnly = true;
                 dataGridViewActualTuring.Columns.Add(columnToAdd);
             }
+        }
+
+        private void toolStripButtonLoad_Click(object sender, EventArgs e)
+        {
+            if (openFileDialogForConfig.ShowDialog()==DialogResult.OK)
+            {
+                TuringMachine newTuringMachine = new TuringMachine();
+                if (DataExportQuery.LoadFile(openFileDialogForConfig.FileName, ref newTuringMachine))
+                {
+                    _turingMachine = newTuringMachine;
+                    UpdateGUIFromTuringMachine();
+                    ProgramMessageBox.showInfo("Konfiguracja została odczytana.");
+                }
+                else
+                    ProgramMessageBox.showError("Nie udało się odczytać konfiguracji.");
+            }
+        }
+
+        private void toolStripButtonSave_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialogForConfig.ShowDialog()==DialogResult.OK)
+            {
+                if (DataExportCommand.SaveFile(saveFileDialogForConfig.FileName,  _turingMachine))
+                    ProgramMessageBox.showInfo("Konfiguracja została zapisana.");
+                else
+                    ProgramMessageBox.showError("Nie udało się zapisać konfiguracji.");
+            }
+        }
+
+        private void UpdateGUIFromTuringMachine()
+        {
+            TuringMachine machineToOperate = _turingMachine;
+            _turingMachine = new TuringMachine(); /// Events will work on _turingMachine object
+            _turingMachine.FinalStates = machineToOperate.FinalStates;
+            _turingMachine.Symbols = machineToOperate.Symbols;
+            textBoxEmptySymbol.Text = new String(machineToOperate.EmptySymbol, 1);
+            numericUpDownStateNumbers.Value = machineToOperate.NumberOfStates;
+            numericUpDownFirstStateNumber.Value = machineToOperate.FirstStateIndex;
+            comboBoxHead.SelectedIndex = (int)machineToOperate.HeadPosition;
+            PopulateDataGridViewFromTuringMachine(machineToOperate);
+        }
+
+        private void PopulateDataGridViewFromTuringMachine(TuringMachine machineToOperate)
+        {
+            int index = 0;
+            for (int i = 0; i < dataGridViewTable.Rows.Count; i++)
+            {
+                for (int j = ReservedColumns; j < dataGridViewTable.Columns.Count; j++)
+                {
+                    dataGridViewTable.Rows[i].Cells[j].Value = machineToOperate.PotentialTransitions[index].Instruction;
+                    index++;
+                }
+            }
+        }
+
+        private void HeadConfigurationUpdate(object sender, EventArgs e)
+        {
+            _turingMachine.HeadPosition = (String)comboBoxHead.SelectedItem == "Lewa" ?
+                TuringHeadPosition.FirstSymbolFromLeft : TuringHeadPosition.FirstSymbolFromRight;
         }
     }
 }
