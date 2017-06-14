@@ -63,6 +63,7 @@
             this.textBoxEmptySymbol = new System.Windows.Forms.TextBox();
             this.labelEmptySymbol = new System.Windows.Forms.Label();
             this.tabPageSimulation = new System.Windows.Forms.TabPage();
+            this.dataGridViewActualTuring = new Maszyna.Forms.DataGridViewWithPaste();
             this.buttonStepNextWithTape = new System.Windows.Forms.Button();
             this.buttonStepNext = new System.Windows.Forms.Button();
             this.labelState = new System.Windows.Forms.Label();
@@ -75,8 +76,6 @@
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.backgroundWorkerProgram = new System.ComponentModel.BackgroundWorker();
             this.timerForProgram = new System.Windows.Forms.Timer(this.components);
-            this.dataGridViewActualTuring = new DataGridViewWithPaste();
-            this.SymbolsActual = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExecutionTime)).BeginInit();
@@ -85,8 +84,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFirstStateNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStateNumbers)).BeginInit();
             this.tabPageSimulation.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActualTuring)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -454,6 +453,45 @@
             this.tabPageSimulation.TabIndex = 1;
             this.tabPageSimulation.Text = "Symulacja";
             // 
+            // dataGridViewActualTuring
+            // 
+            this.dataGridViewActualTuring.AllowUserToAddRows = false;
+            this.dataGridViewActualTuring.AllowUserToDeleteRows = false;
+            this.dataGridViewActualTuring.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewActualTuring.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridViewActualTuring.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewActualTuring.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridViewActualTuring.Location = new System.Drawing.Point(0, 279);
+            this.dataGridViewActualTuring.Name = "dataGridViewActualTuring";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewActualTuring.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewActualTuring.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            this.dataGridViewActualTuring.Size = new System.Drawing.Size(711, 255);
+            this.dataGridViewActualTuring.TabIndex = 11;
+            // 
             // buttonStepNextWithTape
             // 
             this.buttonStepNextWithTape.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -569,53 +607,6 @@
             this.timerForProgram.Interval = 10000;
             this.timerForProgram.Tick += new System.EventHandler(this.timerForProgram_Tick);
             // 
-            // dataGridViewActualTuring
-            // 
-            this.dataGridViewActualTuring.AllowUserToAddRows = false;
-            this.dataGridViewActualTuring.AllowUserToDeleteRows = false;
-            this.dataGridViewActualTuring.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewActualTuring.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            this.dataGridViewActualTuring.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewActualTuring.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.SymbolsActual});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewActualTuring.DefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridViewActualTuring.Location = new System.Drawing.Point(0, 279);
-            this.dataGridViewActualTuring.Name = "dataGridViewActualTuring";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewActualTuring.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewActualTuring.RowsDefaultCellStyle = dataGridViewCellStyle8;
-            this.dataGridViewActualTuring.Size = new System.Drawing.Size(711, 255);
-            this.dataGridViewActualTuring.TabIndex = 11;
-            // 
-            // SymbolsActual
-            // 
-            this.SymbolsActual.HeaderText = "Σ\\Q";
-            this.SymbolsActual.Name = "SymbolsActual";
-            this.SymbolsActual.ReadOnly = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -636,8 +627,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStateNumbers)).EndInit();
             this.tabPageSimulation.ResumeLayout(false);
             this.tabPageSimulation.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActualTuring)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -681,8 +672,7 @@
         private System.Windows.Forms.Button buttonStepNextWithTape;
         private System.Windows.Forms.NumericUpDown numericUpDownExecutionTime;
         private System.Windows.Forms.Label labelTime;
-        private System.Windows.Forms.DataGridView dataGridViewActualTuring;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SymbolsActual;
+        private DataGridViewWithPaste dataGridViewActualTuring;
     }
 }
 

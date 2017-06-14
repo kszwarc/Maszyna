@@ -158,6 +158,7 @@ namespace Maszyna.Forms
             if (shouldSimulationTabBeVisible)
             {
                 _turingMachine.GenerateTransitionsFromPotential();
+                CopyDataGridViewToActualTuringState();
                 if (!isSimulationTabAdded)
                     tabControl.TabPages.Add(_simulationTabPage);
             }
@@ -302,6 +303,8 @@ namespace Maszyna.Forms
         {
             if (ValidateTuringProgram() && !backgroundWorkerProgram.IsBusy)
             {
+                buttonSimulate.Enabled = false;
+                this.UseWaitCursor = true;
                 backgroundWorkerProgram.RunWorkerAsync();
                 SetIntervalForTimer(); 
                 timerForProgram.Start();
@@ -325,6 +328,21 @@ namespace Maszyna.Forms
         {
             textBoxExit.Text = result.Tape;
             textBoxState.Text = result.FinishedStateSymbol;
+            RemoveBackgroundColorFromCells();
+            colorActualCell(result);
+        }
+
+        private void colorActualCell(ProgramResult result)
+        {
+            DataGridViewCell cellToColor = dataGridViewActualTuring.Rows[result.SymbolIndex].Cells[result.StateIndex + ReservedColumns];
+            cellToColor.Style.BackColor = Color.LightBlue;
+        }
+
+        private void RemoveBackgroundColorFromCells()
+        {
+            for (int i = 0; i < dataGridViewActualTuring.Rows.Count; i++)
+                for (int j = 0; j < dataGridViewActualTuring.Columns.Count; j++)
+                    dataGridViewActualTuring.Rows[i].Cells[j].Style.BackColor = dataGridViewTable.Rows[0].Cells[0].Style.BackColor;
         }
 
         private void EnableOrDisableButtonWithStepNext()
@@ -358,6 +376,8 @@ namespace Maszyna.Forms
         {
             TakeCareOfResults((ProgramResult)e.UserState);
             timerForProgram.Stop();
+            buttonSimulate.Enabled = true;
+            this.UseWaitCursor = false;
         }
 
         private void timerForProgram_Tick(object sender, EventArgs e)
@@ -365,6 +385,41 @@ namespace Maszyna.Forms
             _turingMachine.ForceToFinishExecution();
             timerForProgram.Stop();
             ProgramMessageBox.showError("Upłynął limit czasu na wykonanie programu.");
+        }
+
+        private void CopyDataGridViewToActualTuringState()
+        {
+            dataGridViewActualTuring.Columns.Clear();
+            CopyColumnsBetweenDataGridViews();
+            CopyRowsBetweenDataGridViews();
+            CopyCellsBetweenDataGridViews();
+        }
+
+        private void CopyCellsBetweenDataGridViews()
+        {
+            for (int i=0; i<dataGridViewTable.Rows.Count; i++)
+                for (int j = 0; j < dataGridViewTable.Columns.Count; j++)
+                    dataGridViewActualTuring.Rows[i].Cells[j].Value = dataGridViewTable.Rows[i].Cells[j].Value;
+        }
+
+        private void CopyRowsBetweenDataGridViews()
+        {
+            foreach (DataGridViewRow row in dataGridViewTable.Rows)
+            {
+                DataGridViewRow rowToAdd = (DataGridViewRow)row.Clone();
+                dataGridViewActualTuring.Rows.Add(rowToAdd);
+            }
+        }
+
+        private void CopyColumnsBetweenDataGridViews()
+        {
+            foreach (DataGridViewColumn column in dataGridViewTable.Columns)
+            {
+                DataGridViewColumn columnToAdd = (DataGridViewColumn)column.Clone();
+                columnToAdd.HeaderCell.Style.Font = dataGridViewTable.ColumnHeadersDefaultCellStyle.Font;
+                columnToAdd.ReadOnly = true;
+                dataGridViewActualTuring.Columns.Add(columnToAdd);
+            }
         }
     }
 }

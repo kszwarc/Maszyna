@@ -16,6 +16,7 @@ namespace Maszyna.Models
         public List<PotentialTransition> PotentialTransitions { get; set; } = new List<PotentialTransition>();
         public int ActualCharIndex { get; set; } = -1;
         private int _actualState;
+        private Transition _lastTransition;
         private bool _forceToFinish = false;
         private StringBuilder _tape;
         private String _finishedStateSymbol;
@@ -26,7 +27,8 @@ namespace Maszyna.Models
             Boolean finished = false;
             while (!finished && !_forceToFinish)
                 finished = ExecuteStep();
-            return new ProgramResult(_finishedStateSymbol, _tape.ToString());
+            return new ProgramResult(_finishedStateSymbol, _tape.ToString(), _actualState, 
+                GetSymbolIndex(new String(_lastTransition.EntrySymbol, 1)));
         }
 
         public ProgramResult ExecuteStepNext(String tape)
@@ -38,7 +40,8 @@ namespace Maszyna.Models
         public ProgramResult ExecuteStepNext()
         {
             ExecuteStep();
-            return new ProgramResult(_finishedStateSymbol, _tape.ToString());
+            return new ProgramResult(_finishedStateSymbol, _tape.ToString(), _actualState, 
+                GetSymbolIndex(new String(_lastTransition.EntrySymbol, 1)));
         }
 
         public void GenerateTransitionsFromPotential()
@@ -83,16 +86,16 @@ namespace Maszyna.Models
 
         private Boolean ExecuteStep()
         {
-            Transition actualTransition = FindActualTransition();
-            Boolean isFinishedState = FinalStates.Contains(actualTransition.ExitSymbol);
+            _lastTransition = FindActualTransition();
+            Boolean isFinishedState = FinalStates.Contains(_lastTransition.ExitSymbol);
             if (isFinishedState)
             {
-                _finishedStateSymbol = actualTransition.ExitSymbol;
+                _finishedStateSymbol = _lastTransition.ExitSymbol;
                 return true;
             }
-            _tape[ActualCharIndex] = actualTransition.ExitSymbol[0];
-            _actualState = actualTransition.NextStateNumber;
-            UpdateActualCharIndex(actualTransition.Movement);
+            _tape[ActualCharIndex] = _lastTransition.ExitSymbol[0];
+            _actualState = _lastTransition.NextStateNumber;
+            UpdateActualCharIndex(_lastTransition.Movement);
             UpdateTapeIfNeeded();
             return false;
         }
@@ -130,6 +133,16 @@ namespace Maszyna.Models
                 ActualCharIndex = 0;
             else
                 ActualCharIndex = _tape.Length - 1;
+        }
+
+        private int GetSymbolIndex(String symbol)
+        {
+            const byte EmptySymbolRowIndex = 0;
+            const byte RowReservedForEmptySymbols = 1;
+            if (EmptySymbol == symbol[0])
+                return EmptySymbolRowIndex;
+            else
+                return Symbols.IndexOf(symbol) + RowReservedForEmptySymbols;
         }
     }
 }

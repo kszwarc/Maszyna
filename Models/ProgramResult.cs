@@ -6,11 +6,15 @@ namespace Maszyna.Models
     {
         public String FinishedStateSymbol { get; }
         public String Tape { get; }
+        public int StateIndex { get; }
+        public int SymbolIndex { get; }
 
-        public ProgramResult(String finishedStateSymbol, String tape)
+        public ProgramResult(String finishedStateSymbol, String tape, int stateIndex, int symbolIndex)
         {
             FinishedStateSymbol = finishedStateSymbol;
             Tape = tape;
+            StateIndex = stateIndex;
+            SymbolIndex = symbolIndex;
         }
     }
 }
