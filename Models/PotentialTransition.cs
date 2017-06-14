@@ -7,12 +7,14 @@ namespace Maszyna.Models
         public String Instruction { get; }
         public int StateNumber { get; }
         public char EntrySymbol { get; }
+        public Boolean IsFinalState { get; }
 
         public PotentialTransition(String instruction, int stateNumber, char entrySymbol)
         {
             Instruction = instruction;
             StateNumber = stateNumber;
             EntrySymbol = entrySymbol;
+            IsFinalState = Instruction.Split('/').Length == 1;
         }
 
         public int GetNextStateNumberFromInstruction()

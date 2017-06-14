@@ -15,6 +15,8 @@ namespace Maszyna.Models
         public static Boolean IsTransitionInstructionValid(String text, TuringMachine turingMachine)
         {
             String[] parts = text.Split('/');
+            if (parts.Length == 1 && turingMachine.FinalStates.Contains(parts[0]))
+                return true;
             if (parts.Length != 3)
                 return false;
             if (parts[0].Length < 2 || !IsNextStateValid(parts[0], turingMachine))
@@ -48,8 +50,7 @@ namespace Maszyna.Models
         {
             Boolean isEmptySymbol = turingMachine.EmptySymbol == newText[0];
             Boolean isInAlphabet = turingMachine.Symbols.Contains(newText);
-            Boolean isInFinalStates = turingMachine.FinalStates.Contains(newText);
-            return  isEmptySymbol || isInAlphabet || isInFinalStates;
+            return  isEmptySymbol || isInAlphabet;
         }
         
     }

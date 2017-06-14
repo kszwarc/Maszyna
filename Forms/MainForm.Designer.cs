@@ -33,9 +33,15 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageConfig = new System.Windows.Forms.TabPage();
+            this.numericUpDownExecutionTime = new System.Windows.Forms.NumericUpDown();
+            this.labelTime = new System.Windows.Forms.Label();
             this.checkBoxManualTable = new System.Windows.Forms.CheckBox();
             this.labelTable = new System.Windows.Forms.Label();
             this.dataGridViewTable = new Maszyna.Forms.DataGridViewWithPaste();
@@ -69,14 +75,18 @@
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.backgroundWorkerProgram = new System.ComponentModel.BackgroundWorker();
             this.timerForProgram = new System.Windows.Forms.Timer(this.components);
+            this.dataGridViewActualTuring = new DataGridViewWithPaste();
+            this.SymbolsActual = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExecutionTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
             this.statusStripConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFirstStateNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStateNumbers)).BeginInit();
             this.tabPageSimulation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActualTuring)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -87,13 +97,15 @@
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(719, 486);
+            this.tabControl.Size = new System.Drawing.Size(719, 560);
             this.tabControl.TabIndex = 0;
             // 
             // tabPageConfig
             // 
             this.tabPageConfig.AutoScroll = true;
             this.tabPageConfig.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageConfig.Controls.Add(this.numericUpDownExecutionTime);
+            this.tabPageConfig.Controls.Add(this.labelTime);
             this.tabPageConfig.Controls.Add(this.checkBoxManualTable);
             this.tabPageConfig.Controls.Add(this.labelTable);
             this.tabPageConfig.Controls.Add(this.dataGridViewTable);
@@ -115,18 +127,54 @@
             this.tabPageConfig.Location = new System.Drawing.Point(4, 22);
             this.tabPageConfig.Name = "tabPageConfig";
             this.tabPageConfig.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageConfig.Size = new System.Drawing.Size(711, 460);
+            this.tabPageConfig.Size = new System.Drawing.Size(711, 534);
             this.tabPageConfig.TabIndex = 0;
             this.tabPageConfig.Text = "Konfiguracja maszyny";
+            // 
+            // numericUpDownExecutionTime
+            // 
+            this.numericUpDownExecutionTime.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.numericUpDownExecutionTime.Location = new System.Drawing.Point(239, 195);
+            this.numericUpDownExecutionTime.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericUpDownExecutionTime.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownExecutionTime.Name = "numericUpDownExecutionTime";
+            this.numericUpDownExecutionTime.Size = new System.Drawing.Size(71, 20);
+            this.numericUpDownExecutionTime.TabIndex = 7;
+            this.numericUpDownExecutionTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDownExecutionTime.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // labelTime
+            // 
+            this.labelTime.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelTime.AutoSize = true;
+            this.labelTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTime.Location = new System.Drawing.Point(58, 187);
+            this.labelTime.Name = "labelTime";
+            this.labelTime.Size = new System.Drawing.Size(164, 30);
+            this.labelTime.TabIndex = 11118;
+            this.labelTime.Text = "Maksymalny czas wykonania\r\nprogramu [ms]:";
+            this.labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // checkBoxManualTable
             // 
             this.checkBoxManualTable.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.checkBoxManualTable.AutoSize = true;
-            this.checkBoxManualTable.Location = new System.Drawing.Point(287, 201);
+            this.checkBoxManualTable.Location = new System.Drawing.Point(287, 245);
             this.checkBoxManualTable.Name = "checkBoxManualTable";
             this.checkBoxManualTable.Size = new System.Drawing.Size(154, 17);
-            this.checkBoxManualTable.TabIndex = 7;
+            this.checkBoxManualTable.TabIndex = 8;
             this.checkBoxManualTable.Text = "Ręczny zapis tabeli stanów";
             this.checkBoxManualTable.UseVisualStyleBackColor = true;
             this.checkBoxManualTable.CheckedChanged += new System.EventHandler(this.checkBoxManualTable_CheckedChanged);
@@ -136,11 +184,11 @@
             this.labelTable.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelTable.AutoSize = true;
             this.labelTable.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelTable.Location = new System.Drawing.Point(199, 221);
+            this.labelTable.Location = new System.Drawing.Point(140, 265);
             this.labelTable.Name = "labelTable";
-            this.labelTable.Size = new System.Drawing.Size(335, 15);
+            this.labelTable.Size = new System.Drawing.Size(431, 15);
             this.labelTable.TabIndex = 11116;
-            this.labelTable.Text = "Format zapisu w tabeli stanów: stan/symbol/kierunek (L, P, -)";
+            this.labelTable.Text = "Format zapisu w tabeli stanów: stan/symbol/kierunek (L, P, -) lub stan końcowy";
             this.labelTable.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.labelTable.Visible = false;
             // 
@@ -171,7 +219,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewTable.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewTable.Location = new System.Drawing.Point(3, 243);
+            this.dataGridViewTable.Location = new System.Drawing.Point(3, 283);
             this.dataGridViewTable.Name = "dataGridViewTable";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -183,7 +231,7 @@
             this.dataGridViewTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dataGridViewTable.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridViewTable.Size = new System.Drawing.Size(705, 189);
+            this.dataGridViewTable.Size = new System.Drawing.Size(705, 223);
             this.dataGridViewTable.TabIndex = 11115;
             this.dataGridViewTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTable_CellClick);
             this.dataGridViewTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.UpdateStateTable);
@@ -290,7 +338,7 @@
             // 
             this.statusStripConfig.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelConfigStatus});
-            this.statusStripConfig.Location = new System.Drawing.Point(3, 435);
+            this.statusStripConfig.Location = new System.Drawing.Point(3, 509);
             this.statusStripConfig.Name = "statusStripConfig";
             this.statusStripConfig.Size = new System.Drawing.Size(705, 22);
             this.statusStripConfig.TabIndex = 6;
@@ -389,6 +437,7 @@
             // 
             this.tabPageSimulation.AutoScroll = true;
             this.tabPageSimulation.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageSimulation.Controls.Add(this.dataGridViewActualTuring);
             this.tabPageSimulation.Controls.Add(this.buttonStepNextWithTape);
             this.tabPageSimulation.Controls.Add(this.buttonStepNext);
             this.tabPageSimulation.Controls.Add(this.labelState);
@@ -401,7 +450,7 @@
             this.tabPageSimulation.Location = new System.Drawing.Point(4, 22);
             this.tabPageSimulation.Name = "tabPageSimulation";
             this.tabPageSimulation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSimulation.Size = new System.Drawing.Size(711, 460);
+            this.tabPageSimulation.Size = new System.Drawing.Size(711, 534);
             this.tabPageSimulation.TabIndex = 1;
             this.tabPageSimulation.Text = "Symulacja";
             // 
@@ -510,17 +559,68 @@
             // 
             // backgroundWorkerProgram
             // 
+            this.backgroundWorkerProgram.WorkerReportsProgress = true;
+            this.backgroundWorkerProgram.WorkerSupportsCancellation = true;
             this.backgroundWorkerProgram.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerProgram_DoWork);
+            this.backgroundWorkerProgram.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerProgram_ProgressChanged);
             // 
             // timerForProgram
             // 
-            this.timerForProgram.Interval = 100000;
+            this.timerForProgram.Interval = 10000;
+            this.timerForProgram.Tick += new System.EventHandler(this.timerForProgram_Tick);
+            // 
+            // dataGridViewActualTuring
+            // 
+            this.dataGridViewActualTuring.AllowUserToAddRows = false;
+            this.dataGridViewActualTuring.AllowUserToDeleteRows = false;
+            this.dataGridViewActualTuring.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewActualTuring.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridViewActualTuring.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewActualTuring.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SymbolsActual});
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewActualTuring.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridViewActualTuring.Location = new System.Drawing.Point(0, 279);
+            this.dataGridViewActualTuring.Name = "dataGridViewActualTuring";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewActualTuring.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewActualTuring.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            this.dataGridViewActualTuring.Size = new System.Drawing.Size(711, 255);
+            this.dataGridViewActualTuring.TabIndex = 11;
+            // 
+            // SymbolsActual
+            // 
+            this.SymbolsActual.HeaderText = "Σ\\Q";
+            this.SymbolsActual.Name = "SymbolsActual";
+            this.SymbolsActual.ReadOnly = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(719, 486);
+            this.ClientSize = new System.Drawing.Size(719, 560);
             this.Controls.Add(this.tabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
@@ -528,6 +628,7 @@
             this.tabControl.ResumeLayout(false);
             this.tabPageConfig.ResumeLayout(false);
             this.tabPageConfig.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExecutionTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).EndInit();
             this.statusStripConfig.ResumeLayout(false);
             this.statusStripConfig.PerformLayout();
@@ -536,6 +637,7 @@
             this.tabPageSimulation.ResumeLayout(false);
             this.tabPageSimulation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActualTuring)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -577,6 +679,10 @@
         private System.ComponentModel.BackgroundWorker backgroundWorkerProgram;
         private System.Windows.Forms.Timer timerForProgram;
         private System.Windows.Forms.Button buttonStepNextWithTape;
+        private System.Windows.Forms.NumericUpDown numericUpDownExecutionTime;
+        private System.Windows.Forms.Label labelTime;
+        private System.Windows.Forms.DataGridView dataGridViewActualTuring;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SymbolsActual;
     }
 }
 

@@ -28,6 +28,7 @@ namespace Maszyna.Forms
         {
             SetStatesValues();
             SetSymbolsValues();
+            SetFinalStatesValues();
             SelectFirstItemIndex(comboBoxMovement);
         }
 
@@ -37,14 +38,19 @@ namespace Maszyna.Forms
                 comboBox.SelectedIndex = 0;
         }
 
+        private void SetFinalStatesValues()
+        {
+            foreach (String states in _turingMachine.FinalStates)
+                comboBoxFinal.Items.Add(states);
+            SelectFirstItemIndex(comboBoxFinal);
+        }
+
         private void SetSymbolsValues()
         {
             if (_turingMachine.EmptySymbol!=' ')
                 comboBoxSymbol.Items.Add(_turingMachine.EmptySymbol);
             foreach (String symbol in _turingMachine.Symbols)
                 comboBoxSymbol.Items.Add(symbol);
-            foreach (String states in _turingMachine.FinalStates)
-                comboBoxSymbol.Items.Add(states);
             SelectFirstItemIndex(comboBoxSymbol);
         }
 
@@ -59,6 +65,12 @@ namespace Maszyna.Forms
         {
             _cellToEdit.Value = comboBoxState.SelectedItem + "/" + comboBoxSymbol.SelectedItem + 
                 "/" + comboBoxMovement.SelectedItem;
+            this.Close();
+        }
+
+        private void buttonFinish_Click(object sender, EventArgs e)
+        {
+            _cellToEdit.Value = comboBoxFinal.SelectedItem;
             this.Close();
         }
     }

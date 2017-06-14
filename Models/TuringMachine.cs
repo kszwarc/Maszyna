@@ -16,6 +16,7 @@ namespace Maszyna.Models
         public List<PotentialTransition> PotentialTransitions { get; set; } = new List<PotentialTransition>();
         public int ActualCharIndex { get; set; } = -1;
         private int _actualState;
+        private bool _forceToFinish = false;
         private StringBuilder _tape;
         private String _finishedStateSymbol;
 
@@ -23,7 +24,7 @@ namespace Maszyna.Models
         {
             BeginningTuringSetUp(tape);
             Boolean finished = false;
-            while (!finished)
+            while (!finished && !_forceToFinish)
                 finished = ExecuteStep();
             return new ProgramResult(_finishedStateSymbol, _tape.ToString());
         }
@@ -42,23 +43,40 @@ namespace Maszyna.Models
 
         public void GenerateTransitionsFromPotential()
         {
+            Transitions.Clear();
             foreach (PotentialTransition potentialTransition in PotentialTransitions)
             {
-                Transition transitionToAdd = new Transition(potentialTransition.StateNumber, 
-                    potentialTransition.GetNextStateNumberFromInstruction(), potentialTransition.EntrySymbol,
-                    potentialTransition.GetNewSymbolFromInstruction(), potentialTransition.GetMovementFromInstruction());
+                Transition transitionToAdd = GenerateTransitionToAdd(potentialTransition);
                 Transitions.Add(transitionToAdd);
             }
         }
 
-        public bool isActualCharIndexLaterThanTape()
+        private Transition GenerateTransitionToAdd(PotentialTransition potentialTransition)
+        {
+            if (potentialTransition.IsFinalState)
+                return new Transition(potentialTransition.StateNumber,
+                    0, potentialTransition.EntrySymbol, potentialTransition.Instruction, Movement.None);
+            else
+                return new Transition(potentialTransition.StateNumber,
+                    potentialTransition.GetNextStateNumberFromInstruction(), potentialTransition.EntrySymbol,
+                    potentialTransition.GetNewSymbolFromInstruction(), potentialTransition.GetMovementFromInstruction());
+        }
+
+        public void ForceToFinishExecution()
+        {
+            _forceToFinish = true;
+        }
+
+        public bool IsActualCharIndexLaterThanTape()
         {
             return ActualCharIndex >= _tape.Length;
         }
 
         private void BeginningTuringSetUp(String tape)
         {
+            _forceToFinish = false;
             _tape = new StringBuilder(tape);
+            _finishedStateSymbol = "";
             _actualState = FirstStateIndex;
             SetHeadBeginningPosition();
         }

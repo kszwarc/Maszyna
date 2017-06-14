@@ -26,6 +26,7 @@ namespace Maszyna.Forms
             UpdateTable();
             UpdateFirstStateColor();
             comboBoxHead.SelectedIndex = 0;
+            numericUpDownExecutionTime.Value = 10000;
         }
 
         public void OnCompleted() { }
@@ -153,12 +154,14 @@ namespace Maszyna.Forms
         private void UnlockOrLockTabWithSimulation()
         {
             bool isSimulationTabAdded = tabControl.TabPages.Count != TabPagesWithoutSimulationTab;
-            if (ConfigModel.ShouldSimulationTabBeVisible(_turingMachine) && !isSimulationTabAdded)
+            bool shouldSimulationTabBeVisible = ConfigModel.ShouldSimulationTabBeVisible(_turingMachine);
+            if (shouldSimulationTabBeVisible)
             {
                 _turingMachine.GenerateTransitionsFromPotential();
-                tabControl.TabPages.Add(_simulationTabPage);
+                if (!isSimulationTabAdded)
+                    tabControl.TabPages.Add(_simulationTabPage);
             }
-            else
+            else if (!shouldSimulationTabBeVisible && isSimulationTabAdded)
                 HideSimulationTabPage();
         }
 
@@ -297,11 +300,19 @@ namespace Maszyna.Forms
 
         private void buttonSimulate_Click(object sender, EventArgs e)
         {
-            if (ValidateTuringProgram())
+            if (ValidateTuringProgram() && !backgroundWorkerProgram.IsBusy)
             {
-                ProgramResult result = _turingMachine.ExecuteProgram(textBoxEnter.Text);
-                TakeCareOfResults(result);
+                backgroundWorkerProgram.RunWorkerAsync();
+                SetIntervalForTimer(); 
+                timerForProgram.Start();
             }
+        }
+
+        private void SetIntervalForTimer()
+        {
+            if (numericUpDownExecutionTime.Value.ToString().Length == 0)
+                numericUpDownExecutionTime.Value = 10000;
+            timerForProgram.Interval = (int)numericUpDownExecutionTime.Value;
         }
 
         private void TakeCareOfResults(ProgramResult result)
@@ -318,7 +329,7 @@ namespace Maszyna.Forms
 
         private void EnableOrDisableButtonWithStepNext()
         {
-            buttonStepNext.Enabled = !_turingMachine.isActualCharIndexLaterThanTape();
+            buttonStepNext.Enabled = !_turingMachine.IsActualCharIndexLaterThanTape();
         }
 
         private bool ValidateTuringProgram()
@@ -339,7 +350,21 @@ namespace Maszyna.Forms
 
         private void backgroundWorkerProgram_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
+            ProgramResult result = _turingMachine.ExecuteProgram(textBoxEnter.Text);
+            backgroundWorkerProgram.ReportProgress(100, result);
+        }
 
+        private void backgroundWorkerProgram_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+            TakeCareOfResults((ProgramResult)e.UserState);
+            timerForProgram.Stop();
+        }
+
+        private void timerForProgram_Tick(object sender, EventArgs e)
+        {
+            _turingMachine.ForceToFinishExecution();
+            timerForProgram.Stop();
+            ProgramMessageBox.showError("Upłynął limit czasu na wykonanie programu.");
         }
     }
 }
