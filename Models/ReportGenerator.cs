@@ -66,7 +66,7 @@ namespace Maszyna.Models
         private void AddStates()
         {
             Section section = _document.AddSection();
-            AddHeader(section, "Tablica przejść stanów");
+            AddHeader(section, "Tabela stanów");
             section.PageSetup.Orientation = Orientation.Landscape;
             AddFooter(section, true);
             MigraDoc.DocumentObjectModel.Tables.Table tablica = GenerateTable(section);
