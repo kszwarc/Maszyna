@@ -51,6 +51,9 @@
   <PropertyGroup>
     <ApplicationIcon>main-qimg-abfe228796da8cede00fb86db122e204-c.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MigraDoc.DocumentObjectModel-gdi, Version=1.50.4000.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
       <HintPath>packages\PDFsharp-MigraDoc-gdi.1.50.4000-beta3b\lib\net20\MigraDoc.DocumentObjectModel-gdi.dll</HintPath>
@@ -163,6 +166,7 @@
     <EmbeddedResource Include="Forms\Window.resx">
       <DependentUpon>Window.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
