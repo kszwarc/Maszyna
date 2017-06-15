@@ -42,6 +42,8 @@
             this.timerForProgram = new System.Windows.Forms.Timer(this.components);
             this.openFileDialogForConfig = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogForConfig = new System.Windows.Forms.SaveFileDialog();
+            this.colorDialog = new System.Windows.Forms.ColorDialog();
+            this.saveFileDialogForReport = new System.Windows.Forms.SaveFileDialog();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonLoad = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
@@ -88,8 +90,6 @@
             this.labelExit = new System.Windows.Forms.Label();
             this.labelEnter = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.colorDialog = new System.Windows.Forms.ColorDialog();
-            this.saveFileDialogForReport = new System.Windows.Forms.SaveFileDialog();
             this.toolStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
@@ -127,6 +127,11 @@
             // 
             this.saveFileDialogForConfig.FileName = "Algorytm.mt";
             this.saveFileDialogForConfig.Filter = "MT File | *.mt|All files|*.*";
+            // 
+            // saveFileDialogForReport
+            // 
+            this.saveFileDialogForReport.FileName = "Raport.pdf";
+            this.saveFileDialogForReport.Filter = "PDF File | *.pdf|All files|*.*";
             // 
             // toolStrip
             // 
@@ -670,6 +675,7 @@
             this.dataGridViewActualTuring.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridViewActualTuring.Size = new System.Drawing.Size(894, 247);
             this.dataGridViewActualTuring.TabIndex = 11;
+            this.dataGridViewActualTuring.TabStop = false;
             // 
             // buttonStepNextWithTape
             // 
@@ -753,11 +759,6 @@
             // 
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
-            // 
-            // saveFileDialogForReport
-            // 
-            this.saveFileDialogForReport.FileName = "Raport.pdf";
-            this.saveFileDialogForReport.Filter = "PDF File | *.pdf|All files|*.*";
             // 
             // MainForm
             // 
