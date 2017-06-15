@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,7 +26,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -131,7 +131,6 @@
     <Compile Include="Models\Transition.cs" />
     <Compile Include="Models\TuringElement.cs" />
     <Compile Include="Models\TuringHeadPosition.cs" />
-    <Compile Include="Models\TuringLastAction.cs" />
     <Compile Include="Models\TuringMachine.cs" />
     <Compile Include="Models\TuringMachineModifiedElements.cs" />
     <Compile Include="Models\Validator.cs" />

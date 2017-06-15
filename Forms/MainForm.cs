@@ -13,7 +13,6 @@ namespace Maszyna.Forms
     {
         private TabPage _simulationTabPage = null;
         private TuringMachine _turingMachine = new TuringMachine();
-        private TuringLastAction _lastAction;
         private DateTime _executionTimeBeginning;
         private String[] _args;
         private const byte ReservedColumns = 1;
@@ -318,7 +317,6 @@ namespace Maszyna.Forms
             {
                 ProgramResult result = _turingMachine.ExecuteStepNext();
                 TakeCareOfResults(result);
-                _lastAction = TuringLastAction.OneStep;
                 toolStripButtonReport.Visible = false;
             }
         }
@@ -330,7 +328,6 @@ namespace Maszyna.Forms
             {
                 ProgramResult result = _turingMachine.ExecuteStepNext(textBoxEnter.Text);
                 TakeCareOfResults(result);
-                _lastAction = TuringLastAction.OneStepWithNewTape;
                 toolStripButtonReport.Visible = false;
             }
         }
@@ -345,7 +342,6 @@ namespace Maszyna.Forms
                 buttonStepNext.Enabled = false;
                 this.UseWaitCursor = true;
                 _executionTimeBeginning = DateTime.Now;
-                _lastAction = TuringLastAction.Simulation;
                 backgroundWorkerProgram.RunWorkerAsync();
                 SetIntervalForTimer(); 
                 timerForProgram.Start();
