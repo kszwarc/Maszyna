@@ -11,13 +11,15 @@ namespace Maszyna.Forms
     {
         private TabPage _simulationTabPage = null;
         private TuringMachine _turingMachine = new TuringMachine();
+        private DateTime _executionTimeBeginning;
+        private String[] _args;
         private const byte ReservedColumns = 1;
         private const byte TabPagesWithoutSimulationTab = 1;
-        private DateTime _executionTimeBeginning;
 
-        public MainForm() : base("Symulator Maszyny Turinga")
+        public MainForm(String[] args) : base("Symulator Maszyny Turinga")
         {
             InitializeComponent();
+            _args = args;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -55,6 +57,7 @@ namespace Maszyna.Forms
             numericUpDownExecutionTime.Value = 10000;
             UpdatePictureBoxesBackgroundColor();
             TriggerConfigurationChanges(null, null);
+            TakeCareOfArgs();
         }
 
         private void UpdatePictureBoxesBackgroundColor()
@@ -471,18 +474,21 @@ namespace Maszyna.Forms
 
         private void toolStripButtonLoad_Click(object sender, EventArgs e)
         {
-            if (openFileDialogForConfig.ShowDialog()==DialogResult.OK)
+            if (openFileDialogForConfig.ShowDialog() == DialogResult.OK)
+                LoadConfigFromFileFile(openFileDialogForConfig.FileName);
+        }
+
+        private void LoadConfigFromFileFile(String filePath)
+        {
+            TuringMachine newTuringMachine = new TuringMachine();
+            if (DataExportQuery.LoadFile(filePath, ref newTuringMachine))
             {
-                TuringMachine newTuringMachine = new TuringMachine();
-                if (DataExportQuery.LoadFile(openFileDialogForConfig.FileName, ref newTuringMachine))
-                {
-                    _turingMachine = newTuringMachine;
-                    UpdateGUIFromTuringMachine();
-                    ProgramMessageBox.showInfo("Konfiguracja została odczytana.");
-                }
-                else
-                    ProgramMessageBox.showError("Nie udało się odczytać konfiguracji.");
+                _turingMachine = newTuringMachine;
+                UpdateGUIFromTuringMachine();
+                ProgramMessageBox.showInfo("Konfiguracja została odczytana.");
             }
+            else
+                ProgramMessageBox.showError("Nie udało się odczytać konfiguracji.");
         }
 
         private void toolStripButtonSave_Click(object sender, EventArgs e)
@@ -557,6 +563,24 @@ namespace Maszyna.Forms
                 return colorDialog.Color;
             else
                 return entryColor;
+        }
+
+        private void tabPageConfig_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Copy;
+        }
+
+        private void tabPageConfig_DragDrop(object sender, DragEventArgs e)
+        {
+            String[] files = (String[])e.Data.GetData(DataFormats.FileDrop);
+            LoadConfigFromFileFile(files[0]);
+        }
+
+        private void TakeCareOfArgs()
+        {
+            if (_args.Length > 1)
+                LoadConfigFromFileFile(_args[1]);
         }
     }
 }

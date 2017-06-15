@@ -118,13 +118,13 @@
             // 
             // openFileDialogForConfig
             // 
-            this.openFileDialogForConfig.FileName = "Algorytm.dat";
-            this.openFileDialogForConfig.Filter = "Data File | *.dat|All files|*.*";
+            this.openFileDialogForConfig.FileName = "Algorytm.mt";
+            this.openFileDialogForConfig.Filter = "MT File | *mt|All files|*.*";
             // 
             // saveFileDialogForConfig
             // 
-            this.saveFileDialogForConfig.FileName = "Algorytm.dat";
-            this.saveFileDialogForConfig.Filter = "Data File | *.dat|All files|*.*";
+            this.saveFileDialogForConfig.FileName = "Algorytm.mt";
+            this.saveFileDialogForConfig.Filter = "MT File | *.mt|All files|*.*";
             // 
             // toolStrip
             // 
@@ -174,6 +174,7 @@
             // 
             // tabPageConfig
             // 
+            this.tabPageConfig.AllowDrop = true;
             this.tabPageConfig.AutoScroll = true;
             this.tabPageConfig.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageConfig.Controls.Add(this.pictureBoxActualSymbol);
@@ -206,6 +207,8 @@
             this.tabPageConfig.Size = new System.Drawing.Size(900, 554);
             this.tabPageConfig.TabIndex = 0;
             this.tabPageConfig.Text = "Konfiguracja maszyny";
+            this.tabPageConfig.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPageConfig_DragDrop);
+            this.tabPageConfig.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPageConfig_DragEnter);
             // 
             // pictureBoxActualSymbol
             // 
