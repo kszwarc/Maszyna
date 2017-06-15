@@ -45,6 +45,7 @@
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonLoad = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonReport = new System.Windows.Forms.ToolStripButton();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageConfig = new System.Windows.Forms.TabPage();
             this.pictureBoxActualSymbol = new System.Windows.Forms.PictureBox();
@@ -88,6 +89,7 @@
             this.labelEnter = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.colorDialog = new System.Windows.Forms.ColorDialog();
+            this.saveFileDialogForReport = new System.Windows.Forms.SaveFileDialog();
             this.toolStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
@@ -130,7 +132,8 @@
             // 
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonLoad,
-            this.toolStripButtonSave});
+            this.toolStripButtonSave,
+            this.toolStripButtonReport});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(911, 25);
@@ -158,6 +161,18 @@
             this.toolStripButtonSave.Text = "Zapisz konfigurację";
             this.toolStripButtonSave.ToolTipText = "Zapisz konfigurację (ctrl+s)";
             this.toolStripButtonSave.Click += new System.EventHandler(this.toolStripButtonSave_Click);
+            // 
+            // toolStripButtonReport
+            // 
+            this.toolStripButtonReport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonReport.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonReport.Image")));
+            this.toolStripButtonReport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonReport.Name = "toolStripButtonReport";
+            this.toolStripButtonReport.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonReport.Text = "Raport (ctrl + r)";
+            this.toolStripButtonReport.ToolTipText = "Raport (ctrl + r)";
+            this.toolStripButtonReport.Visible = false;
+            this.toolStripButtonReport.Click += new System.EventHandler(this.toolStripButtonRaport_Click);
             // 
             // tabControl
             // 
@@ -736,6 +751,11 @@
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
             // 
+            // saveFileDialogForReport
+            // 
+            this.saveFileDialogForReport.FileName = "Raport.pdf";
+            this.saveFileDialogForReport.Filter = "PDF File | *.pdf|All files|*.*";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -822,6 +842,8 @@
         private System.Windows.Forms.ColorDialog colorDialog;
         private System.Windows.Forms.StatusStrip statusStripExecution;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelExecution;
+        private System.Windows.Forms.ToolStripButton toolStripButtonReport;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogForReport;
     }
 }
 

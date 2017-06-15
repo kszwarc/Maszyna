@@ -1,19 +1,26 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace Maszyna.Models
 {
     class ProgramMessageBox
     {
-        public static void showError(String text)
+        public static void ShowError(String text)
         {
-            System.Windows.Forms.MessageBox.Show(text, System.Reflection.Assembly.GetExecutingAssembly().GetName().Name,
-                System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+            MessageBox.Show(text, System.Reflection.Assembly.GetExecutingAssembly().GetName().Name,
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        public static void showInfo(String text)
+        public static void ShowInfo(String text)
         {
-            System.Windows.Forms.MessageBox.Show(text, System.Reflection.Assembly.GetExecutingAssembly().GetName().Name,
-                System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
+            MessageBox.Show(text, System.Reflection.Assembly.GetExecutingAssembly().GetName().Name,
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        public static DialogResult ShowQuestion(String text)
+        {
+            return MessageBox.Show(text, System.Reflection.Assembly.GetExecutingAssembly().GetName().Name,
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         }
     }
 }

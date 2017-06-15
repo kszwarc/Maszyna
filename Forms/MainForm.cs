@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Maszyna.Models;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace Maszyna.Forms
 {
@@ -11,6 +12,7 @@ namespace Maszyna.Forms
     {
         private TabPage _simulationTabPage = null;
         private TuringMachine _turingMachine = new TuringMachine();
+        private TuringLastAction _lastAction;
         private DateTime _executionTimeBeginning;
         private String[] _args;
         private const byte ReservedColumns = 1;
@@ -28,6 +30,8 @@ namespace Maszyna.Forms
                 toolStripButtonSave_Click(null, null);
             else if (keyData == (Keys.Control | Keys.L))
                 toolStripButtonLoad_Click(null, null);
+            else if (keyData == (Keys.Control | Keys.R))
+                toolStripButtonRaport_Click(null, null);
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -35,7 +39,7 @@ namespace Maszyna.Forms
 
         public void OnError(Exception ex)
         {
-            ProgramMessageBox.showError(ex.Message);
+            ProgramMessageBox.ShowError(ex.Message);
         }
 
         public void OnNext(TuringElement<List<String>> receivedElement)
@@ -49,7 +53,7 @@ namespace Maszyna.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            HideSimulationTabPage();
+            HideSimulationTabPageAndReportImage();
             UpdateEmptySymbolInformationForGUI(null, null);
             UpdateTable();
             UpdateFirstStateColor();
@@ -187,7 +191,7 @@ namespace Maszyna.Forms
                     tabControl.TabPages.Add(_simulationTabPage);
             }
             else if (!shouldSimulationTabBeVisible && isSimulationTabAdded)
-                HideSimulationTabPage();
+                HideSimulationTabPageAndReportImage();
         }
 
         private void UpdateTuringMachine()
@@ -216,10 +220,11 @@ namespace Maszyna.Forms
                 tabControl.TabPages.Insert(1, _simulationTabPage);
         }
 
-        private void HideSimulationTabPage()
+        private void HideSimulationTabPageAndReportImage()
         {
             _simulationTabPage = _simulationTabPage ?? tabPageSimulation;
             tabControl.TabPages.Remove(_simulationTabPage);
+            toolStripButtonReport.Visible = false;
         }
 
         private void SetMaximumAvailableBeginningStateNumber()
@@ -312,6 +317,8 @@ namespace Maszyna.Forms
             {
                 ProgramResult result = _turingMachine.ExecuteStepNext();
                 TakeCareOfResults(result);
+                _lastAction = TuringLastAction.OneStep;
+                toolStripButtonReport.Visible = false;
             }
         }
 
@@ -322,6 +329,8 @@ namespace Maszyna.Forms
             {
                 ProgramResult result = _turingMachine.ExecuteStepNext(textBoxEnter.Text);
                 TakeCareOfResults(result);
+                _lastAction = TuringLastAction.OneStepWithNewTape;
+                toolStripButtonReport.Visible = false;
             }
         }
 
@@ -335,6 +344,7 @@ namespace Maszyna.Forms
                 buttonStepNext.Enabled = false;
                 this.UseWaitCursor = true;
                 _executionTimeBeginning = DateTime.Now;
+                _lastAction = TuringLastAction.Simulation;
                 backgroundWorkerProgram.RunWorkerAsync();
                 SetIntervalForTimer(); 
                 timerForProgram.Start();
@@ -400,12 +410,12 @@ namespace Maszyna.Forms
         {
             if (!Validator.AreEntryDataForMachineValid(textBoxEnter.Text, _turingMachine))
             {
-                ProgramMessageBox.showError("Dane wejściowe zawierają niedopuszczalne symbole.");
+                ProgramMessageBox.ShowError("Dane wejściowe zawierają niedopuszczalne symbole.");
                 return false;
             }
             else if (textBoxEnter.Text.Length == 0)
             {
-                ProgramMessageBox.showError("Taśma jest pusta.");
+                ProgramMessageBox.ShowError("Taśma jest pusta.");
                 return false;
             }
             else
@@ -422,6 +432,7 @@ namespace Maszyna.Forms
         {
             long executionTimeInMiliseconds = (DateTime.Now - _executionTimeBeginning).Milliseconds;
             toolStripStatusLabelExecution.Text = "Czas wykonania programu: " + executionTimeInMiliseconds + " ms.";
+            toolStripButtonReport.Visible = true;
             TakeCareOfResults((ProgramResult)e.UserState);
             timerForProgram.Stop();
             buttonSimulate.Enabled = true;
@@ -433,7 +444,7 @@ namespace Maszyna.Forms
         {
             _turingMachine.ForceToFinishExecution();
             timerForProgram.Stop();
-            ProgramMessageBox.showError("Upłynął limit czasu na wykonanie programu.");
+            ProgramMessageBox.ShowError("Upłynął limit czasu na wykonanie programu.");
             buttonStepNext.Enabled = false;
         }
 
@@ -485,10 +496,10 @@ namespace Maszyna.Forms
             {
                 _turingMachine = newTuringMachine;
                 UpdateGUIFromTuringMachine();
-                ProgramMessageBox.showInfo("Konfiguracja została odczytana.");
+                ProgramMessageBox.ShowInfo("Konfiguracja została odczytana.");
             }
             else
-                ProgramMessageBox.showError("Nie udało się odczytać konfiguracji.");
+                ProgramMessageBox.ShowError("Nie udało się odczytać konfiguracji.");
         }
 
         private void toolStripButtonSave_Click(object sender, EventArgs e)
@@ -496,9 +507,9 @@ namespace Maszyna.Forms
             if (saveFileDialogForConfig.ShowDialog()==DialogResult.OK)
             {
                 if (DataExportCommand.SaveFile(saveFileDialogForConfig.FileName,  _turingMachine))
-                    ProgramMessageBox.showInfo("Konfiguracja została zapisana.");
+                    ProgramMessageBox.ShowInfo("Konfiguracja została zapisana.");
                 else
-                    ProgramMessageBox.showError("Nie udało się zapisać konfiguracji.");
+                    ProgramMessageBox.ShowError("Nie udało się zapisać konfiguracji.");
             }
         }
 
@@ -557,6 +568,7 @@ namespace Maszyna.Forms
             _turingMachine.ActualSymbolColor = GetColorFromUser(_turingMachine.ActualSymbolColor);
             pictureBoxActualSymbol.BackColor = _turingMachine.ActualSymbolColor;
         }
+
         private Color GetColorFromUser(Color entryColor)
         {
             if (colorDialog.ShowDialog() == DialogResult.OK)
@@ -581,6 +593,23 @@ namespace Maszyna.Forms
         {
             if (_args.Length > 1)
                 LoadConfigFromFileFile(_args[1]);
+        }
+
+        private void toolStripButtonRaport_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialogForReport.ShowDialog()==DialogResult.OK)
+            {
+                if (ReportGenerator.GenerateReport(saveFileDialogForReport.FileName))
+                    ReactOnValidReportSave(saveFileDialogForReport.FileName);
+                else
+                    ProgramMessageBox.ShowError("Nie udało się zapisać raportu.");
+            }
+        }
+
+        private void ReactOnValidReportSave(String filePath)
+        {
+            if (ProgramMessageBox.ShowQuestion("Raport został zapisany. Chcesz go teraz otworzyć?") == DialogResult.Yes)
+                Process.Start(filePath);
         }
     }
 }

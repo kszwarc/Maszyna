@@ -104,9 +104,11 @@
     <Compile Include="Models\PotentialTransition.cs" />
     <Compile Include="Models\ProgramMessageBox.cs" />
     <Compile Include="Models\ProgramResult.cs" />
+    <Compile Include="Models\ReportGenerator.cs" />
     <Compile Include="Models\Transition.cs" />
     <Compile Include="Models\TuringElement.cs" />
     <Compile Include="Models\TuringHeadPosition.cs" />
+    <Compile Include="Models\TuringLastAction.cs" />
     <Compile Include="Models\TuringMachine.cs" />
     <Compile Include="Models\TuringMachineModifiedElements.cs" />
     <Compile Include="Models\Validator.cs" />
