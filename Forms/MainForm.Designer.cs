@@ -47,6 +47,10 @@
             this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageConfig = new System.Windows.Forms.TabPage();
+            this.pictureBoxActualSymbol = new System.Windows.Forms.PictureBox();
+            this.pictureBoxActualState = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.numericUpDownExecutionTime = new System.Windows.Forms.NumericUpDown();
             this.labelTime = new System.Windows.Forms.Label();
             this.checkBoxManualTable = new System.Windows.Forms.CheckBox();
@@ -81,14 +85,12 @@
             this.labelExit = new System.Windows.Forms.Label();
             this.labelEnter = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.pictureBoxActualState = new System.Windows.Forms.PictureBox();
-            this.pictureBoxActualSymbol = new System.Windows.Forms.PictureBox();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.toolStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualSymbol)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualState)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExecutionTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
             this.statusStripConfig.SuspendLayout();
@@ -97,8 +99,6 @@
             this.tabPageSimulation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActualTuring)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualState)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualSymbol)).BeginInit();
             this.SuspendLayout();
             // 
             // backgroundWorkerProgram
@@ -203,6 +203,50 @@
             this.tabPageConfig.Size = new System.Drawing.Size(900, 554);
             this.tabPageConfig.TabIndex = 0;
             this.tabPageConfig.Text = "Konfiguracja maszyny";
+            // 
+            // pictureBoxActualSymbol
+            // 
+            this.pictureBoxActualSymbol.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBoxActualSymbol.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxActualSymbol.Location = new System.Drawing.Point(333, 256);
+            this.pictureBoxActualSymbol.Name = "pictureBoxActualSymbol";
+            this.pictureBoxActualSymbol.Size = new System.Drawing.Size(71, 15);
+            this.pictureBoxActualSymbol.TabIndex = 11122;
+            this.pictureBoxActualSymbol.TabStop = false;
+            this.pictureBoxActualSymbol.Click += new System.EventHandler(this.pictureBoxActualSymbol_Click);
+            // 
+            // pictureBoxActualState
+            // 
+            this.pictureBoxActualState.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBoxActualState.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxActualState.Location = new System.Drawing.Point(333, 231);
+            this.pictureBoxActualState.Name = "pictureBoxActualState";
+            this.pictureBoxActualState.Size = new System.Drawing.Size(71, 15);
+            this.pictureBoxActualState.TabIndex = 11121;
+            this.pictureBoxActualState.TabStop = false;
+            this.pictureBoxActualState.Click += new System.EventHandler(this.pictureBoxActualState_Click);
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label2.Location = new System.Drawing.Point(167, 256);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(152, 15);
+            this.label2.TabIndex = 11120;
+            this.label2.Text = "Kolor aktualnego symbolu:";
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label1.Location = new System.Drawing.Point(164, 230);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(155, 15);
+            this.label1.TabIndex = 11119;
+            this.label1.Text = "Kolor aktualnego przejścia:";
             // 
             // numericUpDownExecutionTime
             // 
@@ -670,50 +714,6 @@
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
             // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(164, 230);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(155, 15);
-            this.label1.TabIndex = 11119;
-            this.label1.Text = "Kolor aktualnego przejścia:";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(167, 256);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(152, 15);
-            this.label2.TabIndex = 11120;
-            this.label2.Text = "Kolor aktualnego symbolu:";
-            // 
-            // pictureBoxActualState
-            // 
-            this.pictureBoxActualState.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBoxActualState.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxActualState.Location = new System.Drawing.Point(333, 231);
-            this.pictureBoxActualState.Name = "pictureBoxActualState";
-            this.pictureBoxActualState.Size = new System.Drawing.Size(71, 15);
-            this.pictureBoxActualState.TabIndex = 11121;
-            this.pictureBoxActualState.TabStop = false;
-            this.pictureBoxActualState.Click += new System.EventHandler(this.pictureBoxActualState_Click);
-            // 
-            // pictureBoxActualSymbol
-            // 
-            this.pictureBoxActualSymbol.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBoxActualSymbol.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxActualSymbol.Location = new System.Drawing.Point(333, 256);
-            this.pictureBoxActualSymbol.Name = "pictureBoxActualSymbol";
-            this.pictureBoxActualSymbol.Size = new System.Drawing.Size(71, 15);
-            this.pictureBoxActualSymbol.TabIndex = 11122;
-            this.pictureBoxActualSymbol.TabStop = false;
-            this.pictureBoxActualSymbol.Click += new System.EventHandler(this.pictureBoxActualSymbol_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -729,6 +729,8 @@
             this.tabControl.ResumeLayout(false);
             this.tabPageConfig.ResumeLayout(false);
             this.tabPageConfig.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualSymbol)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualState)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExecutionTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).EndInit();
             this.statusStripConfig.ResumeLayout(false);
@@ -739,8 +741,6 @@
             this.tabPageSimulation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActualTuring)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualState)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualSymbol)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
