@@ -18,7 +18,7 @@ namespace Maszyna.Models
         public int ActualCharIndex { get; set; } = -1;
         public Color ActualSymbolColor { get; set; } = Color.Red;
         public Color ActualStateColor { get; set; } = Color.LightBlue;
-        private int _actualState;
+        private int _actualState, _lastState;
         private Transition _lastTransition;
         private bool _forceToFinish = false;
         private StringBuilder _tape;
@@ -30,7 +30,7 @@ namespace Maszyna.Models
             Boolean finished = false;
             while (!finished && !_forceToFinish)
                 finished = ExecuteStep();
-            return new ProgramResult(_finishedStateSymbol, _tape.ToString(), _actualState, 
+            return new ProgramResult(_finishedStateSymbol, _tape.ToString(), _lastState, 
                 GetSymbolIndex(new String(_lastTransition.EntrySymbol, 1)));
         }
 
@@ -43,7 +43,7 @@ namespace Maszyna.Models
         public ProgramResult ExecuteStepNext()
         {
             ExecuteStep();
-            return new ProgramResult(_finishedStateSymbol, _tape.ToString(), _actualState, 
+            return new ProgramResult(_finishedStateSymbol, _tape.ToString(), _lastState, 
                 GetSymbolIndex(new String(_lastTransition.EntrySymbol, 1)));
         }
 
@@ -90,6 +90,7 @@ namespace Maszyna.Models
         private Boolean ExecuteStep()
         {
             _lastTransition = FindActualTransition();
+            _lastState = _actualState;
             Boolean isFinishedState = FinalStates.Contains(_lastTransition.ExitSymbol);
             if (isFinishedState)
             {

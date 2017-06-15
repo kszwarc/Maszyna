@@ -156,7 +156,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="main-qimg-abfe228796da8cede00fb86db122e204-c.ico" />
-    <Content Include="TuringMachine.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
