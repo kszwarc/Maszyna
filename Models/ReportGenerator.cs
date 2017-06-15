@@ -69,9 +69,9 @@ namespace Maszyna.Models
         private String GenerateTuringMachineHeadPositionText(TuringHeadPosition headPosition)
         {
             if (headPosition == TuringHeadPosition.FirstSymbolFromLeft)
-                return "pierwszy symbol z lewej strony.";
+                return "pierwszy symbol z lewej strony";
             else if (headPosition == TuringHeadPosition.FirstSymbolFromRight)
-                return "pierwszy symbol z prawej strony.";
+                return "pierwszy symbol z prawej strony";
             return "";
         }
 
