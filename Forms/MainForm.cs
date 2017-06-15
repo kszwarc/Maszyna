@@ -13,6 +13,7 @@ namespace Maszyna.Forms
         private TuringMachine _turingMachine = new TuringMachine();
         private const byte ReservedColumns = 1;
         private const byte TabPagesWithoutSimulationTab = 1;
+        private DateTime _executionTimeBeginning;
 
         public MainForm() : base("Symulator Maszyny Turinga")
         {
@@ -305,6 +306,7 @@ namespace Maszyna.Forms
 
         private void buttonStepNext_Click(object sender, EventArgs e)
         {
+            toolStripStatusLabelExecution.Text = "";
             if (ValidateTuringProgram())
             {
                 ProgramResult result = _turingMachine.ExecuteStepNext();
@@ -314,6 +316,7 @@ namespace Maszyna.Forms
 
         private void buttonStepNextWithTape_Click(object sender, EventArgs e)
         {
+            toolStripStatusLabelExecution.Text = "";
             if (ValidateTuringProgram())
             {
                 ProgramResult result = _turingMachine.ExecuteStepNext(textBoxEnter.Text);
@@ -323,12 +326,14 @@ namespace Maszyna.Forms
 
         private void buttonSimulate_Click(object sender, EventArgs e)
         {
+            toolStripStatusLabelExecution.Text = "";
             if (ValidateTuringProgram() && !backgroundWorkerProgram.IsBusy)
             {
                 buttonSimulate.Enabled = false;
                 buttonStepNextWithTape.Enabled = false;
                 buttonStepNext.Enabled = false;
                 this.UseWaitCursor = true;
+                _executionTimeBeginning = DateTime.Now;
                 backgroundWorkerProgram.RunWorkerAsync();
                 SetIntervalForTimer(); 
                 timerForProgram.Start();
@@ -414,6 +419,8 @@ namespace Maszyna.Forms
 
         private void backgroundWorkerProgram_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {
+            long executionTimeInMiliseconds = (DateTime.Now - _executionTimeBeginning).Milliseconds;
+            toolStripStatusLabelExecution.Text = "Czas wykonania programu: " + executionTimeInMiliseconds + " ms.";
             TakeCareOfResults((ProgramResult)e.UserState);
             timerForProgram.Stop();
             buttonSimulate.Enabled = true;

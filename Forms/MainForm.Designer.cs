@@ -74,6 +74,8 @@
             this.textBoxEmptySymbol = new System.Windows.Forms.TextBox();
             this.labelEmptySymbol = new System.Windows.Forms.Label();
             this.tabPageSimulation = new System.Windows.Forms.TabPage();
+            this.statusStripExecution = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabelExecution = new System.Windows.Forms.ToolStripStatusLabel();
             this.richTextBoxExit = new System.Windows.Forms.RichTextBox();
             this.textBoxEnter = new System.Windows.Forms.TextBox();
             this.dataGridViewActualTuring = new Maszyna.Forms.DataGridViewWithPaste();
@@ -97,6 +99,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFirstStateNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStateNumbers)).BeginInit();
             this.tabPageSimulation.SuspendLayout();
+            this.statusStripExecution.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActualTuring)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
@@ -554,6 +557,7 @@
             // 
             this.tabPageSimulation.AutoScroll = true;
             this.tabPageSimulation.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageSimulation.Controls.Add(this.statusStripExecution);
             this.tabPageSimulation.Controls.Add(this.richTextBoxExit);
             this.tabPageSimulation.Controls.Add(this.textBoxEnter);
             this.tabPageSimulation.Controls.Add(this.dataGridViewActualTuring);
@@ -570,6 +574,21 @@
             this.tabPageSimulation.Size = new System.Drawing.Size(900, 554);
             this.tabPageSimulation.TabIndex = 1;
             this.tabPageSimulation.Text = "Symulacja";
+            // 
+            // statusStripExecution
+            // 
+            this.statusStripExecution.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelExecution});
+            this.statusStripExecution.Location = new System.Drawing.Point(3, 529);
+            this.statusStripExecution.Name = "statusStripExecution";
+            this.statusStripExecution.Size = new System.Drawing.Size(894, 22);
+            this.statusStripExecution.TabIndex = 12;
+            this.statusStripExecution.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabelExecution
+            // 
+            this.toolStripStatusLabelExecution.Name = "toolStripStatusLabelExecution";
+            this.toolStripStatusLabelExecution.Size = new System.Drawing.Size(0, 17);
             // 
             // richTextBoxExit
             // 
@@ -617,7 +636,7 @@
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewActualTuring.DefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridViewActualTuring.Location = new System.Drawing.Point(0, 279);
+            this.dataGridViewActualTuring.Location = new System.Drawing.Point(3, 279);
             this.dataGridViewActualTuring.Name = "dataGridViewActualTuring";
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
@@ -629,7 +648,7 @@
             this.dataGridViewActualTuring.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dataGridViewActualTuring.RowsDefaultCellStyle = dataGridViewCellStyle8;
-            this.dataGridViewActualTuring.Size = new System.Drawing.Size(902, 275);
+            this.dataGridViewActualTuring.Size = new System.Drawing.Size(894, 247);
             this.dataGridViewActualTuring.TabIndex = 11;
             // 
             // buttonStepNextWithTape
@@ -739,6 +758,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStateNumbers)).EndInit();
             this.tabPageSimulation.ResumeLayout(false);
             this.tabPageSimulation.PerformLayout();
+            this.statusStripExecution.ResumeLayout(false);
+            this.statusStripExecution.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActualTuring)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
@@ -796,6 +817,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ColorDialog colorDialog;
+        private System.Windows.Forms.StatusStrip statusStripExecution;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelExecution;
     }
 }
 
