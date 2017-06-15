@@ -599,17 +599,35 @@ namespace Maszyna.Forms
         {
             if (saveFileDialogForReport.ShowDialog()==DialogResult.OK)
             {
-                if (ReportGenerator.GenerateReport(saveFileDialogForReport.FileName))
+                ReportStructure structureForReport = GenerateReportStructure();
+                ReportGenerator generator = new ReportGenerator(saveFileDialogForReport.FileName, structureForReport);
+                if (generator.GenerateReport())
                     ReactOnValidReportSave(saveFileDialogForReport.FileName);
                 else
                     ProgramMessageBox.ShowError("Nie udało się zapisać raportu.");
             }
         }
 
+        private ReportStructure GenerateReportStructure()
+        {
+            ReportStructure structureForReport = new ReportStructure();
+            structureForReport.TuringMachine = _turingMachine;
+            structureForReport.ExecutionTimeText = toolStripStatusLabelExecution.Text;
+            structureForReport.EntryTape = textBoxEnter.Text;
+            structureForReport.ExitTape = richTextBoxExit.Text;
+            structureForReport.LastState = textBoxState.Text;
+            return structureForReport;
+        }
+
         private void ReactOnValidReportSave(String filePath)
         {
             if (ProgramMessageBox.ShowQuestion("Raport został zapisany. Chcesz go teraz otworzyć?") == DialogResult.Yes)
                 Process.Start(filePath);
+        }
+
+        private void textBoxEnter_TextChanged(object sender, EventArgs e)
+        {
+            toolStripButtonReport.Visible = false;
         }
     }
 }

@@ -52,6 +52,26 @@
     <ApplicationIcon>main-qimg-abfe228796da8cede00fb86db122e204-c.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MigraDoc.DocumentObjectModel-gdi, Version=1.50.4000.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>packages\PDFsharp-MigraDoc-gdi.1.50.4000-beta3b\lib\net20\MigraDoc.DocumentObjectModel-gdi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MigraDoc.Rendering-gdi, Version=1.50.4000.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>packages\PDFsharp-MigraDoc-gdi.1.50.4000-beta3b\lib\net20\MigraDoc.Rendering-gdi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MigraDoc.RtfRendering-gdi, Version=1.50.4000.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>packages\PDFsharp-MigraDoc-gdi.1.50.4000-beta3b\lib\net20\MigraDoc.RtfRendering-gdi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PdfSharp-gdi, Version=1.50.4000.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>packages\PDFsharp-MigraDoc-gdi.1.50.4000-beta3b\lib\net20\PdfSharp-gdi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PdfSharp.Charting-gdi, Version=1.50.4000.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>packages\PDFsharp-MigraDoc-gdi.1.50.4000-beta3b\lib\net20\PdfSharp.Charting-gdi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -105,6 +125,7 @@
     <Compile Include="Models\ProgramMessageBox.cs" />
     <Compile Include="Models\ProgramResult.cs" />
     <Compile Include="Models\ReportGenerator.cs" />
+    <Compile Include="Models\ReportStructure.cs" />
     <Compile Include="Models\Transition.cs" />
     <Compile Include="Models\TuringElement.cs" />
     <Compile Include="Models\TuringHeadPosition.cs" />
@@ -143,6 +164,7 @@
       <DependentUpon>Window.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -158,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="main-qimg-abfe228796da8cede00fb86db122e204-c.ico" />
+    <None Include="Resources\Logo.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
