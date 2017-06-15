@@ -64,7 +64,7 @@ namespace Maszyna.Forms
 
         private void FirstStateChanges(object sender, EventArgs e)
         {
-            TriggerConfigurationChanges(sender, e);
+            TriggerConfigurationUpdateWithoutDataGridViewChanges();
             ResetFontForHeaders();
             UpdateFirstStateColor();
         }
@@ -161,9 +161,14 @@ namespace Maszyna.Forms
 
         private void TriggerConfigurationChanges(object sender, EventArgs e)
         {
+            TriggerConfigurationUpdateWithoutDataGridViewChanges();
+            UpdateTableRows();
+        }
+
+        private void TriggerConfigurationUpdateWithoutDataGridViewChanges()
+        {
             UpdateTuringMachine();
             UpdateFormulation();
-            UpdateTableRows();
             SetConfigurationStatus();
             UnlockOrLockTabWithSimulation();
         }
