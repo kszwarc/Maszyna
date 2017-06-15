@@ -126,12 +126,10 @@ namespace Maszyna.Forms
         private void UpdateTableColumns()
         {
             int demandedNumberOfColumns = (int)numericUpDownStateNumbers.Value;
-            int actualNumberOfColumns = dataGridViewTable.Columns.Count - ReservedColumns;
-            int columnsToManipulate = (int)Math.Abs(demandedNumberOfColumns - actualNumberOfColumns);
-            if (actualNumberOfColumns > demandedNumberOfColumns)
-                RemoveColumns(columnsToManipulate);
-            else
-                AddColumns(columnsToManipulate);
+            int columnsToRemove = dataGridViewTable.Columns.Count - ReservedColumns;
+            RemoveColumns(columnsToRemove);
+            AddColumns(demandedNumberOfColumns);
+            FirstStateChanges(null, null);
             dataGridViewTable.Refresh();
         }
 
@@ -150,7 +148,7 @@ namespace Maszyna.Forms
 
         private void RemoveColumns(int columnsToRemove)
         {
-            for (int i = 1; i <= columnsToRemove; i++)
+            for (int i = columnsToRemove; i >= ReservedColumns; i--)
                 dataGridViewTable.Columns.RemoveAt(dataGridViewTable.Columns.Count - i);
         }
 
