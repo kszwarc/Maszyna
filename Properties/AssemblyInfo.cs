@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Symulator Maszyny Turinga")]
 [assembly: AssemblyDescription("Prosty Symulator")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Krzysztof Szwarc")]
 [assembly: AssemblyProduct("Maszyna")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
