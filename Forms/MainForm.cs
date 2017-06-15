@@ -556,7 +556,7 @@ namespace Maszyna.Forms
         private void SetToolTipForHeadConfiguration()
         {
             StringBuilder textToShow = new StringBuilder("Pierwszy symbol z ");
-            textToShow.Append((String)comboBoxHead.SelectedItem == "Lewa" ? "lewej strony." : "prawej strony.");
+            textToShow.Append((String)comboBoxHead.SelectedItem == "Lewa" ? "lewej strony" : "prawej strony");
             toolTipForComboBox.SetToolTip(comboBoxHead, textToShow.ToString());
         }
 
