@@ -52,8 +52,15 @@ namespace Maszyna.Forms
             UpdateFirstStateColor();
             comboBoxHead.SelectedIndex = 0;
             numericUpDownExecutionTime.Value = 10000;
+            UpdatePictureBoxesBackgroundColor();
+            TriggerConfigurationChanges(null, null);
         }
 
+        private void UpdatePictureBoxesBackgroundColor()
+        {
+            pictureBoxActualState.BackColor = _turingMachine.ActualStateColor;
+            pictureBoxActualSymbol.BackColor = _turingMachine.ActualSymbolColor;
+        }
 
         private void FirstStateChanges(object sender, EventArgs e)
         {
@@ -338,17 +345,31 @@ namespace Maszyna.Forms
 
         private void WriteResults(ProgramResult result)
         {
-            textBoxExit.Text = result.Tape;
+            richTextBoxExit.Text = result.Tape;
             textBoxState.Text = result.FinishedStateSymbol;
             RemoveBackgroundColorFromCells();
-            colorActualCell(result);
+            ColorActualCell(result);
+            ResetColorForSymbols();
+            ColorActualSymbol();
         }
 
-        private void colorActualCell(ProgramResult result)
+        private void ColorActualSymbol()
+        {
+            richTextBoxExit.Select(_turingMachine.ActualCharIndex,1);
+            richTextBoxExit.SelectionColor = _turingMachine.ActualSymbolColor;
+        }
+
+        private void ResetColorForSymbols()
+        {
+            richTextBoxExit.SelectAll();
+            richTextBoxExit.SelectionColor = Color.Black;
+        }
+
+        private void ColorActualCell(ProgramResult result)
         {
             DataGridViewCell cellToColor = dataGridViewActualTuring.Rows[result.SymbolIndex].
                 Cells[result.StateIndex + ReservedColumns];
-            cellToColor.Style.BackColor = Color.LightBlue;
+            cellToColor.Style.BackColor = _turingMachine.ActualStateColor;
         }
 
         private void RemoveBackgroundColorFromCells()
@@ -467,15 +488,21 @@ namespace Maszyna.Forms
 
         private void UpdateGUIFromTuringMachine()
         {
+            comboBoxHead.Focus(); /// When focus on entry symbol load is corrupted
             TuringMachine machineToOperate = _turingMachine;
             _turingMachine = new TuringMachine(); /// Events will work on _turingMachine object
             _turingMachine.FinalStates = machineToOperate.FinalStates;
             _turingMachine.Symbols = machineToOperate.Symbols;
+            _turingMachine.ActualStateColor = machineToOperate.ActualStateColor;
+            _turingMachine.ActualSymbolColor = machineToOperate.ActualSymbolColor;
             textBoxEmptySymbol.Text = new String(machineToOperate.EmptySymbol, 1);
+            UpdateEmptySymbolInformationForGUI(null, null);
             numericUpDownStateNumbers.Value = machineToOperate.NumberOfStates;
             numericUpDownFirstStateNumber.Value = machineToOperate.FirstStateIndex;
             comboBoxHead.SelectedIndex = (int)machineToOperate.HeadPosition;
             PopulateDataGridViewFromTuringMachine(machineToOperate);
+            pictureBoxActualState.BackColor = _turingMachine.ActualStateColor;
+            pictureBoxActualSymbol.BackColor = _turingMachine.ActualSymbolColor;
         }
 
         private void PopulateDataGridViewFromTuringMachine(TuringMachine machineToOperate)
@@ -495,6 +522,31 @@ namespace Maszyna.Forms
         {
             _turingMachine.HeadPosition = (String)comboBoxHead.SelectedItem == "Lewa" ?
                 TuringHeadPosition.FirstSymbolFromLeft : TuringHeadPosition.FirstSymbolFromRight;
+        }
+
+        private void richTextBoxExit_TextChanged(object sender, EventArgs e)
+        {
+            richTextBoxExit.SelectAll();
+            richTextBoxExit.SelectionAlignment = HorizontalAlignment.Center;
+        }
+
+        private void pictureBoxActualState_Click(object sender, EventArgs e)
+        {
+            _turingMachine.ActualStateColor = GetColorFromUser(_turingMachine.ActualStateColor);
+            pictureBoxActualState.BackColor = _turingMachine.ActualStateColor;
+        }
+
+        private void pictureBoxActualSymbol_Click(object sender, EventArgs e)
+        {
+            _turingMachine.ActualSymbolColor = GetColorFromUser(_turingMachine.ActualSymbolColor);
+            pictureBoxActualSymbol.BackColor = _turingMachine.ActualSymbolColor;
+        }
+        private Color GetColorFromUser(Color entryColor)
+        {
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+                return colorDialog.Color;
+            else
+                return entryColor;
         }
     }
 }

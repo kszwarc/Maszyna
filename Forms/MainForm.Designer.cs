@@ -30,14 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.backgroundWorkerProgram = new System.ComponentModel.BackgroundWorker();
             this.timerForProgram = new System.Windows.Forms.Timer(this.components);
             this.openFileDialogForConfig = new System.Windows.Forms.OpenFileDialog();
@@ -70,6 +70,8 @@
             this.textBoxEmptySymbol = new System.Windows.Forms.TextBox();
             this.labelEmptySymbol = new System.Windows.Forms.Label();
             this.tabPageSimulation = new System.Windows.Forms.TabPage();
+            this.richTextBoxExit = new System.Windows.Forms.RichTextBox();
+            this.textBoxEnter = new System.Windows.Forms.TextBox();
             this.dataGridViewActualTuring = new Maszyna.Forms.DataGridViewWithPaste();
             this.buttonStepNextWithTape = new System.Windows.Forms.Button();
             this.buttonStepNext = new System.Windows.Forms.Button();
@@ -77,10 +79,13 @@
             this.textBoxState = new System.Windows.Forms.TextBox();
             this.buttonSimulate = new System.Windows.Forms.Button();
             this.labelExit = new System.Windows.Forms.Label();
-            this.textBoxExit = new System.Windows.Forms.TextBox();
             this.labelEnter = new System.Windows.Forms.Label();
-            this.textBoxEnter = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.pictureBoxActualState = new System.Windows.Forms.PictureBox();
+            this.pictureBoxActualSymbol = new System.Windows.Forms.PictureBox();
+            this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.toolStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
@@ -92,6 +97,8 @@
             this.tabPageSimulation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActualTuring)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualState)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualSymbol)).BeginInit();
             this.SuspendLayout();
             // 
             // backgroundWorkerProgram
@@ -123,7 +130,7 @@
             this.toolStripButtonSave});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(722, 25);
+            this.toolStrip.Size = new System.Drawing.Size(911, 25);
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "toolStrip";
             // 
@@ -159,13 +166,17 @@
             this.tabControl.Location = new System.Drawing.Point(0, 29);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(719, 531);
+            this.tabControl.Size = new System.Drawing.Size(908, 580);
             this.tabControl.TabIndex = 0;
             // 
             // tabPageConfig
             // 
             this.tabPageConfig.AutoScroll = true;
             this.tabPageConfig.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageConfig.Controls.Add(this.pictureBoxActualSymbol);
+            this.tabPageConfig.Controls.Add(this.pictureBoxActualState);
+            this.tabPageConfig.Controls.Add(this.label2);
+            this.tabPageConfig.Controls.Add(this.label1);
             this.tabPageConfig.Controls.Add(this.numericUpDownExecutionTime);
             this.tabPageConfig.Controls.Add(this.labelTime);
             this.tabPageConfig.Controls.Add(this.checkBoxManualTable);
@@ -189,14 +200,14 @@
             this.tabPageConfig.Location = new System.Drawing.Point(4, 22);
             this.tabPageConfig.Name = "tabPageConfig";
             this.tabPageConfig.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageConfig.Size = new System.Drawing.Size(711, 505);
+            this.tabPageConfig.Size = new System.Drawing.Size(900, 554);
             this.tabPageConfig.TabIndex = 0;
             this.tabPageConfig.Text = "Konfiguracja maszyny";
             // 
             // numericUpDownExecutionTime
             // 
             this.numericUpDownExecutionTime.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.numericUpDownExecutionTime.Location = new System.Drawing.Point(239, 195);
+            this.numericUpDownExecutionTime.Location = new System.Drawing.Point(334, 195);
             this.numericUpDownExecutionTime.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -222,7 +233,7 @@
             this.labelTime.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelTime.AutoSize = true;
             this.labelTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelTime.Location = new System.Drawing.Point(58, 187);
+            this.labelTime.Location = new System.Drawing.Point(153, 187);
             this.labelTime.Name = "labelTime";
             this.labelTime.Size = new System.Drawing.Size(164, 30);
             this.labelTime.TabIndex = 11118;
@@ -233,7 +244,7 @@
             // 
             this.checkBoxManualTable.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.checkBoxManualTable.AutoSize = true;
-            this.checkBoxManualTable.Location = new System.Drawing.Point(287, 245);
+            this.checkBoxManualTable.Location = new System.Drawing.Point(382, 290);
             this.checkBoxManualTable.Name = "checkBoxManualTable";
             this.checkBoxManualTable.Size = new System.Drawing.Size(154, 17);
             this.checkBoxManualTable.TabIndex = 8;
@@ -246,7 +257,7 @@
             this.labelTable.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelTable.AutoSize = true;
             this.labelTable.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelTable.Location = new System.Drawing.Point(140, 265);
+            this.labelTable.Location = new System.Drawing.Point(235, 310);
             this.labelTable.Name = "labelTable";
             this.labelTable.Size = new System.Drawing.Size(431, 15);
             this.labelTable.TabIndex = 11116;
@@ -262,38 +273,38 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Symbols});
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTable.DefaultCellStyle = dataGridViewCellStyle14;
-            this.dataGridViewTable.Location = new System.Drawing.Point(3, 283);
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTable.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewTable.Location = new System.Drawing.Point(3, 330);
             this.dataGridViewTable.Name = "dataGridViewTable";
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewTable.RowsDefaultCellStyle = dataGridViewCellStyle16;
-            this.dataGridViewTable.Size = new System.Drawing.Size(705, 194);
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewTable.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.dataGridViewTable.Size = new System.Drawing.Size(894, 196);
             this.dataGridViewTable.TabIndex = 11115;
             this.dataGridViewTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTable_CellClick);
             this.dataGridViewTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.UpdateStateTable);
@@ -311,7 +322,7 @@
             this.labelHead.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelHead.AutoSize = true;
             this.labelHead.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelHead.Location = new System.Drawing.Point(107, 165);
+            this.labelHead.Location = new System.Drawing.Point(202, 165);
             this.labelHead.Name = "labelHead";
             this.labelHead.Size = new System.Drawing.Size(115, 15);
             this.labelHead.TabIndex = 11114;
@@ -325,7 +336,7 @@
             this.comboBoxHead.Items.AddRange(new object[] {
             "Lewa",
             "Prawa"});
-            this.comboBoxHead.Location = new System.Drawing.Point(238, 164);
+            this.comboBoxHead.Location = new System.Drawing.Point(333, 164);
             this.comboBoxHead.Name = "comboBoxHead";
             this.comboBoxHead.Size = new System.Drawing.Size(71, 21);
             this.comboBoxHead.TabIndex = 6;
@@ -334,7 +345,7 @@
             // buttonFinalStates
             // 
             this.buttonFinalStates.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonFinalStates.Location = new System.Drawing.Point(238, 135);
+            this.buttonFinalStates.Location = new System.Drawing.Point(333, 135);
             this.buttonFinalStates.Name = "buttonFinalStates";
             this.buttonFinalStates.Size = new System.Drawing.Size(71, 23);
             this.buttonFinalStates.TabIndex = 5;
@@ -347,7 +358,7 @@
             this.labelFinalStates.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelFinalStates.AutoSize = true;
             this.labelFinalStates.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelFinalStates.Location = new System.Drawing.Point(130, 138);
+            this.labelFinalStates.Location = new System.Drawing.Point(225, 138);
             this.labelFinalStates.Name = "labelFinalStates";
             this.labelFinalStates.Size = new System.Drawing.Size(92, 15);
             this.labelFinalStates.TabIndex = 11113;
@@ -356,7 +367,7 @@
             // buttonEntrySymbols
             // 
             this.buttonEntrySymbols.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonEntrySymbols.Location = new System.Drawing.Point(239, 48);
+            this.buttonEntrySymbols.Location = new System.Drawing.Point(334, 48);
             this.buttonEntrySymbols.Name = "buttonEntrySymbols";
             this.buttonEntrySymbols.Size = new System.Drawing.Size(70, 23);
             this.buttonEntrySymbols.TabIndex = 2;
@@ -369,7 +380,7 @@
             this.labelEntrySymbols.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelEntrySymbols.AutoSize = true;
             this.labelEntrySymbols.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelEntrySymbols.Location = new System.Drawing.Point(104, 51);
+            this.labelEntrySymbols.Location = new System.Drawing.Point(199, 51);
             this.labelEntrySymbols.Name = "labelEntrySymbols";
             this.labelEntrySymbols.Size = new System.Drawing.Size(118, 15);
             this.labelEntrySymbols.TabIndex = 9;
@@ -380,7 +391,7 @@
             this.labelFormalForInput.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelFormalForInput.AutoSize = true;
             this.labelFormalForInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelFormalForInput.Location = new System.Drawing.Point(440, 61);
+            this.labelFormalForInput.Location = new System.Drawing.Point(535, 61);
             this.labelFormalForInput.Name = "labelFormalForInput";
             this.labelFormalForInput.Size = new System.Drawing.Size(0, 15);
             this.labelFormalForInput.TabIndex = 8;
@@ -390,7 +401,7 @@
             this.labelFormal.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelFormal.AutoSize = true;
             this.labelFormal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelFormal.Location = new System.Drawing.Point(440, 34);
+            this.labelFormal.Location = new System.Drawing.Point(535, 34);
             this.labelFormal.Name = "labelFormal";
             this.labelFormal.Size = new System.Drawing.Size(109, 15);
             this.labelFormal.TabIndex = 7;
@@ -400,9 +411,9 @@
             // 
             this.statusStripConfig.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelConfigStatus});
-            this.statusStripConfig.Location = new System.Drawing.Point(3, 480);
+            this.statusStripConfig.Location = new System.Drawing.Point(3, 529);
             this.statusStripConfig.Name = "statusStripConfig";
-            this.statusStripConfig.Size = new System.Drawing.Size(705, 22);
+            this.statusStripConfig.Size = new System.Drawing.Size(894, 22);
             this.statusStripConfig.TabIndex = 6;
             // 
             // toolStripStatusLabelConfigStatus
@@ -413,7 +424,7 @@
             // numericUpDownFirstStateNumber
             // 
             this.numericUpDownFirstStateNumber.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.numericUpDownFirstStateNumber.Location = new System.Drawing.Point(238, 109);
+            this.numericUpDownFirstStateNumber.Location = new System.Drawing.Point(333, 109);
             this.numericUpDownFirstStateNumber.Maximum = new decimal(new int[] {
             0,
             0,
@@ -430,7 +441,7 @@
             this.labelBeginningState.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelBeginningState.AutoSize = true;
             this.labelBeginningState.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelBeginningState.Location = new System.Drawing.Point(122, 109);
+            this.labelBeginningState.Location = new System.Drawing.Point(217, 109);
             this.labelBeginningState.Name = "labelBeginningState";
             this.labelBeginningState.Size = new System.Drawing.Size(101, 15);
             this.labelBeginningState.TabIndex = 4;
@@ -439,7 +450,7 @@
             // numericUpDownStateNumbers
             // 
             this.numericUpDownStateNumbers.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.numericUpDownStateNumbers.Location = new System.Drawing.Point(238, 77);
+            this.numericUpDownStateNumbers.Location = new System.Drawing.Point(333, 77);
             this.numericUpDownStateNumbers.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -466,7 +477,7 @@
             this.labelStateNumbers.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelStateNumbers.AutoSize = true;
             this.labelStateNumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelStateNumbers.Location = new System.Drawing.Point(136, 77);
+            this.labelStateNumbers.Location = new System.Drawing.Point(231, 77);
             this.labelStateNumbers.Name = "labelStateNumbers";
             this.labelStateNumbers.Size = new System.Drawing.Size(88, 15);
             this.labelStateNumbers.TabIndex = 2;
@@ -475,7 +486,7 @@
             // textBoxEmptySymbol
             // 
             this.textBoxEmptySymbol.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.textBoxEmptySymbol.Location = new System.Drawing.Point(239, 22);
+            this.textBoxEmptySymbol.Location = new System.Drawing.Point(334, 22);
             this.textBoxEmptySymbol.MaxLength = 1;
             this.textBoxEmptySymbol.Name = "textBoxEmptySymbol";
             this.textBoxEmptySymbol.Size = new System.Drawing.Size(70, 20);
@@ -489,7 +500,7 @@
             this.labelEmptySymbol.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelEmptySymbol.AutoSize = true;
             this.labelEmptySymbol.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelEmptySymbol.Location = new System.Drawing.Point(140, 23);
+            this.labelEmptySymbol.Location = new System.Drawing.Point(235, 23);
             this.labelEmptySymbol.Name = "labelEmptySymbol";
             this.labelEmptySymbol.Size = new System.Drawing.Size(82, 15);
             this.labelEmptySymbol.TabIndex = 11111;
@@ -499,6 +510,8 @@
             // 
             this.tabPageSimulation.AutoScroll = true;
             this.tabPageSimulation.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageSimulation.Controls.Add(this.richTextBoxExit);
+            this.tabPageSimulation.Controls.Add(this.textBoxEnter);
             this.tabPageSimulation.Controls.Add(this.dataGridViewActualTuring);
             this.tabPageSimulation.Controls.Add(this.buttonStepNextWithTape);
             this.tabPageSimulation.Controls.Add(this.buttonStepNext);
@@ -506,15 +519,35 @@
             this.tabPageSimulation.Controls.Add(this.textBoxState);
             this.tabPageSimulation.Controls.Add(this.buttonSimulate);
             this.tabPageSimulation.Controls.Add(this.labelExit);
-            this.tabPageSimulation.Controls.Add(this.textBoxExit);
             this.tabPageSimulation.Controls.Add(this.labelEnter);
-            this.tabPageSimulation.Controls.Add(this.textBoxEnter);
             this.tabPageSimulation.Location = new System.Drawing.Point(4, 22);
             this.tabPageSimulation.Name = "tabPageSimulation";
             this.tabPageSimulation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSimulation.Size = new System.Drawing.Size(711, 505);
+            this.tabPageSimulation.Size = new System.Drawing.Size(900, 554);
             this.tabPageSimulation.TabIndex = 1;
             this.tabPageSimulation.Text = "Symulacja";
+            // 
+            // richTextBoxExit
+            // 
+            this.richTextBoxExit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBoxExit.Location = new System.Drawing.Point(8, 94);
+            this.richTextBoxExit.Name = "richTextBoxExit";
+            this.richTextBoxExit.ReadOnly = true;
+            this.richTextBoxExit.Size = new System.Drawing.Size(886, 20);
+            this.richTextBoxExit.TabIndex = 2;
+            this.richTextBoxExit.Text = "";
+            this.richTextBoxExit.TextChanged += new System.EventHandler(this.richTextBoxExit_TextChanged);
+            // 
+            // textBoxEnter
+            // 
+            this.textBoxEnter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxEnter.Location = new System.Drawing.Point(8, 40);
+            this.textBoxEnter.Name = "textBoxEnter";
+            this.textBoxEnter.Size = new System.Drawing.Size(886, 20);
+            this.textBoxEnter.TabIndex = 1;
+            this.textBoxEnter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // dataGridViewActualTuring
             // 
@@ -523,42 +556,42 @@
             this.dataGridViewActualTuring.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewActualTuring.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewActualTuring.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridViewActualTuring.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewActualTuring.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewActualTuring.DefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridViewActualTuring.Location = new System.Drawing.Point(0, 279);
             this.dataGridViewActualTuring.Name = "dataGridViewActualTuring";
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewActualTuring.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewActualTuring.RowsDefaultCellStyle = dataGridViewCellStyle12;
-            this.dataGridViewActualTuring.Size = new System.Drawing.Size(711, 226);
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewActualTuring.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewActualTuring.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            this.dataGridViewActualTuring.Size = new System.Drawing.Size(902, 275);
             this.dataGridViewActualTuring.TabIndex = 11;
             // 
             // buttonStepNextWithTape
             // 
             this.buttonStepNextWithTape.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonStepNextWithTape.Location = new System.Drawing.Point(422, 208);
+            this.buttonStepNextWithTape.Location = new System.Drawing.Point(520, 208);
             this.buttonStepNextWithTape.Name = "buttonStepNextWithTape";
             this.buttonStepNextWithTape.Size = new System.Drawing.Size(75, 56);
             this.buttonStepNextWithTape.TabIndex = 10;
@@ -570,7 +603,7 @@
             // 
             this.buttonStepNext.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.buttonStepNext.Enabled = false;
-            this.buttonStepNext.Location = new System.Drawing.Point(315, 208);
+            this.buttonStepNext.Location = new System.Drawing.Point(413, 208);
             this.buttonStepNext.Name = "buttonStepNext";
             this.buttonStepNext.Size = new System.Drawing.Size(75, 56);
             this.buttonStepNext.TabIndex = 9;
@@ -583,7 +616,7 @@
             this.labelState.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelState.AutoSize = true;
             this.labelState.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.259F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelState.Location = new System.Drawing.Point(311, 170);
+            this.labelState.Location = new System.Drawing.Point(409, 170);
             this.labelState.Name = "labelState";
             this.labelState.Size = new System.Drawing.Size(82, 15);
             this.labelState.TabIndex = 5;
@@ -592,7 +625,7 @@
             // textBoxState
             // 
             this.textBoxState.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.textBoxState.Location = new System.Drawing.Point(315, 147);
+            this.textBoxState.Location = new System.Drawing.Point(413, 147);
             this.textBoxState.Name = "textBoxState";
             this.textBoxState.ReadOnly = true;
             this.textBoxState.Size = new System.Drawing.Size(75, 20);
@@ -602,7 +635,7 @@
             // buttonSimulate
             // 
             this.buttonSimulate.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonSimulate.Location = new System.Drawing.Point(212, 208);
+            this.buttonSimulate.Location = new System.Drawing.Point(310, 208);
             this.buttonSimulate.Name = "buttonSimulate";
             this.buttonSimulate.Size = new System.Drawing.Size(75, 56);
             this.buttonSimulate.TabIndex = 8;
@@ -615,54 +648,77 @@
             this.labelExit.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelExit.AutoSize = true;
             this.labelExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.259F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelExit.Location = new System.Drawing.Point(300, 117);
+            this.labelExit.Location = new System.Drawing.Point(398, 117);
             this.labelExit.Name = "labelExit";
             this.labelExit.Size = new System.Drawing.Size(103, 15);
             this.labelExit.TabIndex = 3;
             this.labelExit.Text = "Taśma wyjściowa";
-            // 
-            // textBoxExit
-            // 
-            this.textBoxExit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxExit.Location = new System.Drawing.Point(8, 94);
-            this.textBoxExit.Name = "textBoxExit";
-            this.textBoxExit.ReadOnly = true;
-            this.textBoxExit.Size = new System.Drawing.Size(695, 20);
-            this.textBoxExit.TabIndex = 2;
-            this.textBoxExit.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // labelEnter
             // 
             this.labelEnter.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelEnter.AutoSize = true;
             this.labelEnter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.259F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelEnter.Location = new System.Drawing.Point(299, 63);
+            this.labelEnter.Location = new System.Drawing.Point(397, 63);
             this.labelEnter.Name = "labelEnter";
             this.labelEnter.Size = new System.Drawing.Size(105, 15);
             this.labelEnter.TabIndex = 1;
             this.labelEnter.Text = "Taśma wejściowa";
-            // 
-            // textBoxEnter
-            // 
-            this.textBoxEnter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxEnter.Location = new System.Drawing.Point(8, 40);
-            this.textBoxEnter.Name = "textBoxEnter";
-            this.textBoxEnter.Size = new System.Drawing.Size(695, 20);
-            this.textBoxEnter.TabIndex = 0;
-            this.textBoxEnter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // errorProvider
             // 
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
             // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label1.Location = new System.Drawing.Point(164, 230);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(155, 15);
+            this.label1.TabIndex = 11119;
+            this.label1.Text = "Kolor aktualnego przejścia:";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label2.Location = new System.Drawing.Point(167, 256);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(152, 15);
+            this.label2.TabIndex = 11120;
+            this.label2.Text = "Kolor aktualnego symbolu:";
+            // 
+            // pictureBoxActualState
+            // 
+            this.pictureBoxActualState.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBoxActualState.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxActualState.Location = new System.Drawing.Point(333, 231);
+            this.pictureBoxActualState.Name = "pictureBoxActualState";
+            this.pictureBoxActualState.Size = new System.Drawing.Size(71, 15);
+            this.pictureBoxActualState.TabIndex = 11121;
+            this.pictureBoxActualState.TabStop = false;
+            this.pictureBoxActualState.Click += new System.EventHandler(this.pictureBoxActualState_Click);
+            // 
+            // pictureBoxActualSymbol
+            // 
+            this.pictureBoxActualSymbol.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBoxActualSymbol.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxActualSymbol.Location = new System.Drawing.Point(333, 256);
+            this.pictureBoxActualSymbol.Name = "pictureBoxActualSymbol";
+            this.pictureBoxActualSymbol.Size = new System.Drawing.Size(71, 15);
+            this.pictureBoxActualSymbol.TabIndex = 11122;
+            this.pictureBoxActualSymbol.TabStop = false;
+            this.pictureBoxActualSymbol.Click += new System.EventHandler(this.pictureBoxActualSymbol_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(722, 563);
+            this.ClientSize = new System.Drawing.Size(911, 612);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.tabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -683,6 +739,8 @@
             this.tabPageSimulation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActualTuring)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualState)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualSymbol)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -713,9 +771,7 @@
         private System.Windows.Forms.Label labelTable;
         private System.Windows.Forms.DataGridViewTextBoxColumn Symbols;
         private System.Windows.Forms.Label labelExit;
-        private System.Windows.Forms.TextBox textBoxExit;
         private System.Windows.Forms.Label labelEnter;
-        private System.Windows.Forms.TextBox textBoxEnter;
         private System.Windows.Forms.Button buttonSimulate;
         private System.Windows.Forms.Label labelState;
         private System.Windows.Forms.TextBox textBoxState;
@@ -733,6 +789,13 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonSave;
         private System.Windows.Forms.OpenFileDialog openFileDialogForConfig;
         private System.Windows.Forms.SaveFileDialog saveFileDialogForConfig;
+        private System.Windows.Forms.TextBox textBoxEnter;
+        private System.Windows.Forms.RichTextBox richTextBoxExit;
+        private System.Windows.Forms.PictureBox pictureBoxActualSymbol;
+        private System.Windows.Forms.PictureBox pictureBoxActualState;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ColorDialog colorDialog;
     }
 }
 

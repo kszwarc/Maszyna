@@ -56,10 +56,12 @@ namespace Maszyna.Models
             const byte maximumNumberOfStatesToShow = 10;
             if (numberOfStates == 1)
                 return "q" + (numberOfStates - 1);
+            else if (numberOfStates < 1)
+                return "";
             else if (numberOfStates < maximumNumberOfStatesToShow)
                 return GenerateStatesListForMultipleStates(numberOfStates);
             else
-                return "q0, q1, ..., "+ "q" + (numberOfStates - 1);
+                return "q0, q1, ..., " + "q" + (numberOfStates - 1);
         }
 
         private static String GenerateStatesListForMultipleStates(int numberOfStates)

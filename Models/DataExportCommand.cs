@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Drawing;
 
 namespace Maszyna.Models
 {
@@ -24,6 +25,8 @@ namespace Maszyna.Models
                 SaveList(writeBinary, turingMachine.Symbols);
                 writeBinary.Write((Int32)turingMachine.PotentialTransitions.Count);
                 SaveList(writeBinary, turingMachine.PotentialTransitions.Select(p=>p.Instruction).ToList());
+                writeBinary.Write((Int32)turingMachine.ActualStateColor.ToArgb());
+                writeBinary.Write((Int32)turingMachine.ActualSymbolColor.ToArgb());
                 return true;
             }
             catch (Exception)

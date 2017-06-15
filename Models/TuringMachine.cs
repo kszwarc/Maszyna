@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Drawing;
 
 namespace Maszyna.Models
 {
@@ -15,6 +16,8 @@ namespace Maszyna.Models
         public List<Transition> Transitions { get; set; } = new List<Transition>();
         public List<PotentialTransition> PotentialTransitions { get; set; } = new List<PotentialTransition>();
         public int ActualCharIndex { get; set; } = -1;
+        public Color ActualSymbolColor { get; set; } = Color.Red;
+        public Color ActualStateColor { get; set; } = Color.LightBlue;
         private int _actualState;
         private Transition _lastTransition;
         private bool _forceToFinish = false;

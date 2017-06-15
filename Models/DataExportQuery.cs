@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Drawing;
 
 namespace Maszyna.Models
 {
@@ -25,6 +26,8 @@ namespace Maszyna.Models
                 int numberOfPotentialTransitions = readBinary.ReadInt32();
                 turingMachine.PotentialTransitions = ReadList(readBinary, numberOfPotentialTransitions).
                     Select(p=>new PotentialTransition(p,0,' ')).ToList();
+                turingMachine.ActualStateColor = Color.FromArgb(readBinary.ReadInt32());
+                turingMachine.ActualSymbolColor = Color.FromArgb(readBinary.ReadInt32());
                 return true;
             }
             catch (Exception)
