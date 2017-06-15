@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Maszyna.Models;
 using System.Drawing;
 using System.Diagnostics;
+using System.Text;
 
 namespace Maszyna.Forms
 {
@@ -549,6 +550,14 @@ namespace Maszyna.Forms
         {
             _turingMachine.HeadPosition = (String)comboBoxHead.SelectedItem == "Lewa" ?
                 TuringHeadPosition.FirstSymbolFromLeft : TuringHeadPosition.FirstSymbolFromRight;
+            SetToolTipForHeadConfiguration();
+        }
+
+        private void SetToolTipForHeadConfiguration()
+        {
+            StringBuilder textToShow = new StringBuilder("Pierwszy symbol z ");
+            textToShow.Append((String)comboBoxHead.SelectedItem == "Lewa" ? "lewej strony." : "prawej strony.");
+            toolTipForComboBox.SetToolTip(comboBoxHead, textToShow.ToString());
         }
 
         private void richTextBoxExit_TextChanged(object sender, EventArgs e)

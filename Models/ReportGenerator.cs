@@ -58,9 +58,21 @@ namespace Maszyna.Models
 
         private Paragraph GenerateFormulationParagraphForMachine()
         {
+            TuringMachine turingMachine = _reportStructure.TuringMachine;
             Paragraph paragraph = new Paragraph();
-            paragraph.AddText(ConfigModel.GenerateFormalSymbols(_reportStructure.TuringMachine) + Environment.NewLine);
+            paragraph.AddText(ConfigModel.GenerateFormalSymbols(turingMachine) + Environment.NewLine);
+            paragraph.AddText("Lokalizacja głowicy: " + GenerateTuringMachineHeadPositionText(turingMachine.HeadPosition) +
+                Environment.NewLine);
             return paragraph;
+        }
+
+        private String GenerateTuringMachineHeadPositionText(TuringHeadPosition headPosition)
+        {
+            if (headPosition == TuringHeadPosition.FirstSymbolFromLeft)
+                return "pierwszy symbol z lewej strony.";
+            else if (headPosition == TuringHeadPosition.FirstSymbolFromRight)
+                return "pierwszy symbol z prawej strony.";
+            return "";
         }
 
         private void AddStates()
