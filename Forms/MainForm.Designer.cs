@@ -617,6 +617,7 @@
             this.richTextBoxExit.ReadOnly = true;
             this.richTextBoxExit.Size = new System.Drawing.Size(886, 20);
             this.richTextBoxExit.TabIndex = 2;
+            this.richTextBoxExit.TabStop = false;
             this.richTextBoxExit.Text = "";
             this.richTextBoxExit.TextChanged += new System.EventHandler(this.richTextBoxExit_TextChanged);
             // 
@@ -712,6 +713,7 @@
             this.textBoxState.ReadOnly = true;
             this.textBoxState.Size = new System.Drawing.Size(75, 20);
             this.textBoxState.TabIndex = 2;
+            this.textBoxState.TabStop = false;
             this.textBoxState.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // buttonSimulate
