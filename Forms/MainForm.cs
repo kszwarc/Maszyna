@@ -638,5 +638,11 @@ namespace Maszyna.Forms
         {
             toolStripButtonReport.Visible = false;
         }
+
+        private void EmptySymbolTextChanged(object sender, EventArgs e)
+        {
+            UpdateEmptySymbolInformationForGUI(sender, e);
+            TriggerConfigurationChanges(sender, e);
+        }
     }
 }
