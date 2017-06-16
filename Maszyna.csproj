@@ -190,6 +190,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="main-qimg-abfe228796da8cede00fb86db122e204-c.ico" />
+    <None Include="Resources\sound.png" />
+    <None Include="Resources\mute.png" />
+    <None Include="Resources\Sound.wav" />
     <None Include="Resources\animateOn.gif" />
     <None Include="Resources\animationOn.gif" />
     <None Include="Resources\animateOff.png" />

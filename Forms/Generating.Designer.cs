@@ -52,6 +52,8 @@
             this.Controls.Add(this.pictureBoxTuring);
             this.Name = "Generating";
             this.Text = "Generowanie rozwiązania. Proszę czekać...";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Generating_FormClosing);
+            this.VisibleChanged += new System.EventHandler(this.Generating_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTuring)).EndInit();
             this.ResumeLayout(false);
 

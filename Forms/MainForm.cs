@@ -36,6 +36,8 @@ namespace Maszyna.Forms
                 toolStripButtonRaport_Click(null, null);
             else if (keyData == (Keys.Control | Keys.N) && toolStripButtonAnimation.Visible)
                 toolStripButtonAnimation_Click(null, null);
+            else if (keyData == (Keys.Control | Keys.M) && toolStripButtonMusic.Visible)
+                toolStripButtonMusic_Click(null, null);
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -190,7 +192,7 @@ namespace Maszyna.Forms
             if (shouldSimulationTabBeVisible)
             {
                 _turingMachine.GenerateTransitionsFromPotential();
-                toolStripButtonAnimation.Visible = true;
+                ShowToolStripConnectedToSimulation();
                 CopyDataGridViewToActualTuringState();
                 ResetControlsForSimulation();
                 if (!isSimulationTabAdded)
@@ -198,6 +200,12 @@ namespace Maszyna.Forms
             }
             else if (!shouldSimulationTabBeVisible && isSimulationTabAdded)
                 HideSimulationTabPageAndToolStripsImage();
+        }
+
+        private void ShowToolStripConnectedToSimulation()
+        {
+            toolStripButtonAnimation.Visible = true;
+            toolStripButtonMusic.Visible = true;
         }
 
         private void ResetControlsForSimulation()
@@ -238,8 +246,14 @@ namespace Maszyna.Forms
         {
             _simulationTabPage = _simulationTabPage ?? tabPageSimulation;
             tabControl.TabPages.Remove(_simulationTabPage);
+            HideToolStripsConnetedToSimulateTab();
+        }
+
+        private void HideToolStripsConnetedToSimulateTab()
+        {
             toolStripButtonReport.Visible = false;
             toolStripButtonAnimation.Visible = false;
+            toolStripButtonMusic.Visible = false;
         }
 
         private void SetMaximumAvailableBeginningStateNumber()
@@ -582,6 +596,8 @@ namespace Maszyna.Forms
             pictureBoxActualState.BackColor = _turingMachine.ActualStateColor;
             pictureBoxActualSymbol.BackColor = _turingMachine.ActualSymbolColor;
             ResetControlsForSimulation();
+            _turingMachine.PotentialTransitions = GeneratePotentialTransitions();
+            _turingMachine.GenerateTransitionsFromPotential();
         }
 
         private void PopulateDataGridViewFromTuringMachine(TuringMachine machineToOperate)
@@ -717,22 +733,37 @@ namespace Maszyna.Forms
         {
             if (_animationEnabled)
             {
-                _animationEnabled = false;
                 toolStripButtonAnimation.Image = Properties.Resources.animateOff;
                 toolStripButtonAnimation.Text = "Włącz animację (ctrl+n)";
             }
             else
             {
-                _animationEnabled = true;
                 toolStripButtonAnimation.Image = Properties.Resources.animateOn;
                 toolStripButtonAnimation.Text = "Wyłącz animację (ctrl+n)";
             }
+            _animationEnabled = !_animationEnabled;
+            toolStripButtonMusic.Visible = _animationEnabled;
         }
 
         private void textBoxEnter_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Char.IsControl(e.KeyChar) && !Validator.AreEntryDataForMachineValid(e.KeyChar, _turingMachine))
                 e.Handled = true;
+        }
+
+        private void toolStripButtonMusic_Click(object sender, EventArgs e)
+        {
+            if (_generateForm.PlayMusic)
+            {
+                toolStripButtonMusic.Text = "Włącz dźwięk (ctrl+m)";
+                toolStripButtonMusic.Image = Properties.Resources.mute;
+            }
+            else
+            {
+                toolStripButtonMusic.Text = "Wyłącz dźwięk (ctrl+m)";
+                toolStripButtonMusic.Image = Properties.Resources.soundIcon;
+            }
+            _generateForm.PlayMusic = !_generateForm.PlayMusic;
         }
     }
 }
