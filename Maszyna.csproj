@@ -101,6 +101,12 @@
     <Compile Include="Forms\FinalStatesForm.Designer.cs">
       <DependentUpon>FinalStatesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Generating.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Generating.Designer.cs">
+      <DependentUpon>Generating.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\NextState.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,6 +148,9 @@
     <Compile Include="Forms\Window.Designer.cs">
       <DependentUpon>Window.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\Generating.resx">
+      <DependentUpon>Generating.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -181,6 +190,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="main-qimg-abfe228796da8cede00fb86db122e204-c.ico" />
+    <None Include="Resources\animateOn.gif" />
+    <None Include="Resources\animationOn.gif" />
+    <None Include="Resources\animateOff.png" />
+    <None Include="Resources\animationON.png" />
+    <None Include="Resources\animationOFF.png" />
     <None Include="Resources\Logo.png" />
   </ItemGroup>
   <ItemGroup>

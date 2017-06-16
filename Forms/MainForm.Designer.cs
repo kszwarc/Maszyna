@@ -44,22 +44,17 @@
             this.saveFileDialogForConfig = new System.Windows.Forms.SaveFileDialog();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.saveFileDialogForReport = new System.Windows.Forms.SaveFileDialog();
+            this.toolTipForComboBox = new System.Windows.Forms.ToolTip(this.components);
+            this.timerShowWorking = new System.Windows.Forms.Timer(this.components);
             this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.toolStripButtonLoad = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonReport = new System.Windows.Forms.ToolStripButton();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageConfig = new System.Windows.Forms.TabPage();
-            this.pictureBoxActualSymbol = new System.Windows.Forms.PictureBox();
-            this.pictureBoxActualState = new System.Windows.Forms.PictureBox();
             this.labelColorSymbol = new System.Windows.Forms.Label();
             this.labelColorState = new System.Windows.Forms.Label();
             this.numericUpDownExecutionTime = new System.Windows.Forms.NumericUpDown();
             this.labelTime = new System.Windows.Forms.Label();
             this.checkBoxManualTable = new System.Windows.Forms.CheckBox();
             this.labelTable = new System.Windows.Forms.Label();
-            this.dataGridViewTable = new Maszyna.Forms.DataGridViewWithPaste();
-            this.Symbols = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelHead = new System.Windows.Forms.Label();
             this.comboBoxHead = new System.Windows.Forms.ComboBox();
             this.buttonFinalStates = new System.Windows.Forms.Button();
@@ -81,30 +76,37 @@
             this.toolStripStatusLabelExecution = new System.Windows.Forms.ToolStripStatusLabel();
             this.richTextBoxExit = new System.Windows.Forms.RichTextBox();
             this.textBoxEnter = new System.Windows.Forms.TextBox();
-            this.dataGridViewActualTuring = new Maszyna.Forms.DataGridViewWithPaste();
-            this.buttonStepNextWithTape = new System.Windows.Forms.Button();
-            this.buttonStepNext = new System.Windows.Forms.Button();
             this.labelState = new System.Windows.Forms.Label();
             this.textBoxState = new System.Windows.Forms.TextBox();
-            this.buttonSimulate = new System.Windows.Forms.Button();
             this.labelExit = new System.Windows.Forms.Label();
             this.labelEnter = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.toolTipForComboBox = new System.Windows.Forms.ToolTip(this.components);
+            this.toolStripButtonLoad = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonAnimation = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonReport = new System.Windows.Forms.ToolStripButton();
+            this.pictureBoxActualSymbol = new System.Windows.Forms.PictureBox();
+            this.pictureBoxActualState = new System.Windows.Forms.PictureBox();
+            this.buttonStepNextWithTape = new System.Windows.Forms.Button();
+            this.buttonStepNext = new System.Windows.Forms.Button();
+            this.buttonSimulate = new System.Windows.Forms.Button();
+            this.dataGridViewTable = new Maszyna.Forms.DataGridViewWithPaste();
+            this.Symbols = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewActualTuring = new Maszyna.Forms.DataGridViewWithPaste();
             this.toolStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualSymbol)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualState)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExecutionTime)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
             this.statusStripConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFirstStateNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStateNumbers)).BeginInit();
             this.tabPageSimulation.SuspendLayout();
             this.statusStripExecution.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActualTuring)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualSymbol)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualState)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActualTuring)).BeginInit();
             this.SuspendLayout();
             // 
             // backgroundWorkerProgram
@@ -134,51 +136,23 @@
             this.saveFileDialogForReport.FileName = "Raport.pdf";
             this.saveFileDialogForReport.Filter = "PDF File | *.pdf|All files|*.*";
             // 
+            // timerShowWorking
+            // 
+            this.timerShowWorking.Interval = 1500;
+            this.timerShowWorking.Tick += new System.EventHandler(this.timerShowWorking_Tick);
+            // 
             // toolStrip
             // 
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonLoad,
             this.toolStripButtonSave,
+            this.toolStripButtonAnimation,
             this.toolStripButtonReport});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(911, 25);
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "toolStrip";
-            // 
-            // toolStripButtonLoad
-            // 
-            this.toolStripButtonLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonLoad.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonLoad.Image")));
-            this.toolStripButtonLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonLoad.Name = "toolStripButtonLoad";
-            this.toolStripButtonLoad.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonLoad.Text = "Wczytaj konfigurację (ctrl+l)";
-            this.toolStripButtonLoad.ToolTipText = "Wczytaj konfigurację (ctrl+l)";
-            this.toolStripButtonLoad.Click += new System.EventHandler(this.toolStripButtonLoad_Click);
-            // 
-            // toolStripButtonSave
-            // 
-            this.toolStripButtonSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonSave.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSave.Image")));
-            this.toolStripButtonSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonSave.Name = "toolStripButtonSave";
-            this.toolStripButtonSave.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonSave.Text = "Zapisz konfigurację (ctrl+s)";
-            this.toolStripButtonSave.ToolTipText = "Zapisz konfigurację (ctrl+s)";
-            this.toolStripButtonSave.Click += new System.EventHandler(this.toolStripButtonSave_Click);
-            // 
-            // toolStripButtonReport
-            // 
-            this.toolStripButtonReport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonReport.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonReport.Image")));
-            this.toolStripButtonReport.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonReport.Name = "toolStripButtonReport";
-            this.toolStripButtonReport.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonReport.Text = "Raport (ctrl + r)";
-            this.toolStripButtonReport.ToolTipText = "Raport (ctrl + r)";
-            this.toolStripButtonReport.Visible = false;
-            this.toolStripButtonReport.Click += new System.EventHandler(this.toolStripButtonRaport_Click);
             // 
             // tabControl
             // 
@@ -230,28 +204,6 @@
             this.tabPageConfig.Text = "Konfiguracja maszyny";
             this.tabPageConfig.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPageConfig_DragDrop);
             this.tabPageConfig.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPageConfig_DragEnter);
-            // 
-            // pictureBoxActualSymbol
-            // 
-            this.pictureBoxActualSymbol.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBoxActualSymbol.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxActualSymbol.Location = new System.Drawing.Point(333, 256);
-            this.pictureBoxActualSymbol.Name = "pictureBoxActualSymbol";
-            this.pictureBoxActualSymbol.Size = new System.Drawing.Size(71, 15);
-            this.pictureBoxActualSymbol.TabIndex = 11122;
-            this.pictureBoxActualSymbol.TabStop = false;
-            this.pictureBoxActualSymbol.Click += new System.EventHandler(this.pictureBoxActualSymbol_Click);
-            // 
-            // pictureBoxActualState
-            // 
-            this.pictureBoxActualState.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBoxActualState.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxActualState.Location = new System.Drawing.Point(333, 231);
-            this.pictureBoxActualState.Name = "pictureBoxActualState";
-            this.pictureBoxActualState.Size = new System.Drawing.Size(71, 15);
-            this.pictureBoxActualState.TabIndex = 11121;
-            this.pictureBoxActualState.TabStop = false;
-            this.pictureBoxActualState.Click += new System.EventHandler(this.pictureBoxActualState_Click);
             // 
             // labelColorSymbol
             // 
@@ -335,58 +287,6 @@
             this.labelTable.Text = "Format zapisu w tabeli stanów: stan/symbol/kierunek (L, P, -) lub stan końcowy";
             this.labelTable.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.labelTable.Visible = false;
-            // 
-            // dataGridViewTable
-            // 
-            this.dataGridViewTable.AllowUserToAddRows = false;
-            this.dataGridViewTable.AllowUserToDeleteRows = false;
-            this.dataGridViewTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Symbols});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTable.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewTable.Location = new System.Drawing.Point(3, 330);
-            this.dataGridViewTable.Name = "dataGridViewTable";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewTable.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridViewTable.Size = new System.Drawing.Size(894, 196);
-            this.dataGridViewTable.TabIndex = 11115;
-            this.dataGridViewTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTable_CellClick);
-            this.dataGridViewTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.UpdateStateTable);
-            // 
-            // Symbols
-            // 
-            this.Symbols.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Symbols.HeaderText = "Σ\\Q";
-            this.Symbols.MaxInputLength = 1;
-            this.Symbols.Name = "Symbols";
-            this.Symbols.ReadOnly = true;
             // 
             // labelHead
             // 
@@ -584,14 +484,14 @@
             this.tabPageSimulation.Controls.Add(this.statusStripExecution);
             this.tabPageSimulation.Controls.Add(this.richTextBoxExit);
             this.tabPageSimulation.Controls.Add(this.textBoxEnter);
-            this.tabPageSimulation.Controls.Add(this.dataGridViewActualTuring);
-            this.tabPageSimulation.Controls.Add(this.buttonStepNextWithTape);
-            this.tabPageSimulation.Controls.Add(this.buttonStepNext);
             this.tabPageSimulation.Controls.Add(this.labelState);
             this.tabPageSimulation.Controls.Add(this.textBoxState);
-            this.tabPageSimulation.Controls.Add(this.buttonSimulate);
             this.tabPageSimulation.Controls.Add(this.labelExit);
             this.tabPageSimulation.Controls.Add(this.labelEnter);
+            this.tabPageSimulation.Controls.Add(this.buttonStepNextWithTape);
+            this.tabPageSimulation.Controls.Add(this.buttonStepNext);
+            this.tabPageSimulation.Controls.Add(this.buttonSimulate);
+            this.tabPageSimulation.Controls.Add(this.dataGridViewActualTuring);
             this.tabPageSimulation.Location = new System.Drawing.Point(4, 22);
             this.tabPageSimulation.Name = "tabPageSimulation";
             this.tabPageSimulation.Padding = new System.Windows.Forms.Padding(3);
@@ -638,6 +538,217 @@
             this.textBoxEnter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxEnter.TextChanged += new System.EventHandler(this.textBoxEnter_TextChanged);
             // 
+            // labelState
+            // 
+            this.labelState.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelState.AutoSize = true;
+            this.labelState.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.259F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelState.Location = new System.Drawing.Point(409, 170);
+            this.labelState.Name = "labelState";
+            this.labelState.Size = new System.Drawing.Size(82, 15);
+            this.labelState.TabIndex = 5;
+            this.labelState.Text = "Stan końcowy";
+            // 
+            // textBoxState
+            // 
+            this.textBoxState.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.textBoxState.Location = new System.Drawing.Point(413, 147);
+            this.textBoxState.Name = "textBoxState";
+            this.textBoxState.ReadOnly = true;
+            this.textBoxState.Size = new System.Drawing.Size(75, 20);
+            this.textBoxState.TabIndex = 2;
+            this.textBoxState.TabStop = false;
+            this.textBoxState.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // labelExit
+            // 
+            this.labelExit.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelExit.AutoSize = true;
+            this.labelExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.259F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelExit.Location = new System.Drawing.Point(398, 117);
+            this.labelExit.Name = "labelExit";
+            this.labelExit.Size = new System.Drawing.Size(103, 15);
+            this.labelExit.TabIndex = 3;
+            this.labelExit.Text = "Taśma wyjściowa";
+            // 
+            // labelEnter
+            // 
+            this.labelEnter.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelEnter.AutoSize = true;
+            this.labelEnter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.259F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelEnter.Location = new System.Drawing.Point(397, 63);
+            this.labelEnter.Name = "labelEnter";
+            this.labelEnter.Size = new System.Drawing.Size(105, 15);
+            this.labelEnter.TabIndex = 1;
+            this.labelEnter.Text = "Taśma wejściowa";
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider.ContainerControl = this;
+            // 
+            // toolStripButtonLoad
+            // 
+            this.toolStripButtonLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonLoad.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonLoad.Image")));
+            this.toolStripButtonLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonLoad.Name = "toolStripButtonLoad";
+            this.toolStripButtonLoad.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonLoad.Text = "Wczytaj konfigurację (ctrl+l)";
+            this.toolStripButtonLoad.ToolTipText = "Wczytaj konfigurację (ctrl+l)";
+            this.toolStripButtonLoad.Click += new System.EventHandler(this.toolStripButtonLoad_Click);
+            // 
+            // toolStripButtonSave
+            // 
+            this.toolStripButtonSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonSave.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSave.Image")));
+            this.toolStripButtonSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonSave.Name = "toolStripButtonSave";
+            this.toolStripButtonSave.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonSave.Text = "Zapisz konfigurację (ctrl+s)";
+            this.toolStripButtonSave.ToolTipText = "Zapisz konfigurację (ctrl+s)";
+            this.toolStripButtonSave.Click += new System.EventHandler(this.toolStripButtonSave_Click);
+            // 
+            // toolStripButtonAnimation
+            // 
+            this.toolStripButtonAnimation.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonAnimation.Image = global::Maszyna.Properties.Resources.animateOn;
+            this.toolStripButtonAnimation.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonAnimation.Name = "toolStripButtonAnimation";
+            this.toolStripButtonAnimation.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonAnimation.Text = "Wyłącz animację (ctrl+n)";
+            this.toolStripButtonAnimation.Visible = false;
+            this.toolStripButtonAnimation.Click += new System.EventHandler(this.toolStripButtonAnimation_Click);
+            // 
+            // toolStripButtonReport
+            // 
+            this.toolStripButtonReport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonReport.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonReport.Image")));
+            this.toolStripButtonReport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonReport.Name = "toolStripButtonReport";
+            this.toolStripButtonReport.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonReport.Text = "Raport (ctrl+r)";
+            this.toolStripButtonReport.ToolTipText = "Raport (ctrl + r)";
+            this.toolStripButtonReport.Visible = false;
+            this.toolStripButtonReport.Click += new System.EventHandler(this.toolStripButtonRaport_Click);
+            // 
+            // pictureBoxActualSymbol
+            // 
+            this.pictureBoxActualSymbol.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBoxActualSymbol.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxActualSymbol.Location = new System.Drawing.Point(333, 256);
+            this.pictureBoxActualSymbol.Name = "pictureBoxActualSymbol";
+            this.pictureBoxActualSymbol.Size = new System.Drawing.Size(71, 15);
+            this.pictureBoxActualSymbol.TabIndex = 11122;
+            this.pictureBoxActualSymbol.TabStop = false;
+            this.pictureBoxActualSymbol.Click += new System.EventHandler(this.pictureBoxActualSymbol_Click);
+            // 
+            // pictureBoxActualState
+            // 
+            this.pictureBoxActualState.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBoxActualState.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxActualState.Location = new System.Drawing.Point(333, 231);
+            this.pictureBoxActualState.Name = "pictureBoxActualState";
+            this.pictureBoxActualState.Size = new System.Drawing.Size(71, 15);
+            this.pictureBoxActualState.TabIndex = 11121;
+            this.pictureBoxActualState.TabStop = false;
+            this.pictureBoxActualState.Click += new System.EventHandler(this.pictureBoxActualState_Click);
+            // 
+            // buttonStepNextWithTape
+            // 
+            this.buttonStepNextWithTape.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonStepNextWithTape.Image = ((System.Drawing.Image)(resources.GetObject("buttonStepNextWithTape.Image")));
+            this.buttonStepNextWithTape.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonStepNextWithTape.Location = new System.Drawing.Point(508, 208);
+            this.buttonStepNextWithTape.Name = "buttonStepNextWithTape";
+            this.buttonStepNextWithTape.Size = new System.Drawing.Size(102, 56);
+            this.buttonStepNextWithTape.TabIndex = 10;
+            this.buttonStepNextWithTape.Text = "Pojedynczy krok\r\nz nową taśmą";
+            this.buttonStepNextWithTape.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonStepNextWithTape.UseVisualStyleBackColor = true;
+            this.buttonStepNextWithTape.Click += new System.EventHandler(this.buttonStepNextWithTape_Click);
+            // 
+            // buttonStepNext
+            // 
+            this.buttonStepNext.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonStepNext.Enabled = false;
+            this.buttonStepNext.Image = ((System.Drawing.Image)(resources.GetObject("buttonStepNext.Image")));
+            this.buttonStepNext.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonStepNext.Location = new System.Drawing.Point(400, 208);
+            this.buttonStepNext.Name = "buttonStepNext";
+            this.buttonStepNext.Size = new System.Drawing.Size(102, 56);
+            this.buttonStepNext.TabIndex = 9;
+            this.buttonStepNext.Text = "Pojedynczy krok";
+            this.buttonStepNext.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonStepNext.UseVisualStyleBackColor = true;
+            this.buttonStepNext.Click += new System.EventHandler(this.buttonStepNext_Click);
+            // 
+            // buttonSimulate
+            // 
+            this.buttonSimulate.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonSimulate.Image = ((System.Drawing.Image)(resources.GetObject("buttonSimulate.Image")));
+            this.buttonSimulate.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonSimulate.Location = new System.Drawing.Point(292, 208);
+            this.buttonSimulate.Name = "buttonSimulate";
+            this.buttonSimulate.Size = new System.Drawing.Size(102, 56);
+            this.buttonSimulate.TabIndex = 8;
+            this.buttonSimulate.Text = "Wykonaj program";
+            this.buttonSimulate.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonSimulate.UseVisualStyleBackColor = true;
+            this.buttonSimulate.Click += new System.EventHandler(this.buttonSimulate_Click);
+            // 
+            // dataGridViewTable
+            // 
+            this.dataGridViewTable.AllowUserToAddRows = false;
+            this.dataGridViewTable.AllowUserToDeleteRows = false;
+            this.dataGridViewTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Symbols});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTable.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewTable.Location = new System.Drawing.Point(3, 330);
+            this.dataGridViewTable.Name = "dataGridViewTable";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewTable.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.dataGridViewTable.Size = new System.Drawing.Size(894, 196);
+            this.dataGridViewTable.TabIndex = 11115;
+            this.dataGridViewTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTable_CellClick);
+            this.dataGridViewTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.UpdateStateTable);
+            // 
+            // Symbols
+            // 
+            this.Symbols.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Symbols.HeaderText = "Σ\\Q";
+            this.Symbols.MaxInputLength = 1;
+            this.Symbols.Name = "Symbols";
+            this.Symbols.ReadOnly = true;
+            // 
             // dataGridViewActualTuring
             // 
             this.dataGridViewActualTuring.AllowUserToAddRows = false;
@@ -678,98 +789,6 @@
             this.dataGridViewActualTuring.TabIndex = 11;
             this.dataGridViewActualTuring.TabStop = false;
             // 
-            // buttonStepNextWithTape
-            // 
-            this.buttonStepNextWithTape.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonStepNextWithTape.Image = ((System.Drawing.Image)(resources.GetObject("buttonStepNextWithTape.Image")));
-            this.buttonStepNextWithTape.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonStepNextWithTape.Location = new System.Drawing.Point(508, 208);
-            this.buttonStepNextWithTape.Name = "buttonStepNextWithTape";
-            this.buttonStepNextWithTape.Size = new System.Drawing.Size(102, 56);
-            this.buttonStepNextWithTape.TabIndex = 10;
-            this.buttonStepNextWithTape.Text = "Pojedynczy krok\r\nz nową taśmą";
-            this.buttonStepNextWithTape.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonStepNextWithTape.UseVisualStyleBackColor = true;
-            this.buttonStepNextWithTape.Click += new System.EventHandler(this.buttonStepNextWithTape_Click);
-            // 
-            // buttonStepNext
-            // 
-            this.buttonStepNext.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonStepNext.Enabled = false;
-            this.buttonStepNext.Image = ((System.Drawing.Image)(resources.GetObject("buttonStepNext.Image")));
-            this.buttonStepNext.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonStepNext.Location = new System.Drawing.Point(400, 208);
-            this.buttonStepNext.Name = "buttonStepNext";
-            this.buttonStepNext.Size = new System.Drawing.Size(102, 56);
-            this.buttonStepNext.TabIndex = 9;
-            this.buttonStepNext.Text = "Pojedynczy krok";
-            this.buttonStepNext.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonStepNext.UseVisualStyleBackColor = true;
-            this.buttonStepNext.Click += new System.EventHandler(this.buttonStepNext_Click);
-            // 
-            // labelState
-            // 
-            this.labelState.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.labelState.AutoSize = true;
-            this.labelState.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.259F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelState.Location = new System.Drawing.Point(409, 170);
-            this.labelState.Name = "labelState";
-            this.labelState.Size = new System.Drawing.Size(82, 15);
-            this.labelState.TabIndex = 5;
-            this.labelState.Text = "Stan końcowy";
-            // 
-            // textBoxState
-            // 
-            this.textBoxState.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.textBoxState.Location = new System.Drawing.Point(413, 147);
-            this.textBoxState.Name = "textBoxState";
-            this.textBoxState.ReadOnly = true;
-            this.textBoxState.Size = new System.Drawing.Size(75, 20);
-            this.textBoxState.TabIndex = 2;
-            this.textBoxState.TabStop = false;
-            this.textBoxState.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // buttonSimulate
-            // 
-            this.buttonSimulate.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonSimulate.Image = ((System.Drawing.Image)(resources.GetObject("buttonSimulate.Image")));
-            this.buttonSimulate.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonSimulate.Location = new System.Drawing.Point(292, 208);
-            this.buttonSimulate.Name = "buttonSimulate";
-            this.buttonSimulate.Size = new System.Drawing.Size(102, 56);
-            this.buttonSimulate.TabIndex = 8;
-            this.buttonSimulate.Text = "Wykonaj program";
-            this.buttonSimulate.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonSimulate.UseVisualStyleBackColor = true;
-            this.buttonSimulate.Click += new System.EventHandler(this.buttonSimulate_Click);
-            // 
-            // labelExit
-            // 
-            this.labelExit.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.labelExit.AutoSize = true;
-            this.labelExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.259F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelExit.Location = new System.Drawing.Point(398, 117);
-            this.labelExit.Name = "labelExit";
-            this.labelExit.Size = new System.Drawing.Size(103, 15);
-            this.labelExit.TabIndex = 3;
-            this.labelExit.Text = "Taśma wyjściowa";
-            // 
-            // labelEnter
-            // 
-            this.labelEnter.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.labelEnter.AutoSize = true;
-            this.labelEnter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.259F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelEnter.Location = new System.Drawing.Point(397, 63);
-            this.labelEnter.Name = "labelEnter";
-            this.labelEnter.Size = new System.Drawing.Size(105, 15);
-            this.labelEnter.TabIndex = 1;
-            this.labelEnter.Text = "Taśma wejściowa";
-            // 
-            // errorProvider
-            // 
-            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.errorProvider.ContainerControl = this;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -785,10 +804,7 @@
             this.tabControl.ResumeLayout(false);
             this.tabPageConfig.ResumeLayout(false);
             this.tabPageConfig.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualSymbol)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualState)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExecutionTime)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).EndInit();
             this.statusStripConfig.ResumeLayout(false);
             this.statusStripConfig.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFirstStateNumber)).EndInit();
@@ -797,8 +813,11 @@
             this.tabPageSimulation.PerformLayout();
             this.statusStripExecution.ResumeLayout(false);
             this.statusStripExecution.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActualTuring)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualSymbol)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualState)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActualTuring)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -859,6 +878,8 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonReport;
         private System.Windows.Forms.SaveFileDialog saveFileDialogForReport;
         private System.Windows.Forms.ToolTip toolTipForComboBox;
+        private System.Windows.Forms.Timer timerShowWorking;
+        private System.Windows.Forms.ToolStripButton toolStripButtonAnimation;
     }
 }
 

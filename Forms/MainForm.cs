@@ -15,6 +15,8 @@ namespace Maszyna.Forms
         private TuringMachine _turingMachine = new TuringMachine();
         private DateTime _executionTimeBeginning;
         private String[] _args;
+        private Generating _generateForm = new Generating();
+        private Boolean _animationEnabled = true;
         private const byte ReservedColumns = 1;
         private const byte TabPagesWithoutSimulationTab = 1;
 
@@ -26,12 +28,14 @@ namespace Maszyna.Forms
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == (Keys.Control | Keys.S))
+            if (keyData == (Keys.Control | Keys.S) && toolStripButtonSave.Visible)
                 toolStripButtonSave_Click(null, null);
-            else if (keyData == (Keys.Control | Keys.L))
+            else if (keyData == (Keys.Control | Keys.L) && toolStripButtonLoad.Visible)
                 toolStripButtonLoad_Click(null, null);
-            else if (keyData == (Keys.Control | Keys.R))
+            else if (keyData == (Keys.Control | Keys.R) && toolStripButtonReport.Visible)
                 toolStripButtonRaport_Click(null, null);
+            else if (keyData == (Keys.Control | Keys.N) && toolStripButtonAnimation.Visible)
+                toolStripButtonAnimation_Click(null, null);
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -53,7 +57,7 @@ namespace Maszyna.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            HideSimulationTabPageAndReportImage();
+            HideSimulationTabPageAndToolStripsImage();
             UpdateEmptySymbolInformationForGUI(null, null);
             UpdateTable();
             UpdateFirstStateColor();
@@ -186,12 +190,13 @@ namespace Maszyna.Forms
             if (shouldSimulationTabBeVisible)
             {
                 _turingMachine.GenerateTransitionsFromPotential();
+                toolStripButtonAnimation.Visible = true;
                 CopyDataGridViewToActualTuringState();
                 if (!isSimulationTabAdded)
                     tabControl.TabPages.Add(_simulationTabPage);
             }
             else if (!shouldSimulationTabBeVisible && isSimulationTabAdded)
-                HideSimulationTabPageAndReportImage();
+                HideSimulationTabPageAndToolStripsImage();
         }
 
         private void UpdateTuringMachine()
@@ -220,11 +225,12 @@ namespace Maszyna.Forms
                 tabControl.TabPages.Insert(1, _simulationTabPage);
         }
 
-        private void HideSimulationTabPageAndReportImage()
+        private void HideSimulationTabPageAndToolStripsImage()
         {
             _simulationTabPage = _simulationTabPage ?? tabPageSimulation;
             tabControl.TabPages.Remove(_simulationTabPage);
             toolStripButtonReport.Visible = false;
+            toolStripButtonAnimation.Visible = false;
         }
 
         private void SetMaximumAvailableBeginningStateNumber()
@@ -340,12 +346,23 @@ namespace Maszyna.Forms
                 buttonSimulate.Enabled = false;
                 buttonStepNextWithTape.Enabled = false;
                 buttonStepNext.Enabled = false;
-                this.UseWaitCursor = true;
+                TakeCareOfGUIWhenSimulationStarted();
                 _executionTimeBeginning = DateTime.Now;
                 backgroundWorkerProgram.RunWorkerAsync();
                 SetIntervalForTimer(); 
                 timerForProgram.Start();
             }
+        }
+
+        private void TakeCareOfGUIWhenSimulationStarted()
+        {
+            if (_animationEnabled)
+            {
+                _generateForm.Show();
+                this.Hide();
+            }
+            else
+                this.UseWaitCursor = true;
         }
 
         private void SetIntervalForTimer()
@@ -434,7 +451,26 @@ namespace Maszyna.Forms
             timerForProgram.Stop();
             buttonSimulate.Enabled = true;
             buttonStepNextWithTape.Enabled = true;
-            this.UseWaitCursor = false;
+            TakeCareOfGUIWhenSimulationEnded(executionTimeInMiliseconds);
+        }
+
+        private void TakeCareOfGUIWhenSimulationEnded(long executionTimeInMiliseconds)
+        {
+            if (_animationEnabled)
+            {
+                if (executionTimeInMiliseconds < 1000)
+                    timerShowWorking.Start();
+                else
+                    HideWorkingFormAndShowThisForm();
+            }
+            else
+                this.UseWaitCursor = false;
+        }
+
+        private void HideWorkingFormAndShowThisForm()
+        {
+            _generateForm.Hide();
+            this.Show();
         }
 
         private void timerForProgram_Tick(object sender, EventArgs e)
@@ -639,6 +675,28 @@ namespace Maszyna.Forms
         {
             UpdateEmptySymbolInformationForGUI(sender, e);
             TriggerConfigurationChanges(sender, e);
+        }
+
+        private void timerShowWorking_Tick(object sender, EventArgs e)
+        {
+            HideWorkingFormAndShowThisForm();
+            timerShowWorking.Stop();
+        }
+
+        private void toolStripButtonAnimation_Click(object sender, EventArgs e)
+        {
+            if (_animationEnabled)
+            {
+                _animationEnabled = false;
+                toolStripButtonAnimation.Image = Properties.Resources.animateOff;
+                toolStripButtonAnimation.Text = "Włącz animację (ctrl+n)";
+            }
+            else
+            {
+                _animationEnabled = true;
+                toolStripButtonAnimation.Image = Properties.Resources.animateOn;
+                toolStripButtonAnimation.Text = "Wyłącz animację (ctrl+n)";
+            }
         }
     }
 }
