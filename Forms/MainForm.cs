@@ -480,6 +480,7 @@ namespace Maszyna.Forms
         {
             _generateForm.Hide();
             this.Show();
+            this.BringToFront();
         }
 
         private void timerForProgram_Tick(object sender, EventArgs e)
