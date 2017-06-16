@@ -16,7 +16,7 @@ namespace Maszyna.Models
             String everySymbolsFormulation = "Γ={" + machine.EmptySymbol + delimeterForEverySymbolsFormulation + 
                 sigmaSymbols + "}";
             String transitionFormulation = "δ:ΓxQ -> QxΓx{L,P,-}";
-            String firstStateFormulation = "q={q" + machine.FirstStateIndex + "}";
+            String firstStateFormulation = "q0={q" + machine.FirstStateIndex + "}";
             String emptySymbolFormulation = "B={" + machine.EmptySymbol + "}";
             String finalStatesFormulation = "F={" + String.Join(", ", machine.FinalStates) +"}";
             return statesFormulation + Environment.NewLine + symbolsSigmaFormulation +

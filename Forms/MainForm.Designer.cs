@@ -494,9 +494,9 @@
             this.labelFormal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelFormal.Location = new System.Drawing.Point(535, 34);
             this.labelFormal.Name = "labelFormal";
-            this.labelFormal.Size = new System.Drawing.Size(109, 15);
+            this.labelFormal.Size = new System.Drawing.Size(116, 15);
             this.labelFormal.TabIndex = 7;
-            this.labelFormal.Text = "M=<Q,Σ,Γ,δ,q,B,F>";
+            this.labelFormal.Text = "M=<Q,Σ,Γ,δ,q0,B,F>";
             // 
             // statusStripConfig
             // 
