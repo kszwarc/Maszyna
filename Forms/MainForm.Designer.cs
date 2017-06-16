@@ -196,7 +196,7 @@
             this.toolStripButtonReport.Name = "toolStripButtonReport";
             this.toolStripButtonReport.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonReport.Text = "Raport (ctrl+r)";
-            this.toolStripButtonReport.ToolTipText = "Raport (ctrl + r)";
+            this.toolStripButtonReport.ToolTipText = "Raport (ctrl+r)";
             this.toolStripButtonReport.Visible = false;
             this.toolStripButtonReport.Click += new System.EventHandler(this.toolStripButtonRaport_Click);
             // 
