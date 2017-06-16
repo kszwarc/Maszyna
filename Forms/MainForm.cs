@@ -728,5 +728,11 @@ namespace Maszyna.Forms
                 toolStripButtonAnimation.Text = "Wyłącz animację (ctrl+n)";
             }
         }
+
+        private void textBoxEnter_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsControl(e.KeyChar) && !Validator.AreEntryDataForMachineValid(e.KeyChar, _turingMachine))
+                e.Handled = true;
+        }
     }
 }

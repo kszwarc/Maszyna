@@ -11,6 +11,11 @@ namespace Maszyna.Models
                     return false;
             return true;
         }
+        
+        public static Boolean AreEntryDataForMachineValid(char symbol, TuringMachine turingMachine)
+        {
+            return !(turingMachine.EmptySymbol != symbol && !turingMachine.Symbols.Contains(symbol.ToString()));
+        }
 
         public static Boolean IsTransitionInstructionValid(String text, TuringMachine turingMachine)
         {
