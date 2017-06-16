@@ -488,8 +488,7 @@ namespace Maszyna.Forms
                 else
                     HideWorkingFormAndShowThisForm();
             }
-            else
-                this.UseWaitCursor = false;
+            this.UseWaitCursor = false;
         }
 
         private void HideWorkingFormAndShowThisForm()
