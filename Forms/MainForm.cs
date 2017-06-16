@@ -352,9 +352,6 @@ namespace Maszyna.Forms
             toolStripStatusLabelExecution.Text = "";
             if (ValidateTuringProgram() && !backgroundWorkerProgram.IsBusy)
             {
-                buttonSimulate.Enabled = false;
-                buttonStepNextWithTape.Enabled = false;
-                buttonStepNext.Enabled = false;
                 TakeCareOfGUIWhenSimulationStarted();
                 _executionTimeBeginning = DateTime.Now;
                 backgroundWorkerProgram.RunWorkerAsync();
@@ -365,6 +362,10 @@ namespace Maszyna.Forms
 
         private void TakeCareOfGUIWhenSimulationStarted()
         {
+            buttonSimulate.Enabled = false;
+            buttonStepNextWithTape.Enabled = false;
+            buttonStepNext.Enabled = false;
+            textBoxEnter.Enabled = false;
             if (_animationEnabled)
             {
                 _generateForm.Show();
@@ -461,6 +462,7 @@ namespace Maszyna.Forms
             timerForProgram.Stop();
             buttonSimulate.Enabled = true;
             buttonStepNextWithTape.Enabled = true;
+            textBoxEnter.Enabled = true;
         }
 
         private void TakeCareOfGUIWhenSimulationEnded(long executionTimeInMiliseconds)
@@ -686,6 +688,17 @@ namespace Maszyna.Forms
         private void textBoxEnter_TextChanged(object sender, EventArgs e)
         {
             toolStripButtonReport.Visible = false;
+            if (textBoxEnter.Text.Length==0)
+            {
+                buttonStepNextWithTape.Enabled = false;
+                buttonStepNext.Enabled = false;
+                buttonSimulate.Enabled = false;
+            }
+            else
+            {
+                buttonStepNextWithTape.Enabled = true;
+                buttonSimulate.Enabled = true;
+            }
         }
 
         private void EmptySymbolTextChanged(object sender, EventArgs e)
