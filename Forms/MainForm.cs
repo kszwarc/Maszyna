@@ -192,11 +192,20 @@ namespace Maszyna.Forms
                 _turingMachine.GenerateTransitionsFromPotential();
                 toolStripButtonAnimation.Visible = true;
                 CopyDataGridViewToActualTuringState();
+                ResetControlsForSimulation();
                 if (!isSimulationTabAdded)
                     tabControl.TabPages.Add(_simulationTabPage);
             }
             else if (!shouldSimulationTabBeVisible && isSimulationTabAdded)
                 HideSimulationTabPageAndToolStripsImage();
+        }
+
+        private void ResetControlsForSimulation()
+        {
+            textBoxEnter.Text = "";
+            richTextBoxExit.Text = "";
+            textBoxState.Text = "";
+            buttonStepNext.Enabled = false;
         }
 
         private void UpdateTuringMachine()
@@ -444,14 +453,14 @@ namespace Maszyna.Forms
 
         private void backgroundWorkerProgram_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {
-            long executionTimeInMiliseconds = (DateTime.Now - _executionTimeBeginning).Milliseconds;
+            long executionTimeInMiliseconds = (long)(DateTime.Now - _executionTimeBeginning).TotalMilliseconds;
+            TakeCareOfGUIWhenSimulationEnded(executionTimeInMiliseconds);
             toolStripStatusLabelExecution.Text = "Czas wykonania programu: " + executionTimeInMiliseconds + " ms.";
             toolStripButtonReport.Visible = true;
             TakeCareOfResults((ProgramResult)e.UserState);
             timerForProgram.Stop();
             buttonSimulate.Enabled = true;
             buttonStepNextWithTape.Enabled = true;
-            TakeCareOfGUIWhenSimulationEnded(executionTimeInMiliseconds);
         }
 
         private void TakeCareOfGUIWhenSimulationEnded(long executionTimeInMiliseconds)
@@ -477,7 +486,8 @@ namespace Maszyna.Forms
         {
             _turingMachine.ForceToFinishExecution();
             timerForProgram.Stop();
-            ProgramMessageBox.ShowError("Upłynął limit czasu na wykonanie programu.");
+            notifyIconForTimeOut.Icon = new Icon(SystemIcons.Application, 40, 40);
+            notifyIconForTimeOut.ShowBalloonTip(1000);
             buttonStepNext.Enabled = false;
         }
 
@@ -555,6 +565,11 @@ namespace Maszyna.Forms
             _turingMachine.Symbols = machineToOperate.Symbols;
             _turingMachine.ActualStateColor = machineToOperate.ActualStateColor;
             _turingMachine.ActualSymbolColor = machineToOperate.ActualSymbolColor;
+            _turingMachine.EmptySymbol = machineToOperate.EmptySymbol;
+            _turingMachine.NumberOfStates = machineToOperate.NumberOfStates;
+            _turingMachine.FirstStateIndex = machineToOperate.FirstStateIndex;
+            _turingMachine.HeadPosition = machineToOperate.HeadPosition;
+            _turingMachine.PotentialTransitions = machineToOperate.PotentialTransitions;
             textBoxEmptySymbol.Text = new String(machineToOperate.EmptySymbol, 1);
             UpdateEmptySymbolInformationForGUI(null, null);
             numericUpDownStateNumbers.Value = machineToOperate.NumberOfStates;
@@ -563,6 +578,7 @@ namespace Maszyna.Forms
             PopulateDataGridViewFromTuringMachine(machineToOperate);
             pictureBoxActualState.BackColor = _turingMachine.ActualStateColor;
             pictureBoxActualSymbol.BackColor = _turingMachine.ActualSymbolColor;
+            ResetControlsForSimulation();
         }
 
         private void PopulateDataGridViewFromTuringMachine(TuringMachine machineToOperate)

@@ -30,6 +30,8 @@ namespace Maszyna.Models
             Boolean finished = false;
             while (!finished && !_forceToFinish)
                 finished = ExecuteStep();
+            if (_forceToFinish)
+                _tape = new StringBuilder("");
             return new ProgramResult(_finishedStateSymbol, _tape.ToString(), _lastState, 
                 GetSymbolIndex(new String(_lastTransition.EntrySymbol, 1)));
         }
