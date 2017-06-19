@@ -36,7 +36,7 @@ namespace Maszyna.Models
             if (machine.FinalStates.Count == 0)
                 text.Append(GenerateTextWithDelimeterIfNeeded(text, "stany końcowe"));
             if (machine.PotentialTransitions.Count == 0 || !AreTransitionsValid(machine))
-                text.Append(GenerateTextWithDelimeterIfNeeded(text, "tablicę stanów"));
+                text.Append(GenerateTextWithDelimeterIfNeeded(text, "tabelę stanów"));
             String result = text.ToString();
             return result == beginningTextForSimulationAlert ? "" : result+".";
         }
