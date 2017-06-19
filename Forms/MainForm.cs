@@ -782,5 +782,10 @@ namespace Maszyna.Forms
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
                 dataGridViewActualTuring.ClearSelection();
         }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _generateForm.Close();
+        }
     }
 }

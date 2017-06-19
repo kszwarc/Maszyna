@@ -26,6 +26,8 @@ namespace Maszyna.Forms
         {
             if (PlayMusic)
                 _sound.Stop();
+            e.Cancel = true;
+            this.Hide();
         }
     }
 }
