@@ -666,6 +666,7 @@ namespace Maszyna.Forms
         {
             TabControlModel.ChangeTabControlsVisibility(tabPageConfig, true);
             tabPageConfig.BackgroundImage = null;
+            checkBoxManualTable_CheckedChanged(null, null);
         }
 
         private void tabPageConfig_DragDrop(object sender, DragEventArgs e)
