@@ -102,8 +102,8 @@ namespace Maszyna.Forms
         private void StateNumbersChanged(object sender, EventArgs e)
         {
             SetMaximumAvailableBeginningStateNumber();
-            TriggerConfigurationChanges(sender, e);
             UpdateTableColumns();
+            TriggerConfigurationUpdateWithoutDataGridViewChanges();
             ((DataGridViewWithPaste)dataGridViewTable).AdjustColumnsWidth(dataGridViewTable, e);
         }
 
@@ -139,11 +139,13 @@ namespace Maszyna.Forms
         private void UpdateTableColumns()
         {
             int demandedNumberOfColumns = (int)numericUpDownStateNumbers.Value;
-            int columnsToRemove = dataGridViewTable.Columns.Count - ReservedColumns;
+            int columnsToRemove = dataGridViewTable.Columns.Count - ReservedColumns - demandedNumberOfColumns;
+            int columnsToAdd = demandedNumberOfColumns - (dataGridViewTable.Columns.Count - ReservedColumns);
             RemoveColumns(columnsToRemove);
-            AddColumns(demandedNumberOfColumns);
+            AddColumns(columnsToAdd);
             FirstStateChanges(null, null);
             dataGridViewTable.Refresh();
+            UpdateStateTable(null, null);
         }
 
         private void AddColumns(int columnsToAdd)
@@ -152,7 +154,7 @@ namespace Maszyna.Forms
             for (int i = 0; i < columnsToAdd; i++)
             {
                 DataGridViewTextBoxColumn columnToAdd = new DataGridViewTextBoxColumn();
-                columnToAdd.HeaderText = "q" + (dataGridViewTable.Columns.Count - 1);
+                columnToAdd.HeaderText = "q" + (dataGridViewTable.Columns.Count - ReservedColumns);
                 columnToAdd.MaxInputLength = MaxInputLengthForElement;
                 columnToAdd.ReadOnly = !checkBoxManualTable.Checked;
                 dataGridViewTable.Columns.Add(columnToAdd);
@@ -161,8 +163,9 @@ namespace Maszyna.Forms
 
         private void RemoveColumns(int columnsToRemove)
         {
-            for (int i = columnsToRemove; i >= ReservedColumns; i--)
-                dataGridViewTable.Columns.RemoveAt(dataGridViewTable.Columns.Count - i);
+            const byte OffsetForCount = 1;
+            for (int i = 0; i < columnsToRemove; i++)
+                dataGridViewTable.Columns.RemoveAt(dataGridViewTable.Columns.Count - OffsetForCount);
         }
 
         private void UpdateEmptySymbolInformationForGUI(object sender, EventArgs e)
