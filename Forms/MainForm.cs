@@ -2,10 +2,9 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Maszyna.Models;
 using System.Drawing;
 using System.Diagnostics;
-using System.Text;
+using Maszyna.Models;
 
 namespace Maszyna.Forms
 {
@@ -24,21 +23,6 @@ namespace Maszyna.Forms
         {
             InitializeComponent();
             _args = args;
-        }
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == (Keys.Control | Keys.S) && toolStripButtonSave.Visible)
-                toolStripButtonSave_Click(null, null);
-            else if (keyData == (Keys.Control | Keys.L) && toolStripButtonLoad.Visible)
-                toolStripButtonLoad_Click(null, null);
-            else if (keyData == (Keys.Control | Keys.R) && toolStripButtonReport.Visible)
-                toolStripButtonRaport_Click(null, null);
-            else if (keyData == (Keys.Control | Keys.N) && toolStripButtonAnimation.Visible)
-                toolStripButtonAnimation_Click(null, null);
-            else if (keyData == (Keys.Control | Keys.M) && toolStripButtonMusic.Visible)
-                toolStripButtonMusic_Click(null, null);
-            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         public void OnCompleted() { }
@@ -83,89 +67,12 @@ namespace Maszyna.Forms
             UpdateFirstStateColor();
         }
 
-        private void UpdateFirstStateColor()
-        {
-            int columnIndexToChange = ((int)numericUpDownFirstStateNumber.Value) + ReservedColumns;
-            if (columnIndexToChange < dataGridViewTable.Columns.Count)
-            {
-                Font actualFont = dataGridViewTable.ColumnHeadersDefaultCellStyle.Font;
-                dataGridViewTable.Columns[columnIndexToChange].HeaderCell.Style.Font = new Font(actualFont, FontStyle.Bold);
-            }
-        }
-
-        private void ResetFontForHeaders()
-        {
-            foreach (DataGridViewColumn column in dataGridViewTable.Columns)
-                column.HeaderCell.Style.Font = dataGridViewTable.ColumnHeadersDefaultCellStyle.Font;
-        }
-
         private void StateNumbersChanged(object sender, EventArgs e)
         {
             SetMaximumAvailableBeginningStateNumber();
             UpdateTableColumns();
             TriggerConfigurationUpdateWithoutDataGridViewChanges();
             ((DataGridViewWithPaste)dataGridViewTable).AdjustColumnsWidth(dataGridViewTable, e);
-        }
-
-        private void UpdateTable()
-        {
-            UpdateTableColumns();
-            UpdateTableRows();
-        }
-
-        private void UpdateTableRows()
-        {
-            dataGridViewTable.Rows.Clear();
-            if (_turingMachine.EmptySymbol != ' ')
-                AddRowWithSymbol(_turingMachine.EmptySymbol);
-            AddAvailableSymbolRows();
-            dataGridViewTable.Refresh();
-        }
-
-        private void AddAvailableSymbolRows()
-        {
-            foreach (var symbol in _turingMachine.Symbols)
-                AddRowWithSymbol(symbol[0]);
-        }
-
-        private void AddRowWithSymbol(char symbol)
-        {
-            DataGridViewRow row = new DataGridViewRow();
-            dataGridViewTable.Rows.Add(row);
-            int lastRowIndex = dataGridViewTable.Rows.Count - 1;
-            dataGridViewTable.Rows[lastRowIndex].Cells[0].Value = symbol;
-        }
-
-        private void UpdateTableColumns()
-        {
-            int demandedNumberOfColumns = (int)numericUpDownStateNumbers.Value;
-            int columnsToRemove = dataGridViewTable.Columns.Count - ReservedColumns - demandedNumberOfColumns;
-            int columnsToAdd = demandedNumberOfColumns - (dataGridViewTable.Columns.Count - ReservedColumns);
-            RemoveColumns(columnsToRemove);
-            AddColumns(columnsToAdd);
-            FirstStateChanges(null, null);
-            dataGridViewTable.Refresh();
-            UpdateStateTable(null, null);
-        }
-
-        private void AddColumns(int columnsToAdd)
-        {
-            const byte MaxInputLengthForElement = 32;
-            for (int i = 0; i < columnsToAdd; i++)
-            {
-                DataGridViewTextBoxColumn columnToAdd = new DataGridViewTextBoxColumn();
-                columnToAdd.HeaderText = "q" + (dataGridViewTable.Columns.Count - ReservedColumns);
-                columnToAdd.MaxInputLength = MaxInputLengthForElement;
-                columnToAdd.ReadOnly = !checkBoxManualTable.Checked;
-                dataGridViewTable.Columns.Add(columnToAdd);
-            }
-        }
-
-        private void RemoveColumns(int columnsToRemove)
-        {
-            const byte OffsetForCount = 1;
-            for (int i = 0; i < columnsToRemove; i++)
-                dataGridViewTable.Columns.RemoveAt(dataGridViewTable.Columns.Count - OffsetForCount);
         }
 
         private void UpdateEmptySymbolInformationForGUI(object sender, EventArgs e)
@@ -205,12 +112,6 @@ namespace Maszyna.Forms
                 HideSimulationTabPageAndToolStripsImage();
         }
 
-        private void ShowToolStripConnectedToSimulation()
-        {
-            toolStripButtonAnimation.Visible = true;
-            toolStripButtonMusic.Visible = true;
-        }
-
         private void ResetControlsForSimulation()
         {
             textBoxEnter.Text = "";
@@ -234,80 +135,16 @@ namespace Maszyna.Forms
             labelFormalForInput.Text = ConfigModel.GenerateFormalSymbols(_turingMachine);
         }
 
-        private void SetConfigurationStatus()
-        {
-            toolStripStatusLabelConfigStatus.Text = ConfigModel.GenerateConditionsToShowSimulationTab(_turingMachine);
-        }
-
         private void ShowSimulationTabPage()
         {
             if (_simulationTabPage != null)
                 tabControl.TabPages.Insert(1, _simulationTabPage);
         }
 
-        private void HideSimulationTabPageAndToolStripsImage()
-        {
-            _simulationTabPage = _simulationTabPage ?? tabPageSimulation;
-            tabControl.TabPages.Remove(_simulationTabPage);
-            HideToolStripsConnetedToSimulateTab();
-        }
-
-        private void HideToolStripsConnetedToSimulateTab()
-        {
-            toolStripButtonReport.Visible = false;
-            toolStripButtonAnimation.Visible = false;
-            toolStripButtonMusic.Visible = false;
-        }
-
         private void SetMaximumAvailableBeginningStateNumber()
         {
             const byte ShiftForStateNumberIndexing = 1;
             numericUpDownFirstStateNumber.Maximum = numericUpDownStateNumbers.Value - ShiftForStateNumberIndexing;
-        }
-
-        private void buttonEntrySymbols_Click(object sender, EventArgs e)
-        {
-            EntrySymbolForm symbolForm = new EntrySymbolForm(_turingMachine.Symbols);
-            symbolForm.Show();
-            symbolForm.Subscribe(this);
-        }
-
-        private void buttonFinalStates_Click(object sender, EventArgs e)
-        {
-            FinalStatesForm finalStatesForm = new FinalStatesForm(_turingMachine.FinalStates);
-            finalStatesForm.Show();
-            finalStatesForm.Subscribe(this);
-        }
-
-        private List<PotentialTransition> GeneratePotentialTransitions()
-        {
-            List<PotentialTransition> potentialTransitions = new List<PotentialTransition>();
-            foreach (DataGridViewRow row in dataGridViewTable.Rows)
-            {
-                for (int i = ReservedColumns; i < dataGridViewTable.Columns.Count; i++)
-                {
-                    String cellValue = GetCellValue(row.Cells[i]);
-                    String entrySymbol = GetCellValue(row.Cells[0]);
-                    char entrySymbolToPass = entrySymbol.Length == 1 ? entrySymbol[0] : ' ';
-                    int actualStateNumber = i - ReservedColumns;
-                    PotentialTransition potentialTransition = new PotentialTransition(cellValue, actualStateNumber, 
-                        entrySymbolToPass);
-                    potentialTransitions.Add(potentialTransition);
-                }
-            }
-            return potentialTransitions;
-        }
-
-        private String GetCellValue(DataGridViewCell cell)
-        {
-            return cell.Value == null ? "" : cell.Value.ToString();
-        }
-
-        private void UpdateStateTable(object sender, DataGridViewCellEventArgs e)
-        {
-            _turingMachine.PotentialTransitions = GeneratePotentialTransitions();
-            SetConfigurationStatus();
-            UnlockOrLockTabWithSimulation();
         }
 
         private void checkBoxManualTable_CheckedChanged(object sender, EventArgs e)
@@ -324,13 +161,6 @@ namespace Maszyna.Forms
                 dataGridViewTable.Columns[i].ReadOnly = !enable;
         }
 
-        private void dataGridViewTable_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            const byte FirstFreeColumnIndex = ReservedColumns - 1;
-            if (!checkBoxManualTable.Checked && e.ColumnIndex > FirstFreeColumnIndex && e.RowIndex >= 0)
-                OpenNewNextStateWindow(((DataGridView)sender).Rows[e.RowIndex].Cells[e.ColumnIndex]);
-        }
-
         private void OpenNewNextStateWindow(DataGridViewCell cellToEdit)
         {
             if (Application.OpenForms.OfType<NextState>().Any())
@@ -339,41 +169,6 @@ namespace Maszyna.Forms
             {
                 NextState nextState = new NextState(cellToEdit, _turingMachine);
                 nextState.Show();
-            }
-        }
-
-        private void buttonStepNext_Click(object sender, EventArgs e)
-        {
-            toolStripStatusLabelExecution.Text = "";
-            if (ValidateTuringProgram())
-            {
-                ProgramResult result = _turingMachine.ExecuteStepNext();
-                TakeCareOfResults(result);
-                toolStripButtonReport.Visible = false;
-            }
-        }
-
-        private void buttonStepNextWithTape_Click(object sender, EventArgs e)
-        {
-            toolStripStatusLabelExecution.Text = "";
-            if (ValidateTuringProgram())
-            {
-                ProgramResult result = _turingMachine.ExecuteStepNext(textBoxEnter.Text);
-                TakeCareOfResults(result);
-                toolStripButtonReport.Visible = false;
-            }
-        }
-
-        private void buttonSimulate_Click(object sender, EventArgs e)
-        {
-            toolStripStatusLabelExecution.Text = "";
-            if (ValidateTuringProgram() && !backgroundWorkerProgram.IsBusy)
-            {
-                TakeCareOfGUIWhenSimulationStarted();
-                _executionTimeBeginning = DateTime.Now;
-                backgroundWorkerProgram.RunWorkerAsync();
-                SetIntervalForTimer(); 
-                timerForProgram.Start();
             }
         }
 
@@ -424,21 +219,6 @@ namespace Maszyna.Forms
         {
             richTextBoxExit.SelectAll();
             richTextBoxExit.SelectionColor = Color.Black;
-        }
-
-        private void ColorActualCell(ProgramResult result)
-        {
-            DataGridViewCell cellToColor = dataGridViewActualTuring.Rows[result.SymbolIndex].
-                Cells[result.StateIndex + ReservedColumns];
-            cellToColor.Style.BackColor = _turingMachine.ActualStateColor;
-        }
-
-        private void RemoveBackgroundColorFromCells()
-        {
-            for (int i = 0; i < dataGridViewActualTuring.Rows.Count; i++)
-                for (int j = 0; j < dataGridViewActualTuring.Columns.Count; j++)
-                    dataGridViewActualTuring.Rows[i].Cells[j].Style.BackColor = dataGridViewTable.Rows[0].Cells[0].
-                        Style.BackColor;
         }
 
         private void EnableOrDisableButtonWithStepNext()
@@ -512,47 +292,6 @@ namespace Maszyna.Forms
             buttonStepNext.Enabled = false;
         }
 
-        private void CopyDataGridViewToActualTuringState()
-        {
-            dataGridViewActualTuring.Columns.Clear();
-            CopyColumnsBetweenDataGridViews();
-            CopyRowsBetweenDataGridViews();
-            CopyCellsBetweenDataGridViews();
-        }
-
-        private void CopyCellsBetweenDataGridViews()
-        {
-            for (int i=0; i<dataGridViewTable.Rows.Count; i++)
-                for (int j = 0; j < dataGridViewTable.Columns.Count; j++)
-                    dataGridViewActualTuring.Rows[i].Cells[j].Value = dataGridViewTable.Rows[i].Cells[j].Value;
-        }
-
-        private void CopyRowsBetweenDataGridViews()
-        {
-            foreach (DataGridViewRow row in dataGridViewTable.Rows)
-            {
-                DataGridViewRow rowToAdd = (DataGridViewRow)row.Clone();
-                dataGridViewActualTuring.Rows.Add(rowToAdd);
-            }
-        }
-
-        private void CopyColumnsBetweenDataGridViews()
-        {
-            foreach (DataGridViewColumn column in dataGridViewTable.Columns)
-            {
-                DataGridViewColumn columnToAdd = (DataGridViewColumn)column.Clone();
-                columnToAdd.HeaderCell.Style.Font = dataGridViewTable.ColumnHeadersDefaultCellStyle.Font;
-                columnToAdd.ReadOnly = true;
-                dataGridViewActualTuring.Columns.Add(columnToAdd);
-            }
-        }
-
-        private void toolStripButtonLoad_Click(object sender, EventArgs e)
-        {
-            if (openFileDialogForConfig.ShowDialog() == DialogResult.OK)
-                LoadConfigFromFileFile(openFileDialogForConfig.FileName);
-        }
-
         private void LoadConfigFromFileFile(String filePath)
         {
             TuringMachine newTuringMachine = new TuringMachine();
@@ -564,17 +303,6 @@ namespace Maszyna.Forms
             }
             else
                 ProgramMessageBox.ShowError("Nie udało się odczytać konfiguracji.");
-        }
-
-        private void toolStripButtonSave_Click(object sender, EventArgs e)
-        {
-            if (saveFileDialogForConfig.ShowDialog()==DialogResult.OK)
-            {
-                if (DataExportCommand.SaveFile(saveFileDialogForConfig.FileName,  _turingMachine))
-                    ProgramMessageBox.ShowInfo("Konfiguracja została zapisana.");
-                else
-                    ProgramMessageBox.ShowError("Nie udało się zapisać konfiguracji.");
-            }
         }
 
         private void UpdateGUIFromTuringMachine()
@@ -624,13 +352,6 @@ namespace Maszyna.Forms
             SetToolTipForHeadConfiguration();
         }
 
-        private void SetToolTipForHeadConfiguration()
-        {
-            StringBuilder textToShow = new StringBuilder("Pierwszy symbol z ");
-            textToShow.Append((String)comboBoxHead.SelectedItem == "Lewa" ? "lewej strony" : "prawej strony");
-            toolTipForComboBox.SetToolTip(comboBoxHead, textToShow.ToString());
-        }
-
         private void richTextBoxExit_TextChanged(object sender, EventArgs e)
         {
             richTextBoxExit.SelectAll();
@@ -657,45 +378,10 @@ namespace Maszyna.Forms
                 return entryColor;
         }
 
-        private void tabPageConfig_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                e.Effect = DragDropEffects.Copy;
-            TabControlModel.ChangeTabControlsVisibility(tabPageConfig, false);
-            tabPageConfig.BackgroundImage = Properties.Resources.drop;
-        }
-
-        private void tabPageConfig_DragLeave(object sender, EventArgs e)
-        {
-            TabControlModel.ChangeTabControlsVisibility(tabPageConfig, true);
-            tabPageConfig.BackgroundImage = null;
-            checkBoxManualTable_CheckedChanged(null, null);
-        }
-
-        private void tabPageConfig_DragDrop(object sender, DragEventArgs e)
-        {
-            String[] files = (String[])e.Data.GetData(DataFormats.FileDrop);
-            LoadConfigFromFileFile(files[0]);
-            tabPageConfig_DragLeave(sender, null);
-        }
-
         private void TakeCareOfArgs()
         {
             if (_args.Length > 1)
                 LoadConfigFromFileFile(_args[1]);
-        }
-
-        private void toolStripButtonRaport_Click(object sender, EventArgs e)
-        {
-            if (saveFileDialogForReport.ShowDialog()==DialogResult.OK)
-            {
-                ReportStructure structureForReport = GenerateReportStructure();
-                ReportGenerator generator = new ReportGenerator(saveFileDialogForReport.FileName, structureForReport);
-                if (generator.GenerateReport())
-                    ReactOnValidReportSave(saveFileDialogForReport.FileName);
-                else
-                    ProgramMessageBox.ShowError("Nie udało się zapisać raportu.");
-            }
         }
 
         private ReportStructure GenerateReportStructure()
@@ -743,41 +429,10 @@ namespace Maszyna.Forms
             timerShowWorking.Stop();
         }
 
-        private void toolStripButtonAnimation_Click(object sender, EventArgs e)
-        {
-            if (_animationEnabled)
-            {
-                toolStripButtonAnimation.Image = Properties.Resources.animateOff;
-                toolStripButtonAnimation.Text = "Włącz animację (ctrl+n)";
-            }
-            else
-            {
-                toolStripButtonAnimation.Image = Properties.Resources.animateOn;
-                toolStripButtonAnimation.Text = "Wyłącz animację (ctrl+n)";
-            }
-            _animationEnabled = !_animationEnabled;
-            toolStripButtonMusic.Visible = _animationEnabled;
-        }
-
         private void textBoxEnter_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Char.IsControl(e.KeyChar) && !Validator.AreEntryDataForMachineValid(e.KeyChar, _turingMachine))
                 e.Handled = true;
-        }
-
-        private void toolStripButtonMusic_Click(object sender, EventArgs e)
-        {
-            if (_generateForm.PlayMusic)
-            {
-                toolStripButtonMusic.Text = "Włącz dźwięk (ctrl+m)";
-                toolStripButtonMusic.Image = Properties.Resources.mute;
-            }
-            else
-            {
-                toolStripButtonMusic.Text = "Wyłącz dźwięk (ctrl+m)";
-                toolStripButtonMusic.Image = Properties.Resources.soundIcon;
-            }
-            _generateForm.PlayMusic = !_generateForm.PlayMusic;
         }
 
         private void ClearSelectionOfDataGridViewActualTuring(object sender, DataGridViewCellEventArgs e)

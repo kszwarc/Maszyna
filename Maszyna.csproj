@@ -107,6 +107,18 @@
     <Compile Include="Forms\Generating.Designer.cs">
       <DependentUpon>Generating.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\MainFormButtonsService.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainFormDataGridViewService.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainFormDragDropService.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainFormToolStripService.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\NextState.cs">
       <SubType>Form</SubType>
     </Compile>
