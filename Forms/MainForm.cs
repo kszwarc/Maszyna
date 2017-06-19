@@ -765,25 +765,10 @@ namespace Maszyna.Forms
             _generateForm.PlayMusic = !_generateForm.PlayMusic;
         }
 
-        private void ClearSelectionOfDataGridViewActualTuring(DataGridViewCellEventArgs e)
+        private void ClearSelectionOfDataGridViewActualTuring(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
                 dataGridViewActualTuring.ClearSelection();
-        }
-
-        private void dataGridViewActualTuring_CellEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            ClearSelectionOfDataGridViewActualTuring(e);
-        }
-
-        private void dataGridViewActualTuring_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            ClearSelectionOfDataGridViewActualTuring(e);
-        }
-
-        private void dataGridViewActualTuring_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            ClearSelectionOfDataGridViewActualTuring(e);
         }
     }
 }

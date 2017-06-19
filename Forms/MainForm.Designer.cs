@@ -755,9 +755,9 @@
             this.dataGridViewActualTuring.Size = new System.Drawing.Size(894, 247);
             this.dataGridViewActualTuring.TabIndex = 11;
             this.dataGridViewActualTuring.TabStop = false;
-            this.dataGridViewActualTuring.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewActualTuring_CellClick);
-            this.dataGridViewActualTuring.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewActualTuring_CellDoubleClick);
-            this.dataGridViewActualTuring.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewActualTuring_CellEnter);
+            this.dataGridViewActualTuring.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ClearSelectionOfDataGridViewActualTuring);
+            this.dataGridViewActualTuring.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ClearSelectionOfDataGridViewActualTuring);
+            this.dataGridViewActualTuring.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.ClearSelectionOfDataGridViewActualTuring);
             // 
             // buttonStepNextWithTape
             // 
