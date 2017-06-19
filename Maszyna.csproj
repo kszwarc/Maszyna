@@ -134,6 +134,7 @@
     <Compile Include="Models\ProgramResult.cs" />
     <Compile Include="Models\ReportGenerator.cs" />
     <Compile Include="Models\ReportStructure.cs" />
+    <Compile Include="Models\TabControlModel.cs" />
     <Compile Include="Models\Transition.cs" />
     <Compile Include="Models\TuringElement.cs" />
     <Compile Include="Models\TuringHeadPosition.cs" />
@@ -190,6 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="main-qimg-abfe228796da8cede00fb86db122e204-c.ico" />
+    <None Include="Resources\drop.png" />
     <None Include="Resources\sound.png" />
     <None Include="Resources\mute.png" />
     <None Include="Resources\Sound.wav" />

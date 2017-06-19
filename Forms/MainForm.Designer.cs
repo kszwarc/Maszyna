@@ -230,6 +230,7 @@
             this.tabPageConfig.AllowDrop = true;
             this.tabPageConfig.AutoScroll = true;
             this.tabPageConfig.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageConfig.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.tabPageConfig.Controls.Add(this.pictureBoxActualSymbol);
             this.tabPageConfig.Controls.Add(this.pictureBoxActualState);
             this.tabPageConfig.Controls.Add(this.labelColorSymbol);
@@ -262,6 +263,7 @@
             this.tabPageConfig.Text = "Konfiguracja maszyny";
             this.tabPageConfig.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPageConfig_DragDrop);
             this.tabPageConfig.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPageConfig_DragEnter);
+            this.tabPageConfig.DragLeave += new System.EventHandler(this.tabPageConfig_DragLeave);
             // 
             // pictureBoxActualSymbol
             // 

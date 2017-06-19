@@ -481,14 +481,17 @@ namespace Maszyna.Forms
         private void TakeCareOfGUIWhenSimulationEnded(long executionTimeInMiliseconds)
         {
             if (_animationEnabled)
-            {
-                if (executionTimeInMiliseconds < 1000)
-                    timerShowWorking.Start();
-                else
-                    HideWorkingFormAndShowThisForm();
-            }
+                TakeCareOfGUIWhenSimulationEndedForAnimation(executionTimeInMiliseconds);
             this.UseWaitCursor = false;
             dataGridViewActualTuring.Cursor = this.Cursor;
+        }
+
+        private void TakeCareOfGUIWhenSimulationEndedForAnimation(long executionTimeInMiliseconds)
+        {
+            if (executionTimeInMiliseconds < 1000)
+                timerShowWorking.Start();
+            else
+                HideWorkingFormAndShowThisForm();
         }
 
         private void HideWorkingFormAndShowThisForm()
@@ -655,12 +658,21 @@ namespace Maszyna.Forms
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
                 e.Effect = DragDropEffects.Copy;
+            TabControlModel.ChangeTabControlsVisibility(tabPageConfig, false);
+            tabPageConfig.BackgroundImage = Properties.Resources.drop;
+        }
+
+        private void tabPageConfig_DragLeave(object sender, EventArgs e)
+        {
+            TabControlModel.ChangeTabControlsVisibility(tabPageConfig, true);
+            tabPageConfig.BackgroundImage = null;
         }
 
         private void tabPageConfig_DragDrop(object sender, DragEventArgs e)
         {
             String[] files = (String[])e.Data.GetData(DataFormats.FileDrop);
             LoadConfigFromFileFile(files[0]);
+            tabPageConfig_DragLeave(sender, null);
         }
 
         private void TakeCareOfArgs()
