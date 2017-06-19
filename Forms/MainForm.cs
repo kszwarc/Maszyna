@@ -380,13 +380,12 @@ namespace Maszyna.Forms
             buttonStepNextWithTape.Enabled = false;
             buttonStepNext.Enabled = false;
             textBoxEnter.Enabled = false;
+            this.UseWaitCursor = true;
             if (_animationEnabled)
             {
                 _generateForm.Show();
                 this.Hide();
             }
-            else
-                this.UseWaitCursor = true;
         }
 
         private void SetIntervalForTimer()
@@ -489,6 +488,7 @@ namespace Maszyna.Forms
                     HideWorkingFormAndShowThisForm();
             }
             this.UseWaitCursor = false;
+            dataGridViewActualTuring.Cursor = this.Cursor;
         }
 
         private void HideWorkingFormAndShowThisForm()
@@ -502,8 +502,7 @@ namespace Maszyna.Forms
         {
             _turingMachine.ForceToFinishExecution();
             timerForProgram.Stop();
-            notifyIconForTimeOut.Icon = new Icon(SystemIcons.Application, 40, 40);
-            notifyIconForTimeOut.ShowBalloonTip(1000);
+            ProgramMessageBox.ShowError("Upłynął limit czasu na wykonanie programu.");
             buttonStepNext.Enabled = false;
         }
 

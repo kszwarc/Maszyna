@@ -94,7 +94,6 @@
             this.buttonStepNext = new System.Windows.Forms.Button();
             this.buttonSimulate = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.notifyIconForTimeOut = new System.Windows.Forms.NotifyIcon(this.components);
             this.toolStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
@@ -809,14 +808,6 @@
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
             // 
-            // notifyIconForTimeOut
-            // 
-            this.notifyIconForTimeOut.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Error;
-            this.notifyIconForTimeOut.BalloonTipText = "Upłynął limit czasu na wykonanie programu.";
-            this.notifyIconForTimeOut.BalloonTipTitle = "Symulator Maszyny Turinga";
-            this.notifyIconForTimeOut.Text = "notyfikacja";
-            this.notifyIconForTimeOut.Visible = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -908,7 +899,6 @@
         private System.Windows.Forms.ToolTip toolTipForComboBox;
         private System.Windows.Forms.Timer timerShowWorking;
         private System.Windows.Forms.ToolStripButton toolStripButtonAnimation;
-        private System.Windows.Forms.NotifyIcon notifyIconForTimeOut;
         private System.Windows.Forms.ToolStripButton toolStripButtonMusic;
     }
 }
