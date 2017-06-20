@@ -132,6 +132,10 @@
             this.saveFileDialogForConfig.FileName = "Algorytm.mt";
             this.saveFileDialogForConfig.Filter = "MT File | *.mt|All files|*.*";
             // 
+            // colorDialog
+            // 
+            this.colorDialog.FullOpen = true;
+            // 
             // saveFileDialogForReport
             // 
             this.saveFileDialogForReport.FileName = "Raport.pdf";

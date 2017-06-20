@@ -378,6 +378,7 @@ namespace Maszyna.Forms
 
         private Color GetColorFromUser(Color entryColor)
         {
+            colorDialog.Color = entryColor;
             if (colorDialog.ShowDialog() == DialogResult.OK)
                 return colorDialog.Color;
             else
