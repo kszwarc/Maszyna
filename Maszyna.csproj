@@ -203,6 +203,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="main-qimg-abfe228796da8cede00fb86db122e204-c.ico" />
+    <None Include="Resources\rightHead.png" />
+    <None Include="Resources\leftHead.png" />
     <None Include="Resources\readyMark.png" />
     <None Include="Resources\ready.png" />
     <None Include="Resources\drop.png" />

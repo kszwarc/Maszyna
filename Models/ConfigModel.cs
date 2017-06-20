@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Maszyna.Models
 {
-    class ConfigModel
+    public class ConfigModel
     {
         private static String beginningTextForSimulationAlert = "Aby rozpocząć symulację musisz wprowadzić: ";
         private static String textForInvalidStateTable = "tabelę stanów";

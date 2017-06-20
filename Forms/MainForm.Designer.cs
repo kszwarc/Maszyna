@@ -54,6 +54,12 @@
             this.toolStripButtonReport = new System.Windows.Forms.ToolStripButton();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageConfig = new System.Windows.Forms.TabPage();
+            this.labelTuringMachineEmptySymbol2 = new System.Windows.Forms.Label();
+            this.labelTuringMachineNormalSymbol3 = new System.Windows.Forms.Label();
+            this.labelTuringMachineNormalSymbol2 = new System.Windows.Forms.Label();
+            this.labelTuringMachineNormalSymbol1 = new System.Windows.Forms.Label();
+            this.labelTuringMachineEmptySymbol1 = new System.Windows.Forms.Label();
+            this.pictureBoxTuringMachineHead = new System.Windows.Forms.PictureBox();
             this.pictureBoxActualSymbol = new System.Windows.Forms.PictureBox();
             this.pictureBoxActualState = new System.Windows.Forms.PictureBox();
             this.labelColorSymbol = new System.Windows.Forms.Label();
@@ -63,6 +69,7 @@
             this.checkBoxManualTable = new System.Windows.Forms.CheckBox();
             this.labelTable = new System.Windows.Forms.Label();
             this.dataGridViewTable = new Maszyna.Forms.DataGridViewWithPaste();
+            this.Symbols = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelHead = new System.Windows.Forms.Label();
             this.comboBoxHead = new System.Windows.Forms.ComboBox();
             this.buttonFinalStates = new System.Windows.Forms.Button();
@@ -93,10 +100,10 @@
             this.buttonStepNext = new System.Windows.Forms.Button();
             this.buttonSimulate = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.Symbols = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTuringMachineHead)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualSymbol)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualState)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExecutionTime)).BeginInit();
@@ -235,6 +242,12 @@
             this.tabPageConfig.AutoScroll = true;
             this.tabPageConfig.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageConfig.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.tabPageConfig.Controls.Add(this.labelTuringMachineEmptySymbol2);
+            this.tabPageConfig.Controls.Add(this.labelTuringMachineNormalSymbol3);
+            this.tabPageConfig.Controls.Add(this.labelTuringMachineNormalSymbol2);
+            this.tabPageConfig.Controls.Add(this.labelTuringMachineNormalSymbol1);
+            this.tabPageConfig.Controls.Add(this.labelTuringMachineEmptySymbol1);
+            this.tabPageConfig.Controls.Add(this.pictureBoxTuringMachineHead);
             this.tabPageConfig.Controls.Add(this.pictureBoxActualSymbol);
             this.tabPageConfig.Controls.Add(this.pictureBoxActualState);
             this.tabPageConfig.Controls.Add(this.labelColorSymbol);
@@ -268,6 +281,84 @@
             this.tabPageConfig.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPageConfig_DragDrop);
             this.tabPageConfig.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPageConfig_DragEnter);
             this.tabPageConfig.DragLeave += new System.EventHandler(this.tabPageConfig_DragLeave);
+            // 
+            // labelTuringMachineEmptySymbol2
+            // 
+            this.labelTuringMachineEmptySymbol2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelTuringMachineEmptySymbol2.AutoSize = true;
+            this.labelTuringMachineEmptySymbol2.BackColor = System.Drawing.Color.White;
+            this.labelTuringMachineEmptySymbol2.Location = new System.Drawing.Point(676, 248);
+            this.labelTuringMachineEmptySymbol2.MaximumSize = new System.Drawing.Size(13, 13);
+            this.labelTuringMachineEmptySymbol2.MinimumSize = new System.Drawing.Size(13, 13);
+            this.labelTuringMachineEmptySymbol2.Name = "labelTuringMachineEmptySymbol2";
+            this.labelTuringMachineEmptySymbol2.Size = new System.Drawing.Size(13, 13);
+            this.labelTuringMachineEmptySymbol2.TabIndex = 11128;
+            this.labelTuringMachineEmptySymbol2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelTuringMachineNormalSymbol3
+            // 
+            this.labelTuringMachineNormalSymbol3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelTuringMachineNormalSymbol3.AutoSize = true;
+            this.labelTuringMachineNormalSymbol3.BackColor = System.Drawing.Color.White;
+            this.labelTuringMachineNormalSymbol3.Location = new System.Drawing.Point(644, 248);
+            this.labelTuringMachineNormalSymbol3.MaximumSize = new System.Drawing.Size(13, 13);
+            this.labelTuringMachineNormalSymbol3.MinimumSize = new System.Drawing.Size(13, 13);
+            this.labelTuringMachineNormalSymbol3.Name = "labelTuringMachineNormalSymbol3";
+            this.labelTuringMachineNormalSymbol3.Size = new System.Drawing.Size(13, 13);
+            this.labelTuringMachineNormalSymbol3.TabIndex = 11127;
+            this.labelTuringMachineNormalSymbol3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelTuringMachineNormalSymbol2
+            // 
+            this.labelTuringMachineNormalSymbol2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelTuringMachineNormalSymbol2.AutoSize = true;
+            this.labelTuringMachineNormalSymbol2.BackColor = System.Drawing.Color.White;
+            this.labelTuringMachineNormalSymbol2.Location = new System.Drawing.Point(613, 248);
+            this.labelTuringMachineNormalSymbol2.MaximumSize = new System.Drawing.Size(13, 13);
+            this.labelTuringMachineNormalSymbol2.MinimumSize = new System.Drawing.Size(13, 13);
+            this.labelTuringMachineNormalSymbol2.Name = "labelTuringMachineNormalSymbol2";
+            this.labelTuringMachineNormalSymbol2.Size = new System.Drawing.Size(13, 13);
+            this.labelTuringMachineNormalSymbol2.TabIndex = 11126;
+            this.labelTuringMachineNormalSymbol2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelTuringMachineNormalSymbol1
+            // 
+            this.labelTuringMachineNormalSymbol1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelTuringMachineNormalSymbol1.AutoSize = true;
+            this.labelTuringMachineNormalSymbol1.BackColor = System.Drawing.Color.White;
+            this.labelTuringMachineNormalSymbol1.Location = new System.Drawing.Point(581, 248);
+            this.labelTuringMachineNormalSymbol1.MaximumSize = new System.Drawing.Size(13, 13);
+            this.labelTuringMachineNormalSymbol1.MinimumSize = new System.Drawing.Size(13, 13);
+            this.labelTuringMachineNormalSymbol1.Name = "labelTuringMachineNormalSymbol1";
+            this.labelTuringMachineNormalSymbol1.Size = new System.Drawing.Size(13, 13);
+            this.labelTuringMachineNormalSymbol1.TabIndex = 11125;
+            this.labelTuringMachineNormalSymbol1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelTuringMachineEmptySymbol1
+            // 
+            this.labelTuringMachineEmptySymbol1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelTuringMachineEmptySymbol1.AutoSize = true;
+            this.labelTuringMachineEmptySymbol1.BackColor = System.Drawing.Color.White;
+            this.labelTuringMachineEmptySymbol1.Location = new System.Drawing.Point(550, 248);
+            this.labelTuringMachineEmptySymbol1.MaximumSize = new System.Drawing.Size(13, 13);
+            this.labelTuringMachineEmptySymbol1.MinimumSize = new System.Drawing.Size(13, 13);
+            this.labelTuringMachineEmptySymbol1.Name = "labelTuringMachineEmptySymbol1";
+            this.labelTuringMachineEmptySymbol1.Size = new System.Drawing.Size(13, 13);
+            this.labelTuringMachineEmptySymbol1.TabIndex = 11124;
+            this.labelTuringMachineEmptySymbol1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pictureBoxTuringMachineHead
+            // 
+            this.pictureBoxTuringMachineHead.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBoxTuringMachineHead.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxTuringMachineHead.Cursor = System.Windows.Forms.Cursors.Default;
+            this.pictureBoxTuringMachineHead.Image = global::Maszyna.Properties.Resources.leftHead;
+            this.pictureBoxTuringMachineHead.Location = new System.Drawing.Point(538, 220);
+            this.pictureBoxTuringMachineHead.Name = "pictureBoxTuringMachineHead";
+            this.pictureBoxTuringMachineHead.Size = new System.Drawing.Size(164, 51);
+            this.pictureBoxTuringMachineHead.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxTuringMachineHead.TabIndex = 11123;
+            this.pictureBoxTuringMachineHead.TabStop = false;
             // 
             // pictureBoxActualSymbol
             // 
@@ -417,6 +508,15 @@
             this.dataGridViewTable.TabIndex = 11115;
             this.dataGridViewTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTable_CellClick);
             this.dataGridViewTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.UpdateStateTable);
+            // 
+            // Symbols
+            // 
+            this.Symbols.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Symbols.HeaderText = "Σ\\Q";
+            this.Symbols.MaxInputLength = 1;
+            this.Symbols.Name = "Symbols";
+            this.Symbols.ReadOnly = true;
+            this.Symbols.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // labelHead
             // 
@@ -806,15 +906,6 @@
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
             // 
-            // Symbols
-            // 
-            this.Symbols.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Symbols.HeaderText = "Σ\\Q";
-            this.Symbols.MaxInputLength = 1;
-            this.Symbols.Name = "Symbols";
-            this.Symbols.ReadOnly = true;
-            this.Symbols.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -831,6 +922,7 @@
             this.tabControl.ResumeLayout(false);
             this.tabPageConfig.ResumeLayout(false);
             this.tabPageConfig.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTuringMachineHead)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualSymbol)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActualState)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExecutionTime)).EndInit();
@@ -908,6 +1000,12 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonAnimation;
         private System.Windows.Forms.ToolStripButton toolStripButtonMusic;
         private System.Windows.Forms.DataGridViewTextBoxColumn Symbols;
+        private System.Windows.Forms.PictureBox pictureBoxTuringMachineHead;
+        private System.Windows.Forms.Label labelTuringMachineEmptySymbol2;
+        private System.Windows.Forms.Label labelTuringMachineNormalSymbol3;
+        private System.Windows.Forms.Label labelTuringMachineNormalSymbol2;
+        private System.Windows.Forms.Label labelTuringMachineNormalSymbol1;
+        private System.Windows.Forms.Label labelTuringMachineEmptySymbol1;
     }
 }
 

@@ -16,12 +16,18 @@ namespace Maszyna.Forms
         private String[] _args;
         private Generating _generateForm = new Generating();
         private Boolean _animationEnabled = true;
+        private Label[] _turingMachineGraphicEmptySymbolLabels;
+        private Label[] _turingMachineGraphicNormalSymbolLabels;
         private const byte ReservedColumns = 1;
         private const byte TabPagesWithoutSimulationTab = 1;
 
         public MainForm(String[] args) : base("Symulator Maszyny Turinga")
         {
             InitializeComponent();
+            _turingMachineGraphicEmptySymbolLabels = new Label[]{ labelTuringMachineEmptySymbol1,
+                labelTuringMachineEmptySymbol2 };
+            _turingMachineGraphicNormalSymbolLabels = new Label[] {labelTuringMachineNormalSymbol1,
+                labelTuringMachineNormalSymbol2, labelTuringMachineNormalSymbol3 };
             _args = args;
         }
 
@@ -96,6 +102,7 @@ namespace Maszyna.Forms
         private void TriggerConfigurationUpdateWithoutDataGridViewChanges()
         {
             UpdateTuringMachine();
+            SetNormalSymbolLabels();
             UpdateFormulation();
             SetConfigurationStatus();
             UnlockOrLockTabWithSimulation();
@@ -354,8 +361,17 @@ namespace Maszyna.Forms
 
         private void HeadConfigurationUpdate(object sender, EventArgs e)
         {
-            _turingMachine.HeadPosition = (String)comboBoxHead.SelectedItem == "Lewa" ?
-                TuringHeadPosition.FirstSymbolFromLeft : TuringHeadPosition.FirstSymbolFromRight;
+            bool isLeftPosition = (String)comboBoxHead.SelectedItem == "Lewa";
+            if (isLeftPosition)
+            {
+                _turingMachine.HeadPosition = TuringHeadPosition.FirstSymbolFromLeft;
+                pictureBoxTuringMachineHead.Image = Properties.Resources.leftHead;
+            }
+            else
+            {
+                _turingMachine.HeadPosition = TuringHeadPosition.FirstSymbolFromRight;
+                pictureBoxTuringMachineHead.Image = Properties.Resources.rightHead;
+            }
             SetToolTipForHeadConfiguration();
         }
 
@@ -428,7 +444,23 @@ namespace Maszyna.Forms
         private void EmptySymbolTextChanged(object sender, EventArgs e)
         {
             UpdateEmptySymbolInformationForGUI(sender, e);
+            SetEmptySymbolLabels();
             TriggerConfigurationChanges(sender, e);
+        }
+
+        private void SetEmptySymbolLabels()
+        {
+            foreach (Label label in _turingMachineGraphicEmptySymbolLabels)
+                label.Text = textBoxEmptySymbol.Text;
+        }
+
+        private void SetNormalSymbolLabels()
+        {
+            String symbolToWrite = "";
+            if (_turingMachine.Symbols.Count > 0)
+                symbolToWrite = _turingMachine.Symbols[0];
+            foreach (Label label in _turingMachineGraphicNormalSymbolLabels)
+                label.Text = symbolToWrite;
         }
 
         private void timerShowWorking_Tick(object sender, EventArgs e)

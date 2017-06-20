@@ -93,6 +93,16 @@ namespace Maszyna.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap leftHead {
+            get {
+                object obj = ResourceManager.GetObject("leftHead", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Logo {
             get {
                 object obj = ResourceManager.GetObject("Logo", resourceCulture);
@@ -116,6 +126,16 @@ namespace Maszyna.Properties {
         internal static System.Drawing.Bitmap readyMark {
             get {
                 object obj = ResourceManager.GetObject("readyMark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap rightHead {
+            get {
+                object obj = ResourceManager.GetObject("rightHead", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
