@@ -32,6 +32,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SymbolsGeneralForm));
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Column = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonReady = new System.Windows.Forms.Button();
@@ -75,7 +76,7 @@
             this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView.Size = new System.Drawing.Size(351, 220);
+            this.dataGridView.Size = new System.Drawing.Size(351, 189);
             this.dataGridView.TabIndex = 2;
             // 
             // Column
@@ -86,11 +87,14 @@
             // buttonReady
             // 
             this.buttonReady.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonReady.Location = new System.Drawing.Point(140, 227);
+            this.buttonReady.Image = ((System.Drawing.Image)(resources.GetObject("buttonReady.Image")));
+            this.buttonReady.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonReady.Location = new System.Drawing.Point(125, 195);
             this.buttonReady.Name = "buttonReady";
-            this.buttonReady.Size = new System.Drawing.Size(75, 23);
+            this.buttonReady.Size = new System.Drawing.Size(102, 56);
             this.buttonReady.TabIndex = 1;
             this.buttonReady.Text = "Gotowe";
+            this.buttonReady.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonReady.UseVisualStyleBackColor = true;
             this.buttonReady.Click += new System.EventHandler(this.buttonReady_Click);
             // 
@@ -98,7 +102,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(354, 262);
+            this.ClientSize = new System.Drawing.Size(354, 258);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.buttonReady);
             this.Name = "SymbolsGeneralForm";

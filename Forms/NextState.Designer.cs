@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBoxState = new System.Windows.Forms.ComboBox();
-            this.labelState = new System.Windows.Forms.Label();
-            this.labelSymbol = new System.Windows.Forms.Label();
-            this.comboBoxSymbol = new System.Windows.Forms.ComboBox();
-            this.labelMovement = new System.Windows.Forms.Label();
-            this.comboBoxMovement = new System.Windows.Forms.ComboBox();
-            this.buttonReady = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NextState));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageNormal = new System.Windows.Forms.TabPage();
+            this.labelState = new System.Windows.Forms.Label();
+            this.buttonReady = new System.Windows.Forms.Button();
+            this.comboBoxState = new System.Windows.Forms.ComboBox();
+            this.labelMovement = new System.Windows.Forms.Label();
+            this.comboBoxSymbol = new System.Windows.Forms.ComboBox();
+            this.comboBoxMovement = new System.Windows.Forms.ComboBox();
+            this.labelSymbol = new System.Windows.Forms.Label();
             this.tabPageFinish = new System.Windows.Forms.TabPage();
             this.labelFinish = new System.Windows.Forms.Label();
             this.buttonFinish = new System.Windows.Forms.Button();
@@ -46,16 +47,32 @@
             this.tabPageFinish.SuspendLayout();
             this.SuspendLayout();
             // 
-            // comboBoxState
+            // tabControl1
             // 
-            this.comboBoxState.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxState.FormattingEnabled = true;
-            this.comboBoxState.Location = new System.Drawing.Point(42, 38);
-            this.comboBoxState.Name = "comboBoxState";
-            this.comboBoxState.Size = new System.Drawing.Size(254, 21);
-            this.comboBoxState.TabIndex = 0;
+            this.tabControl1.Controls.Add(this.tabPageNormal);
+            this.tabControl1.Controls.Add(this.tabPageFinish);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(348, 305);
+            this.tabControl1.TabIndex = 0;
+            // 
+            // tabPageNormal
+            // 
+            this.tabPageNormal.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageNormal.Controls.Add(this.labelState);
+            this.tabPageNormal.Controls.Add(this.buttonReady);
+            this.tabPageNormal.Controls.Add(this.comboBoxState);
+            this.tabPageNormal.Controls.Add(this.labelMovement);
+            this.tabPageNormal.Controls.Add(this.comboBoxSymbol);
+            this.tabPageNormal.Controls.Add(this.comboBoxMovement);
+            this.tabPageNormal.Controls.Add(this.labelSymbol);
+            this.tabPageNormal.Location = new System.Drawing.Point(4, 22);
+            this.tabPageNormal.Name = "tabPageNormal";
+            this.tabPageNormal.Size = new System.Drawing.Size(340, 279);
+            this.tabPageNormal.TabIndex = 0;
+            this.tabPageNormal.Text = "Przejście";
             // 
             // labelState
             // 
@@ -68,27 +85,30 @@
             this.labelState.TabIndex = 1;
             this.labelState.Text = "Stan kolejny";
             // 
-            // labelSymbol
+            // buttonReady
             // 
-            this.labelSymbol.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.labelSymbol.AutoSize = true;
-            this.labelSymbol.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelSymbol.Location = new System.Drawing.Point(113, 112);
-            this.labelSymbol.Name = "labelSymbol";
-            this.labelSymbol.Size = new System.Drawing.Size(117, 15);
-            this.labelSymbol.TabIndex = 3;
-            this.labelSymbol.Text = "Symbol do wpisania";
+            this.buttonReady.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonReady.Image = ((System.Drawing.Image)(resources.GetObject("buttonReady.Image")));
+            this.buttonReady.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonReady.Location = new System.Drawing.Point(119, 204);
+            this.buttonReady.Name = "buttonReady";
+            this.buttonReady.Size = new System.Drawing.Size(102, 56);
+            this.buttonReady.TabIndex = 6;
+            this.buttonReady.Text = "Gotowe";
+            this.buttonReady.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonReady.UseVisualStyleBackColor = true;
+            this.buttonReady.Click += new System.EventHandler(this.buttonReady_Click);
             // 
-            // comboBoxSymbol
+            // comboBoxState
             // 
-            this.comboBoxSymbol.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.comboBoxState.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxSymbol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSymbol.FormattingEnabled = true;
-            this.comboBoxSymbol.Location = new System.Drawing.Point(42, 88);
-            this.comboBoxSymbol.Name = "comboBoxSymbol";
-            this.comboBoxSymbol.Size = new System.Drawing.Size(254, 21);
-            this.comboBoxSymbol.TabIndex = 2;
+            this.comboBoxState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxState.FormattingEnabled = true;
+            this.comboBoxState.Location = new System.Drawing.Point(42, 38);
+            this.comboBoxState.Name = "comboBoxState";
+            this.comboBoxState.Size = new System.Drawing.Size(254, 21);
+            this.comboBoxState.TabIndex = 0;
             // 
             // labelMovement
             // 
@@ -100,6 +120,17 @@
             this.labelMovement.Size = new System.Drawing.Size(79, 15);
             this.labelMovement.TabIndex = 5;
             this.labelMovement.Text = "Ruch głowicy";
+            // 
+            // comboBoxSymbol
+            // 
+            this.comboBoxSymbol.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxSymbol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSymbol.FormattingEnabled = true;
+            this.comboBoxSymbol.Location = new System.Drawing.Point(42, 88);
+            this.comboBoxSymbol.Name = "comboBoxSymbol";
+            this.comboBoxSymbol.Size = new System.Drawing.Size(254, 21);
+            this.comboBoxSymbol.TabIndex = 2;
             // 
             // comboBoxMovement
             // 
@@ -116,43 +147,16 @@
             this.comboBoxMovement.Size = new System.Drawing.Size(254, 21);
             this.comboBoxMovement.TabIndex = 4;
             // 
-            // buttonReady
+            // labelSymbol
             // 
-            this.buttonReady.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonReady.Location = new System.Drawing.Point(132, 201);
-            this.buttonReady.Name = "buttonReady";
-            this.buttonReady.Size = new System.Drawing.Size(75, 23);
-            this.buttonReady.TabIndex = 6;
-            this.buttonReady.Text = "Gotowe";
-            this.buttonReady.UseVisualStyleBackColor = true;
-            this.buttonReady.Click += new System.EventHandler(this.buttonReady_Click);
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPageNormal);
-            this.tabControl1.Controls.Add(this.tabPageFinish);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(348, 277);
-            this.tabControl1.TabIndex = 0;
-            // 
-            // tabPageNormal
-            // 
-            this.tabPageNormal.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPageNormal.Controls.Add(this.labelState);
-            this.tabPageNormal.Controls.Add(this.buttonReady);
-            this.tabPageNormal.Controls.Add(this.comboBoxState);
-            this.tabPageNormal.Controls.Add(this.labelMovement);
-            this.tabPageNormal.Controls.Add(this.comboBoxSymbol);
-            this.tabPageNormal.Controls.Add(this.comboBoxMovement);
-            this.tabPageNormal.Controls.Add(this.labelSymbol);
-            this.tabPageNormal.Location = new System.Drawing.Point(4, 22);
-            this.tabPageNormal.Name = "tabPageNormal";
-            this.tabPageNormal.Size = new System.Drawing.Size(340, 251);
-            this.tabPageNormal.TabIndex = 0;
-            this.tabPageNormal.Text = "Przejście";
+            this.labelSymbol.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelSymbol.AutoSize = true;
+            this.labelSymbol.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelSymbol.Location = new System.Drawing.Point(113, 112);
+            this.labelSymbol.Name = "labelSymbol";
+            this.labelSymbol.Size = new System.Drawing.Size(117, 15);
+            this.labelSymbol.TabIndex = 3;
+            this.labelSymbol.Text = "Symbol do wpisania";
             // 
             // tabPageFinish
             // 
@@ -162,7 +166,7 @@
             this.tabPageFinish.Controls.Add(this.comboBoxFinal);
             this.tabPageFinish.Location = new System.Drawing.Point(4, 22);
             this.tabPageFinish.Name = "tabPageFinish";
-            this.tabPageFinish.Size = new System.Drawing.Size(340, 251);
+            this.tabPageFinish.Size = new System.Drawing.Size(340, 279);
             this.tabPageFinish.TabIndex = 0;
             this.tabPageFinish.Text = "Stan końcowy";
             // 
@@ -180,11 +184,14 @@
             // buttonFinish
             // 
             this.buttonFinish.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonFinish.Location = new System.Drawing.Point(133, 143);
+            this.buttonFinish.Image = global::Maszyna.Properties.Resources.readyMark;
+            this.buttonFinish.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonFinish.Location = new System.Drawing.Point(119, 141);
             this.buttonFinish.Name = "buttonFinish";
-            this.buttonFinish.Size = new System.Drawing.Size(75, 23);
+            this.buttonFinish.Size = new System.Drawing.Size(102, 56);
             this.buttonFinish.TabIndex = 9;
             this.buttonFinish.Text = "Gotowe";
+            this.buttonFinish.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonFinish.UseVisualStyleBackColor = true;
             this.buttonFinish.Click += new System.EventHandler(this.buttonFinish_Click);
             // 
@@ -203,7 +210,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(348, 277);
+            this.ClientSize = new System.Drawing.Size(348, 305);
             this.Controls.Add(this.tabControl1);
             this.Name = "NextState";
             this.Text = "NextState";
