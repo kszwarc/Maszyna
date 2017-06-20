@@ -330,6 +330,7 @@ namespace Maszyna.Forms
             numericUpDownStateNumbers.Value = machineToOperate.NumberOfStates;
             numericUpDownFirstStateNumber.Value = machineToOperate.FirstStateIndex;
             comboBoxHead.SelectedIndex = (int)machineToOperate.HeadPosition;
+            TriggerConfigurationChanges(null, null);
             PopulateDataGridViewFromTuringMachine(machineToOperate);
             pictureBoxActualState.BackColor = _turingMachine.ActualStateColor;
             pictureBoxActualSymbol.BackColor = _turingMachine.ActualSymbolColor;
