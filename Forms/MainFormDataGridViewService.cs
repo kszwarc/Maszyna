@@ -8,6 +8,43 @@ namespace Maszyna.Forms
 {
     public partial class MainForm
     {
+        private void SetDataGridViewErrorOnInvalidTransitions()
+        {
+            String textForSimulationAlert = toolStripStatusLabelConfigStatus.Text;
+            bool isStateTableInvalid = ConfigModel.IsStateTableInvalid(textForSimulationAlert);
+            if (isStateTableInvalid)
+                SetErrorOnCells(ConfigModel.FindInvalidTransitionsIndex(_turingMachine));
+        }
+
+        private void EliminateDataGridViewErrors()
+        {
+            foreach (DataGridViewRow row in dataGridViewTable.Rows)
+                foreach (DataGridViewCell cell in row.Cells)
+                    cell.ErrorText = "";
+        }
+
+        private void SetErrorOnCells(List<int> invalidTransitionsIndex)
+        {
+            foreach (int index in invalidTransitionsIndex)
+            {
+                int rowIndex = calculateDataGridViewRowFromPotentialTransitionIndex(index);
+                int columnIndex = calculateDataGridViewColumnFromPotentialTransitionIndex(index);
+                dataGridViewTable.Rows[rowIndex].Cells[columnIndex].ErrorText = "Niepoprawne dane";
+            }
+            dataGridViewTable.Refresh();
+        }
+
+        private int calculateDataGridViewColumnFromPotentialTransitionIndex(int index)
+        {
+            return ReservedColumns + (index % (dataGridViewTable.Columns.Count - ReservedColumns));
+        }
+
+        private int calculateDataGridViewRowFromPotentialTransitionIndex(int index)
+        {
+            int denominator = dataGridViewTable.Columns.Count - ReservedColumns;
+            return denominator == 0 ? 0 : index / denominator;
+        }
+
         private void ResetFontForHeaders()
         {
             foreach (DataGridViewColumn column in dataGridViewTable.Columns)
@@ -113,6 +150,8 @@ namespace Maszyna.Forms
         {
             _turingMachine.PotentialTransitions = GeneratePotentialTransitions();
             SetConfigurationStatus();
+            EliminateDataGridViewErrors();
+            SetDataGridViewErrorOnInvalidTransitions();
             UnlockOrLockTabWithSimulation();
         }
 

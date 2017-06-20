@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Maszyna.Models
@@ -6,6 +7,7 @@ namespace Maszyna.Models
     class ConfigModel
     {
         private static String beginningTextForSimulationAlert = "Aby rozpocząć symulację musisz wprowadzić: ";
+        private static String textForInvalidStateTable = "tabelę stanów";
 
         public static String GenerateFormalSymbols(TuringMachine machine)
         {
@@ -36,7 +38,7 @@ namespace Maszyna.Models
             if (machine.FinalStates.Count == 0)
                 text.Append(GenerateTextWithDelimeterIfNeeded(text, "stany końcowe"));
             if (machine.PotentialTransitions.Count == 0 || !AreTransitionsValid(machine))
-                text.Append(GenerateTextWithDelimeterIfNeeded(text, "tabelę stanów"));
+                text.Append(GenerateTextWithDelimeterIfNeeded(text, textForInvalidStateTable));
             String result = text.ToString();
             return result == beginningTextForSimulationAlert ? "" : result+".";
         }
@@ -44,6 +46,21 @@ namespace Maszyna.Models
         public static Boolean ShouldSimulationTabBeVisible(TuringMachine machine)
         {
             return GenerateConditionsToShowSimulationTab(machine) == "";
+        }
+
+        public static Boolean IsStateTableInvalid(String textForSimulationAlert)
+        {
+            return textForSimulationAlert.Contains(textForInvalidStateTable);
+        }
+
+        public static List<int> FindInvalidTransitionsIndex(TuringMachine turingMachine)
+        {
+            List<int> indexes = new List<int>();
+            List<PotentialTransition> potentialTransitions = turingMachine.PotentialTransitions;
+            for (int i = 0; i < potentialTransitions.Count; i++)
+                if (!Validator.IsTransitionInstructionValid(potentialTransitions[i].Instruction, turingMachine))
+                    indexes.Add(i);
+            return indexes;
         }
 
         private static String GenerateTextWithDelimeterIfNeeded(StringBuilder actualText, String text)
