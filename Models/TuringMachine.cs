@@ -63,11 +63,13 @@ namespace Maszyna.Models
         {
             if (potentialTransition.IsFinalState)
                 return new Transition(potentialTransition.StateNumber,
-                    0, potentialTransition.EntrySymbol, potentialTransition.Instruction, Movement.None);
+                    0, potentialTransition.EntrySymbol, potentialTransition.Instruction, Movement.None, 
+                    potentialTransition.IsFinalState);
             else
                 return new Transition(potentialTransition.StateNumber,
                     potentialTransition.GetNextStateNumberFromInstruction(), potentialTransition.EntrySymbol,
-                    potentialTransition.GetNewSymbolFromInstruction(), potentialTransition.GetMovementFromInstruction());
+                    potentialTransition.GetNewSymbolFromInstruction(), potentialTransition.GetMovementFromInstruction(),
+                    potentialTransition.IsFinalState);
         }
 
         public void ForceToFinishExecution()
@@ -93,8 +95,7 @@ namespace Maszyna.Models
         {
             _lastTransition = FindActualTransition();
             _lastState = _actualState;
-            Boolean isFinishedState = FinalStates.Contains(_lastTransition.ExitSymbol);
-            if (isFinishedState)
+            if (_lastTransition.IsFinalState)
             {
                 _finishedStateSymbol = _lastTransition.ExitSymbol;
                 return true;
