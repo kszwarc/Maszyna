@@ -35,10 +35,16 @@ namespace Maszyna.Forms
         public void OnNext(TuringElement<List<String>> receivedElement)
         {
             if (receivedElement.Element == TuringMachineModifiedElements.EntrySymbols)
+            {
                 _turingMachine.Symbols = receivedElement.Values;
+                TriggerConfigurationChanges(null, null);
+            }
             else if (receivedElement.Element == TuringMachineModifiedElements.FinalStates)
+            {
                 _turingMachine.FinalStates = receivedElement.Values;
-            TriggerConfigurationChanges(null, null);
+                TriggerConfigurationUpdateWithoutDataGridViewChanges();
+                UpdateStateTable(null, null);
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
