@@ -111,6 +111,7 @@ namespace Maszyna.Forms
                 columnToAdd.HeaderText = "q" + (dataGridViewTable.Columns.Count - ReservedColumns);
                 columnToAdd.MaxInputLength = MaxInputLengthForElement;
                 columnToAdd.ReadOnly = !checkBoxManualTable.Checked;
+                columnToAdd.SortMode = DataGridViewColumnSortMode.NotSortable;
                 dataGridViewTable.Columns.Add(columnToAdd);
             }
         }
