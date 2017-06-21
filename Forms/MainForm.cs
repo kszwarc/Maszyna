@@ -64,6 +64,7 @@ namespace Maszyna.Forms
             UpdatePictureBoxesBackgroundColor();
             TriggerConfigurationChanges(null, null);
             TakeCareOfArgs();
+            backgroundWorkerUpdater.RunWorkerAsync();
         }
 
         private void UpdatePictureBoxesBackgroundColor()
@@ -484,6 +485,11 @@ namespace Maszyna.Forms
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             _generateForm.Close();
+        }
+
+        private void backgroundWorkerUpdater_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            UpdateManagerFacade.DownloadNewVersionIfNeeded();
         }
     }
 }

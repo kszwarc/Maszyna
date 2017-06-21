@@ -39,6 +39,9 @@ $RECYCLE.BIN/
 .Trashes
 .VolumeIcon.icns
 
+# Files
+Updater.exe
+
 # Directories potentially created on remote AFP share
 .AppleDB
 .AppleDesktop

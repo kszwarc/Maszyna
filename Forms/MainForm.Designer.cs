@@ -100,6 +100,7 @@
             this.buttonStepNext = new System.Windows.Forms.Button();
             this.buttonSimulate = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.backgroundWorkerUpdater = new System.ComponentModel.BackgroundWorker();
             this.toolStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
@@ -906,6 +907,10 @@
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
             // 
+            // backgroundWorkerUpdater
+            // 
+            this.backgroundWorkerUpdater.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerUpdater_DoWork);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1006,6 +1011,7 @@
         private System.Windows.Forms.Label labelTuringMachineNormalSymbol2;
         private System.Windows.Forms.Label labelTuringMachineNormalSymbol1;
         private System.Windows.Forms.Label labelTuringMachineEmptySymbol1;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerUpdater;
     }
 }
 

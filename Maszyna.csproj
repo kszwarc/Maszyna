@@ -53,9 +53,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
-  <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="MigraDoc.DocumentObjectModel-gdi, Version=1.50.4000.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
       <HintPath>packages\PDFsharp-MigraDoc-gdi.1.50.4000-beta3b\lib\net20\MigraDoc.DocumentObjectModel-gdi.dll</HintPath>
@@ -155,6 +153,8 @@
     <Compile Include="Models\TuringHeadPosition.cs" />
     <Compile Include="Models\TuringMachine.cs" />
     <Compile Include="Models\TuringMachineModifiedElements.cs" />
+    <Compile Include="Models\UpdateManager.cs" />
+    <Compile Include="Models\UpdateManagerFacade.cs" />
     <Compile Include="Models\Validator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -189,8 +189,6 @@
     <EmbeddedResource Include="Forms\Window.resx">
       <DependentUpon>Window.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.manifest" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -207,6 +205,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="main-qimg-abfe228796da8cede00fb86db122e204-c.ico" />
+    <Content Include="Updater.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\rightHead.png" />
     <None Include="Resources\leftHead.png" />
     <None Include="Resources\readyMark.png" />
