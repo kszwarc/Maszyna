@@ -91,7 +91,7 @@ namespace Maszyna.Models
         private String[] GenerateHeadersForTable()
         {
             String[] headers = new String[_reportStructure.TuringMachine.NumberOfStates + 1];
-            headers[0] = "Σ\\Q";
+            headers[0] = "Γ\\Q";
             for (int i = 1; i < headers.Length; i++)
                 headers[i] = "q" + (i - 1);
             return headers;

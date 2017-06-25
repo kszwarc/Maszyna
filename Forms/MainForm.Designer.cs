@@ -69,7 +69,6 @@
             this.checkBoxManualTable = new System.Windows.Forms.CheckBox();
             this.labelTable = new System.Windows.Forms.Label();
             this.dataGridViewTable = new Maszyna.Forms.DataGridViewWithPaste();
-            this.Symbols = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelHead = new System.Windows.Forms.Label();
             this.comboBoxHead = new System.Windows.Forms.ComboBox();
             this.buttonFinalStates = new System.Windows.Forms.Button();
@@ -101,6 +100,7 @@
             this.buttonSimulate = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.backgroundWorkerUpdater = new System.ComponentModel.BackgroundWorker();
+            this.Symbols = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageConfig.SuspendLayout();
@@ -510,15 +510,6 @@
             this.dataGridViewTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTable_CellClick);
             this.dataGridViewTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.UpdateStateTable);
             // 
-            // Symbols
-            // 
-            this.Symbols.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Symbols.HeaderText = "Σ\\Q";
-            this.Symbols.MaxInputLength = 1;
-            this.Symbols.Name = "Symbols";
-            this.Symbols.ReadOnly = true;
-            this.Symbols.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
             // labelHead
             // 
             this.labelHead.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -911,6 +902,15 @@
             // 
             this.backgroundWorkerUpdater.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerUpdater_DoWork);
             // 
+            // Symbols
+            // 
+            this.Symbols.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Symbols.HeaderText = "Γ\\Q";
+            this.Symbols.MaxInputLength = 1;
+            this.Symbols.Name = "Symbols";
+            this.Symbols.ReadOnly = true;
+            this.Symbols.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1004,7 +1004,6 @@
         private System.Windows.Forms.Timer timerShowWorking;
         private System.Windows.Forms.ToolStripButton toolStripButtonAnimation;
         private System.Windows.Forms.ToolStripButton toolStripButtonMusic;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Symbols;
         private System.Windows.Forms.PictureBox pictureBoxTuringMachineHead;
         private System.Windows.Forms.Label labelTuringMachineEmptySymbol2;
         private System.Windows.Forms.Label labelTuringMachineNormalSymbol3;
@@ -1012,6 +1011,7 @@
         private System.Windows.Forms.Label labelTuringMachineNormalSymbol1;
         private System.Windows.Forms.Label labelTuringMachineEmptySymbol1;
         private System.ComponentModel.BackgroundWorker backgroundWorkerUpdater;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Symbols;
     }
 }
 
